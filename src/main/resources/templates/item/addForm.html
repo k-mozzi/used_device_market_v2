@@ -1,0 +1,89 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="../css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container {
+            max-width: 560px;
+        }
+        .field-error {
+            border-color: #dc3545;
+            color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="py-5 text-center">
+        <h2 >상품 등록</h2>
+    </div>
+
+    <form action="item.html" th:action th:object="${item}" method="post">
+
+
+        <div>
+            <label for="itemName" >상품명</label>
+            <input type="text" id="itemName" th:field="*{itemName}"
+                    class="form-control" placeholder="이름을 입력하세요">
+        </div>
+
+        <div>
+            <label for="price" >가격</label>
+            <input type="text" id="price" th:field="*{price}"
+                    class="form-control" placeholder="가격을 입력하세요">
+        </div>
+        <div>
+            <label for="seller" >판매자</label>
+            <input type="text" id="seller" th:field="*{seller}"
+                    class="form-control" placeholder="판매자명을 입력하세요">
+        </div>
+
+
+
+        <!-- radio button -->
+        <div>
+            <div>상품 종류</div>
+            <div th:each="type : ${itemTypes}" class="form-check form-check-inline">
+                <input type="radio" th:field="*{category}" th:value="${type.name()}" class="form-check-input">
+                <label th:for="${#ids.prev('category')}" th:text="${type.description}" class="form-check-label">
+                    BOOK
+                </label>
+            </div>
+        </div>
+<!-- radio button -->
+        <div>
+            <div>판매 상태</div>
+            <div th:each="type : ${itemStatuses}" class="form-check form-check-inline">
+                <input type="radio" th:field="*{status}" th:value="${type.name()}" class="form-check-input">
+                <label th:for="${#ids.prev('status')}" th:text="${type.description}" class="form-check-label">
+                    상태
+                </label>
+            </div>
+        </div>
+
+
+
+
+        <hr class="my-4">
+
+        <div class="row">
+            <div class="col">
+                <button class="w-100 btn btn-primary btn-lg" type="submit" >상품 등록</button>
+            </div>
+            <div class="col">
+                <button class="w-100 btn btn-secondary btn-lg"
+                        onclick="location.href='items.html'"
+                        th:onclick="|location.href='@{/items}'|"
+                        type="button" >취소</button>
+            </div>
+        </div>
+
+    </form>
+
+</div> <!-- /container -->
+</body>
+</html>
