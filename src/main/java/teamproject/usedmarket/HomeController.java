@@ -24,7 +24,7 @@ public class HomeController {
     public String home() {
         return "home";
     }
-
+//주석추가
     @GetMapping("/")
     public String homeLogin(@CookieValue(name = "memberId", required = false) Long memberId, Model model) {
 
