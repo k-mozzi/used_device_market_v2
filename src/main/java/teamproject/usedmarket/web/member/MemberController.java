@@ -10,11 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import teamproject.usedmarket.domain.item.Item;
 import teamproject.usedmarket.domain.login.LoginService;
 import teamproject.usedmarket.domain.member.Member;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @Slf4j
@@ -24,13 +22,6 @@ import java.util.List;
 public class MemberController {
 
     private final LoginService loginService;
-
-    @GetMapping
-    public String members(Model model) {
-        List<Member> members = loginService.findMembers();
-        model.addAttribute("members", members);
-        return "members";
-    }
 
     @GetMapping("/add")
     public String addForm(@ModelAttribute("member") Member member) {
@@ -53,6 +44,12 @@ public class MemberController {
             log.error("중복 아이디 예외 발생: {}", e.getMessage());
             return "members/addMemberForm";
         }
+    }
 
+    @GetMapping
+    public String members(Model model) {
+        List<Member> members = loginService.findMembers();
+        model.addAttribute("members", members);
+        return "members/members";
     }
 }
