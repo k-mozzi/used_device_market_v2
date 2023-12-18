@@ -18,11 +18,11 @@
             <tbody>
             <tr th:each="item : ${items}">
                 <td th:text="${item.itemId}"></td>
-                <td th:text="${item.itemMame}"></td>
+                <td th:text="${item.itemName}"></td>
                 <td th:text="${item.price}"></td>
                 <td th:text="${item.seller}"></td>
                 <td>
-                    <a href="#" th:href="@{/items/{id}/edit (id=${item.id})}"
+                    <a href="#" th:href="@{/items/{id}/edit (id=${item.itemId})}"
                        class="btn btn-primary" role="button">수정</a>
                 </td>
             </tr>
