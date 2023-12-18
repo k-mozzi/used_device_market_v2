@@ -40,11 +40,9 @@ public class ItemController {
     }
 
     @PostMapping("/add")
-    public String addItem(@ModelAttribute Item item, RedirectAttributes redirectAttributes) {
+    public String addItem(@ModelAttribute Item item) {
         Item savedItem = itemService.save(item);
-        redirectAttributes.addAttribute("itemId", savedItem.getItemId());
-        redirectAttributes.addAttribute("status", true);
-        return "redirect:item/items/{itemId}";
+        return "redirect:/";
     }
 
     @GetMapping("/{itemId}/edit")
