@@ -1,24 +1,18 @@
 package teamproject.usedmarket.config;
 
-
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import teamproject.usedmarket.repository.ItemRepository;
-import teamproject.usedmarket.repository.MemberRepository;
-import teamproject.usedmarket.repository.jdbctemplate.JdbcTemplateItemRepository;
-import teamproject.usedmarket.repository.jdbctemplate.JdbcTemplateMemberRepository;
+import teamproject.usedmarket.repository.mybatis.ItemMapper;
+import teamproject.usedmarket.repository.mybatis.MyBatisItemRepository;
 import teamproject.usedmarket.service.ItemService;
 import teamproject.usedmarket.service.ItemServiceV1;
 
-import javax.sql.DataSource;
-
 @Configuration
 @RequiredArgsConstructor
-public class JdbcTemplateConfig {
-
-    private final DataSource dataSource;
+public class MyBatisConfig {
+    private final ItemMapper itemMapper;
 
     @Bean
     public ItemService itemService() {
@@ -27,13 +21,7 @@ public class JdbcTemplateConfig {
 
     @Bean
     public ItemRepository itemRepository() {
-        return new JdbcTemplateItemRepository(dataSource);
-    }
-
-    @Bean
-    public MemberRepository memberRepository() {
-        return new JdbcTemplateMemberRepository(dataSource);
+        return new MyBatisItemRepository(itemMapper);
     }
 
 }
-

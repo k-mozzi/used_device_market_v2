@@ -2,14 +2,11 @@ package teamproject.usedmarket;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
-import org.springframework.context.annotation.Profile;
-import teamproject.usedmarket.config.JdbcTemplateConfig;
-import teamproject.usedmarket.repository.ItemRepository;
-import teamproject.usedmarket.repository.MemberRepository;
+import teamproject.usedmarket.config.MyBatisConfig;
 
-@Import(JdbcTemplateConfig.class)
+
+@Import(MyBatisConfig.class)
 @SpringBootApplication
 public class UsedmarketApplication {
 

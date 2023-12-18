@@ -1,7 +1,6 @@
 package teamproject.usedmarket.domain.item;
 
 import lombok.Data;
-
 import java.util.Date;
 
 @Data
