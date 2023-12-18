@@ -53,10 +53,10 @@ public class ItemController {
         return "item/editForm";
     }
 
-    @PostMapping("/{itemId}/edit")
-    public String edit(@PathVariable Long itemId, @ModelAttribute ItemUpdateDto updateParam) {
-        itemService.update(itemId, updateParam);
-        return "redirect:item/items/{itemId}";
-    }
+//    @PostMapping("/{itemId}/edit")
+//    public String edit(@PathVariable Long itemId, @ModelAttribute ItemUpdateDto updateParam) {
+//        itemService.update(itemId, updateParam);
+//        return "redirect:item/items/{itemId}";
+//    }
 
 }
