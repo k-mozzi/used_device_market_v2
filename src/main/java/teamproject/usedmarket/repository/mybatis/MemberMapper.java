@@ -9,7 +9,7 @@ import java.util.Optional;
 @Mapper
 public interface MemberMapper {
 
-    Member save(Member member);
+    void save(Member member);
 
     Optional<Member> findByMemberId(Long memberId);
 
