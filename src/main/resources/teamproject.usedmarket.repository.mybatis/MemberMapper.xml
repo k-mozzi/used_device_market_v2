@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="teamproject.usedmarket.repository.mybatis.MyBatisMemberRepository">
+    <insert id="save" useGeneratedKeys="true" keyProperty="member_id">
+        insert into member (login_id, member_name, password)
+        values (#{loginId}, #{memberName}, #{password})
+    </insert>
+
+    <select id="findByMemberId" resultType="Member">
+        select member_id, login_id, member_name, password
+        from member
+        where member_id = #{member_id}
+    </select>
+
+    <select id="findByLoginId" resultType="Member">
+        select member_id, login_id, member_name, password
+        from member
+        where login_id = #{login_id}
+    </select>
+
+    <select id="findAll" resultType="Member">
+        select member_id, login_id, member_name, password
+        from member
+    </select>
+</mapper>
