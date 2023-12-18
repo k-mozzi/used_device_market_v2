@@ -12,7 +12,7 @@ public interface ItemMapper {
 
     void save(Item item);
 
-//    void update(@Param("itemId") Long itemId, @Param("updateParam") ItemUpdateDto updateParam);
+    void update(@Param("itemId") Long itemId, @Param("updateParam") ItemUpdateDto updateParam);
 
     List<Item> findAll();
 

@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import teamproject.usedmarket.domain.item.Item;
 import teamproject.usedmarket.repository.ItemRepository;
+import teamproject.usedmarket.repository.ItemUpdateDto;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,10 +22,10 @@ public class ItemServiceV1 implements ItemService {
         return itemRepository.save(item);
     }
 
-//    @Override
-//    public void update(Long itemId, Item updateParam) {
-//        itemRepository.update(itemId, updateParam);
-//    }
+    @Override
+    public void update(Long itemId, ItemUpdateDto updateParam) {
+        itemRepository.update(itemId, updateParam);
+    }
 
     @Override
     public Optional<Item> findById(Long id) {

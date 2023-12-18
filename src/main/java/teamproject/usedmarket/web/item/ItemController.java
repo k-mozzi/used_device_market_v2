@@ -48,14 +48,15 @@ public class ItemController {
     @GetMapping("/{itemId}/edit")
     public String editForm(@PathVariable Long itemId, Model model) {
         Item item = itemService.findById(itemId).get();
+
         model.addAttribute("item", item);
         return "item/editForm";
     }
 
-//    @PostMapping("/{itemId}/edit")
-//    public String edit(@PathVariable Long itemId, @ModelAttribute ItemUpdateDto updateParam) {
-//        itemService.update(itemId, updateParam);
-//        return "redirect:item/items/{itemId}";
-//    }
+    @PostMapping("/{itemId}/edit")
+    public String edit(@PathVariable Long itemId, @ModelAttribute ItemUpdateDto updateParam) {
+        itemService.update(itemId, updateParam);
+        return "redirect:item/items/{itemId}";
+    }
 
 }
