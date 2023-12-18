@@ -42,7 +42,7 @@ public class ItemController {
     @PostMapping("/add")
     public String addItem(@ModelAttribute Item item) {
         Item savedItem = itemService.save(item);
-        return "redirect:/";
+        return "redirect:/login";
     }
 
     @GetMapping("/{itemId}/edit")
