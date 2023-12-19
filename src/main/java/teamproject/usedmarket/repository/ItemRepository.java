@@ -14,7 +14,7 @@ public interface ItemRepository {
 
     public List<Item> findAll();
 
-//    public void update(Long itemId, ItemUpdateDto updateParam); //Item -> ItemUpdate
+    public void update(Long itemId, Item updateParam);
 
     public void delete(Long itemId);
 }
