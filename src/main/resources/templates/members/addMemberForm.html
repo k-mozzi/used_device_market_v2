@@ -47,15 +47,6 @@
             <div class="field-error" th:errors="*{memberName}">
                 이름 오류
             </div>
-
-            <!-- 지역 선택 셀렉트 박스 -->
-            <label for="regionId">지역 선택:</label>
-            <select id="regionId" name="regionId" th:field="*{regionId}" required>
-                <option th:each="region : ${regions}"
-                        th:value="${region.getRegionId()}"
-                        th:text="${region.getDescription()}"></option>
-            </select>
-
         </div>
         <hr class="my-4">
         <div class="row">

@@ -1,12 +1,12 @@
 package teamproject.usedmarket.domain.item;
 
-public enum SaleStatus {
+public enum ItemStatus {
 
     ON_SALE("판매중"), SOLD_OUT("판매완료");
 
     private final String description;
 
-    SaleStatus(String description) {
+    ItemStatus(String description) {
         this.description = description;
     }
 
