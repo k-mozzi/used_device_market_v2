@@ -1,4 +1,4 @@
-package teamproject.usedmarket.service;
+package teamproject.usedmarket.domain.login;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -49,10 +49,12 @@ public class LoginService {
      */
     public List<Member> findMembers() {
         return memberRepository.findAll();
+
     }
 
     public Optional<Member> findOne(String loginId) {
         return memberRepository.findByLoginId(loginId);
     }
+
 
 }
