@@ -28,6 +28,12 @@
             </tr>
             </tbody>
         </table>
+        <div class="col">
+            <button class="w-50 btn btn-secondary btn-lg"
+                    onclick="location.href='loginHome.html'"
+                    th:onclick="|location.href='@{/login}'|"
+                    type="button">목록으로</button>
+        </div>
     </div>
     <div th:replace="fragments/footer :: footer"/>
 </div> <!-- /container -->

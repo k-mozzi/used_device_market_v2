@@ -1,16 +1,25 @@
 package teamproject.usedmarket.domain.item;
 
-public enum ItemType {
+import lombok.Data;
 
-    LAPTOP("노트북"), TABLET("태블릿"), PHONE("스마트폰");
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
-    private final String description;
+@Data
+public class ItemType {
+    private Long itemTypeId;
+    private List<Item> items = new ArrayList<>();
+    private String itemTypeName;
+    private Date regiDate;
+    private Date updateDate;
 
-    ItemType(String description) {
-        this.description = description;
+    public ItemType() {
     }
 
-    public String getDescription() {
-        return description;
+    public ItemType(String itemTypeName, Date regiDate, Date updateDate) {
+        this.itemTypeName = itemTypeName;
+        this.regiDate = regiDate;
+        this.updateDate = updateDate;
     }
 }
