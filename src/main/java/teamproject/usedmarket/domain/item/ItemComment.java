@@ -1,7 +1,7 @@
 package teamproject.usedmarket.domain.item;
 
 /**
- * 첨부파일
+ * 댓글
  */
-public class Attachment {
+public class ItemComment {
 }
