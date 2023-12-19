@@ -3,8 +3,9 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="teamproject.usedmarket.repository.mybatis.ItemMapper">
     <insert id="save" useGeneratedKeys="true" keyProperty="itemId">
-        insert into item (item_name, price, seller)
-        values (#{itemName}, #{price}, #{seller})
+        insert into item (title, price, content, sale_status, create_datetime, update_datetime)
+        values (#{title}, #{price}, #{content}, #{saleStatus},
+        #{createDatetime, jdbcType=TIMESTAMP}, #{updateDatetime, jdbcType=TIMESTAMP})
     </insert>
     <update id="update">
         update item
@@ -14,7 +15,7 @@
         where item_id = #{itemId}
     </update>
     <select id="findById" resultType="item">
-        select id, item_name, price, seller
+        select id, title, price, content
         from item
         where item_id = #{itemId}
     </select>

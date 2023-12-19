@@ -6,6 +6,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import teamproject.usedmarket.domain.item.Item;
+import teamproject.usedmarket.domain.item.SaleStatus;
+import teamproject.usedmarket.domain.member.Region;
 import teamproject.usedmarket.repository.ItemUpdateDto;
 import teamproject.usedmarket.service.ItemService;
 
@@ -34,8 +36,8 @@ public class ItemController {
     }
 
     @GetMapping("/add")
-    public String addForm(Model model) {
-        model.addAttribute("form", new Item());
+    public String addForm(@ModelAttribute Item item, Model model) {
+        model.addAttribute("statuses", SaleStatus.values());
         return "item/addForm";
     }
 
