@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="../css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container" style="max-width: 600px">
+    <div class="py-5 text-center">
+        <h2 >멤버 목록</h2>
+    </div>
+
+    <hr class="my-4">
+    <div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th >멤버 ID</th>
+                <th >로그인 ID</th>
+                <th >이름</th>
+                <th >지역</th>
+                <th >회원가입 일시</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="member : ${members}">
+                <td th:text="${member.memberId}">멤버 ID</td>
+                <td th:text="${member.loginId}">로그인 ID</td>
+                <td th:text="${member.memberName}">이름</td>
+                <td th:text="${member.regionId}">지역</td>
+                <td th:text="${#dates.format(member.createDatetime, 'yyyy-MM-dd HH:mm:ss')}">회원가입 일시</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div> <!-- /container -->
+
+</body>
+</html>
