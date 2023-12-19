@@ -10,21 +10,15 @@ import java.util.Date;
 @Data
 public class ItemImage {
 
-    private Long ItemImageId;
-    private Item item;
-    private String filepath;
+    private int ItemImageId;
+    private Long itemId;
+    private String filePath;
     private Integer orderingNumber;
-    private Date regiDate;
-    private Date updateDate;
+    private Date createDatetime;
+    private Date updateDatetime;
+
 
     public ItemImage() {
     }
 
-    public ItemImage(Item item, String filepath, Integer orderingNumber, Date regiDate, Date updateDate) {
-        this.item = item;
-        this.filepath = filepath;
-        this.orderingNumber = orderingNumber;
-        this.regiDate = regiDate;
-        this.updateDate = updateDate;
-    }
 }

@@ -10,19 +10,15 @@ import java.util.Date;
  */
 @Data
 public class ItemLike {
-    private Long itemLideId;
-    private Member member;
-    private Item item;
-    private Date regiDate;
-    private Date updateDate;
+    private int itemLikeId;
+    private Long memberId;
+    private Long itemId;
+    private Date createDatetime;
+    private Date updateDatetime;
+
 
     public ItemLike() {
     }
 
-    public ItemLike(Member member, Item item, Date regiDate, Date updateDate) {
-        this.member = member;
-        this.item = item;
-        this.regiDate = regiDate;
-        this.updateDate = updateDate;
-    }
+
 }

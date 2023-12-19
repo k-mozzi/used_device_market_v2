@@ -10,21 +10,18 @@ import java.util.Date;
  */
 @Data
 public class ItemComment {
-    private Long itemCommentId;
-    private Member member;
-    private Item item;
+    private int itemCommentId;
+    private Long memberId;
+    private Long itemId;
     private String message;
-    private Date regiDate;
-    private Date updateDate;
+    private Date createDatetime;
+    private Date updateDatetime;
+
 
     public ItemComment() {
     }
 
-    public ItemComment(Member member, Item item, String message, Date regiDate, Date updateDate) {
-        this.member = member;
-        this.item = item;
+    public ItemComment(String message) {
         this.message = message;
-        this.regiDate = regiDate;
-        this.updateDate = updateDate;
     }
 }

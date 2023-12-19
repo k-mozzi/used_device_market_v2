@@ -8,18 +8,14 @@ import java.util.List;
 
 @Data
 public class ItemType {
-    private Long itemTypeId;
-    private List<Item> items = new ArrayList<>();
+    private int itemTypeId;
     private String itemTypeName;
-    private Date regiDate;
-    private Date updateDate;
+    private Date createDatetime;
+    private Date updateDatetime;
+
 
     public ItemType() {
     }
 
-    public ItemType(String itemTypeName, Date regiDate, Date updateDate) {
-        this.itemTypeName = itemTypeName;
-        this.regiDate = regiDate;
-        this.updateDate = updateDate;
-    }
+
 }
