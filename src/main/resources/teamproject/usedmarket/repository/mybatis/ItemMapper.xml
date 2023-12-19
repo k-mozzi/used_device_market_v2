@@ -10,13 +10,13 @@
         update item
         set item_name=#{updateParam.itemName},
         price=#{updateParam.price},
-        quantity=#{updateParam.quantity}
-        where id = #{id}
+        seller=#{updateParam.seller}
+        where item_id = #{itemId}
     </update>
     <select id="findById" resultType="item">
-        select id, item_name, price, quantity
+        select id, item_name, price, seller
         from item
-        where id = #{id}
+        where item_id = #{itemId}
     </select>
     <select id="findAll" resultType="item">
         select * from item order by item_id desc

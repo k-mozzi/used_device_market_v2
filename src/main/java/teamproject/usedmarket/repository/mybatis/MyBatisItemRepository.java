@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 import teamproject.usedmarket.domain.item.Item;
 import teamproject.usedmarket.repository.ItemRepository;
+import teamproject.usedmarket.repository.ItemUpdateDto;
 
 import java.util.List;
 import java.util.Optional;
@@ -34,10 +35,10 @@ public class MyBatisItemRepository implements ItemRepository {
         return itemMapper.findAll();
     }
 
-//    @Override
-//    public void update(Long itemId, ItemUpdateDto updateParam) {
-//        itemMapper.update(itemId, updateParam);
-//    }
+    @Override
+    public void update(Long itemId, ItemUpdateDto updateParam) {
+        itemMapper.update(itemId, updateParam);
+    }
 
     @Override
     public void delete(Long itemId) {

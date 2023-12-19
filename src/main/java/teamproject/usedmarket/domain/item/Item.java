@@ -1,36 +1,32 @@
 package teamproject.usedmarket.domain.item;
 
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Data
 public class Item {
 
     private Long itemId;
-    private String itemName;
+    private int itemTypeId;
+    private String title;
+    private String content;
     private Integer price;
-    private ItemType category;
-    private String seller;
-    private SaleStatus status;
-    private Date regiDate;
+    private int saleStatus;
+    private Long sellerMemberId;
+    private Long buyerMemberId;
+    private int viewsCount;
+    private String repImagePath;
+    private Date createDatetime;
+    private Date updateDatetime;
+
 
 
     public Item() {
     }
 
-    public Item(String itemName, Integer price, ItemType category, String seller, SaleStatus status, Date regiDate) {
-        this.itemName = itemName;
-        this.price = price;
-        this.category = category;
-        this.seller = seller;
-        this.status = status;
-        this.regiDate = regiDate;
-    }
 
-    public Item(String itemName, Integer price, String seller, Date regiDate) {
-        this.itemName = itemName;
-        this.price = price;
-        this.seller = seller;
-        this.regiDate = regiDate;
-    }
 }
