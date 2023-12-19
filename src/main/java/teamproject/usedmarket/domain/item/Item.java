@@ -1,7 +1,6 @@
 package teamproject.usedmarket.domain.item;
 
 import lombok.Data;
-
 import java.util.Date;
 
 @Data
@@ -12,14 +11,14 @@ public class Item {
     private Integer price;
     private ItemType category;
     private String seller;
-    private ItemStatus status;
+    private SaleStatus status;
     private Date regiDate;
 
 
     public Item() {
     }
 
-    public Item(String itemName, Integer price, ItemType category, String seller, ItemStatus status, Date regiDate) {
+    public Item(String itemName, Integer price, ItemType category, String seller, SaleStatus status, Date regiDate) {
         this.itemName = itemName;
         this.price = price;
         this.category = category;
