@@ -49,12 +49,10 @@ public class LoginService {
      */
     public List<Member> findMembers() {
         return memberRepository.findAll();
-
     }
 
     public Optional<Member> findOne(String loginId) {
         return memberRepository.findByLoginId(loginId);
     }
-
 
 }

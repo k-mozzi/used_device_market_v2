@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import teamproject.usedmarket.domain.member.Region;
 import teamproject.usedmarket.service.LoginService;
 import teamproject.usedmarket.domain.member.Member;
 
+import java.util.Date;
 import java.util.List;
 
 @Slf4j
@@ -24,7 +26,8 @@ public class MemberController {
     private final LoginService loginService;
 
     @GetMapping("/add")
-    public String addForm(@ModelAttribute("member") Member member) {
+    public String addForm(@ModelAttribute("member") Member member, Model model) {
+        model.addAttribute("regions", Region.values());
         return "members/addMemberForm";
     }
 
@@ -36,6 +39,9 @@ public class MemberController {
                 log.info("error={}", bindingResult);
                 return "members/addMemberForm";
             }
+
+            member.setCreateDatetime(new Date());
+            member.setUpdateDatetime(new Date());
 
             loginService.join(member);
             return "home";

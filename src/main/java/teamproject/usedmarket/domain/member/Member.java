@@ -11,32 +11,41 @@ import java.util.Date;
 public class Member {
 
     private Long memberId;
+
     @NotBlank
-    @Size(min=4, max=10)
+    @Size(min = 4, max = 10)
     private String loginId;
+
     @NotBlank
-    @Size(min=3, max=7)
+    @Size(min = 3, max = 7)
     private String memberName;
+
     @NotNull
-    @Size(min=6, max=12)
+    @Size(min = 6, max = 12)
     private String password;
-    private Region regionId;
-    private Date joinDate;
+
+    private int regionId;
+
+    private Date createDatetime;
+
+    private Date updateDatetime;
 
     public Member() {
     }
 
-    public Member( String loginId, String memberName, String password) {
+    public Member(String loginId, String memberName, String password) {
         this.loginId = loginId;
         this.memberName = memberName;
         this.password = password;
     }
 
-    public Member(String loginId, String memberName, String password, Region regionId, Date joinDate) {
+    public Member(String loginId, String memberName, String password, int regionId, Date createDatetime, Date updateDatetime) {
         this.loginId = loginId;
         this.memberName = memberName;
         this.password = password;
         this.regionId = regionId;
-        this.joinDate = joinDate;
+        this.createDatetime = createDatetime;
+        this.updateDatetime = updateDatetime;
     }
+
 }
