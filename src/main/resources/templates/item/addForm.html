@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header">
-           <meta charset="utf-8">
+    <meta charset="utf-8">
 </head>
 
 <body>
@@ -24,7 +24,7 @@
             <label th:for="price">가격</label>
             <input type="number" th:field="*{price}" class="form-control"
                    placeholder="가격을 입력하세요">
-<!--            <!— 아이템 타입 선택 셀렉트 박스 —>-->
+            <!--            <!— 아이템 타입 선택 셀렉트 박스 —>-->
             <label for="itemTypeId">아이템 타입</label>
             <select id="itemTypeId" name="itemTypeId" th:field="*{itemTypeId}" required>
                 <option th:each="itemType : ${itemTypes}"
@@ -40,8 +40,8 @@
 
         <ul>
             <li>첨부파일<input type="file" name="file" ></li>
-<!--                <li>이미지 파일들<input type="file" multiple="multiple"-->
-<!--                                  name="imageFiles" ></li>-->
+            <!--                <li>이미지 파일들<input type="file" multiple="multiple"-->
+            <!--                                  name="imageFiles" ></li>-->
         </ul>
 
 

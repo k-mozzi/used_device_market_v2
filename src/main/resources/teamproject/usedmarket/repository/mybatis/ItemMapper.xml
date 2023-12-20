@@ -5,14 +5,14 @@
     <insert id="save" useGeneratedKeys="true" keyProperty="itemId">
         insert into item (item_type_id, title, price, content, sale_status, create_datetime, update_datetime, filename, filepath)
         values (#{itemTypeId}, #{title}, #{price}, #{content}, #{saleStatus},
-        #{createDatetime, jdbcType=TIMESTAMP}, #{updateDatetime, jdbcType=TIMESTAMP}, #{filename}, #{filepath})
+                #{createDatetime, jdbcType=TIMESTAMP}, #{updateDatetime, jdbcType=TIMESTAMP}, #{filename}, #{filepath})
     </insert>
 
     <update id="update">
         update item
         set item_name=#{updateParam.itemName},
-        price=#{updateParam.price},
-        seller=#{updateParam.seller}
+            price=#{updateParam.price},
+            seller=#{updateParam.seller}
         where item_id = #{itemId}
     </update>
     <select id="findById" resultType="item">
@@ -23,16 +23,16 @@
     <select id="findAll" resultType="item">
         select * from item order by item_id desc
     </select>
-<!--    <select id="findAll" resultType="Item">-->
-<!--        select id, item_name, price, quantity-->
-<!--        from item-->
-<!--        <where>-->
-<!--            <if test="itemName != null and itemName != ''">-->
-<!--                and item_name like concat('%',#{itemName},'%')-->
-<!--            </if>-->
-<!--            <if test="maxPrice != null">-->
-<!--                and price &lt;= #{maxPrice}-->
-<!--            </if>-->
-<!--        </where>-->
-<!--    </select>-->
+    <!--    <select id="findAll" resultType="Item">-->
+    <!--        select id, item_name, price, quantity-->
+    <!--        from item-->
+    <!--        <where>-->
+    <!--            <if test="itemName != null and itemName != ''">-->
+    <!--                and item_name like concat('%',#{itemName},'%')-->
+    <!--            </if>-->
+    <!--            <if test="maxPrice != null">-->
+    <!--                and price &lt;= #{maxPrice}-->
+    <!--            </if>-->
+    <!--        </where>-->
+    <!--    </select>-->
 </mapper>
