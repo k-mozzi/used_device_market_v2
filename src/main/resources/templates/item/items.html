@@ -29,7 +29,7 @@
                 <td th:text="${item.itemTypeId}"></td>
                 <td th:text="${#dates.format(item.createDatetime, 'yyyy-MM-dd HH:mm:ss')}">등록 일자</td>
                 <td>
-                    <a     th:href="@{${item.filepath}}">이미지 보기</a>
+                    <img th:src="@{${item.filepath}}"/>
                 </td>
                 <td>
                     <a href="#" th:href="@{/items/{id}/edit (id=${item.itemId})}"

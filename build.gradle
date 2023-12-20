@@ -31,7 +31,6 @@ dependencies {
 	//웹소켓 의존성
 	implementation 'org.springframework.boot:spring-boot-starter-websocket'
 	implementation 'mysql:mysql-connector-java'
-
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
