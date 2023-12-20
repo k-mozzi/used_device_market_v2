@@ -12,50 +12,42 @@
 
         <div class="form-group">
             <label th:for="title">title</label>
-            <input type="text" th:field="*{title}" class="form-control"
-                   placeholder="title을 입력하세요">
+            <input type="text" th:field="*{title}" class="form-control" placeholder="제목을 입력하세요">
         </div>
         <div class="form-group">
             <label th:for="content">content</label>
-            <input type="text" th:field="*{content}" class="form-control"
-                   placeholder="content를 입력하세요">
+            <textarea th:field="*{content}" class="form-control" rows="3" placeholder="content를 입력하세요"></textarea>
         </div>
         <div class="form-group">
             <label th:for="price">가격</label>
-            <input type="number" th:field="*{price}" class="form-control"
-                   placeholder="가격을 입력하세요">
-            <!--            <!— 아이템 타입 선택 셀렉트 박스 —>-->
+            <input type="number" th:field="*{price}" class="form-control" placeholder="가격을 입력하세요">
+        </div>
+        <div>
+            <ul>
+                <li>첨부파일<input type="file" name="file"></li>
+                <!--            <li>이미지 파일들<input type="file" multiple="multiple" name="imageFiles"></li>-->
+            </ul>
+        </div>
+        <div>
             <label for="itemTypeId">아이템 타입</label>
             <select id="itemTypeId" name="itemTypeId" th:field="*{itemTypeId}" required>
                 <option th:each="itemType : ${itemTypes}"
                         th:value="${itemType.getItemTypeId()}"
                         th:text="${itemType.getDescription()}"></option>
             </select>
-
         </div>
-        <!--        파일첨부-->
-        <div class="py-5 text-center">
-            <h2>상품 등록</h2>
+        <div>
+            <label for="saleStatus">판매 상태 :</label>
+            <select id="saleStatus" name="saleStatus" th:field="*{saleStatus}" required>
+                <option th:each="saleStatus : ${statuses}"
+                        th:value="${saleStatus.getSaleStatusId()}"
+                        th:text="${saleStatus.getDescription()}"></option>
+            </select>
         </div>
-
-        <ul>
-            <li>첨부파일<input type="file" name="file" ></li>
-            <!--                <li>이미지 파일들<input type="file" multiple="multiple"-->
-            <!--                                  name="imageFiles" ></li>-->
-        </ul>
-
-
-        <!-- 판매상태 선택 셀렉트 박스 -->
-        <label for="saleStatus">판매 상태 :</label>
-        <select id="saleStatus" name="saleStatus" th:field="*{saleStatus}" required>
-            <option th:each="saleStatus : ${statuses}"
-                    th:value="${saleStatus.getSaleStatusId()}"
-                    th:text="${saleStatus.getDescription()}"></option>
-        </select>
         <input type="submit"/>
     </form>
     <br/>
-    <div th:replace="fragments/footer :: footer" />
+    <div th:replace="fragments/footer :: footer"/>
 </div> <!-- /container -->
 </body>
 </html>
