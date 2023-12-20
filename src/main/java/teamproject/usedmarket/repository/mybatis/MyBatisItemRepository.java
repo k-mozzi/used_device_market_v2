@@ -16,8 +16,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class MyBatisItemRepository implements ItemRepository {
 
-    private final ItemMapper itemMapper;
 
+    private final ItemMapper itemMapper;
     @Override
     public Item save(Item item) {
         log.info("itemMapper class={}", itemMapper.getClass());

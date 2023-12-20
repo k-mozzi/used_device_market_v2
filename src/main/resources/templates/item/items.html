@@ -9,10 +9,13 @@
             <thead>
             <tr>
                 <th>#</th>
-                <th>title</th>
+                <th>제목</th>
                 <th>가격</th>
-                <th>content</th>
-                <th>salestatus</th>
+                <th>내용</th>
+                <th>판매여부</th>
+                <th>카테고리</th>
+                <th>등록 일자</th>
+                <th>이미지 보기</th>
                 <th></th>
             </tr>
             </thead>
@@ -23,6 +26,11 @@
                 <td th:text="${item.price}"></td>
                 <td th:text="${item.content}"></td>
                 <td th:text="${item.saleStatus}"></td>
+                <td th:text="${item.itemTypeId}"></td>
+                <td th:text="${#dates.format(item.createDatetime, 'yyyy-MM-dd HH:mm:ss')}">등록 일자</td>
+                <td>
+                    <a     th:href="@{${item.filepath}}">이미지 보기</a>
+                </td>
                 <td>
                     <a href="#" th:href="@{/items/{id}/edit (id=${item.itemId})}"
                        class="btn btn-primary" role="button">수정</a>
