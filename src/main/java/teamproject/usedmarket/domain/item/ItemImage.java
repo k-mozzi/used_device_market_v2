@@ -18,6 +18,7 @@ public class ItemImage {
     private Date updateDatetime;
 
 
+
     public ItemImage() {
     }
 
