@@ -24,9 +24,8 @@ public class ItemServiceV1 implements ItemService {
     @Override
     public void save(Item item, MultipartFile file) throws IOException {
 
-        String projectPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\files";
-//        String projectPath = System.getProperty("user.dir") + "\\src\\main\\resources\\templates\\static\\files";
-//        String projectPath = System.getProperty("user.dir") + "/src/main/resources/template/files";
+//        String projectPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\files";
+        String projectPath = System.getProperty("user.dir") + "/src/main/resources/static/files";
 
 
         UUID uuid = UUID.randomUUID();
