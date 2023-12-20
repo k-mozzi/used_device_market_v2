@@ -27,7 +27,6 @@ public class MyBatisMemberRepository implements MemberRepository {
 
     private final MemberMapper memberMapper;
 
-
     @Override
     public Member save(Member member) {
         memberMapper.save(member);
