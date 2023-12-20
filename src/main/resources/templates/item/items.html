@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/header :: header" />
+<head th:replace="fragments/header :: header"/>
 <body>
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader"/>
@@ -9,11 +9,13 @@
             <thead>
             <tr>
                 <th>#</th>
-                <th>title</th>
+                <th>제목</th>
                 <th>가격</th>
-                <th>content</th>
-                <th>salestatus</th>
-                <th></th>
+                <th>내용</th>
+                <th>카테고리</th>
+                <th>판매여부</th>
+                <!--                <th>등록일</th>-->
+                <th>이미지 보기</th>
             </tr>
             </thead>
             <tbody>
@@ -22,7 +24,12 @@
                 <td th:text="${item.title}"></td>
                 <td th:text="${item.price}"></td>
                 <td th:text="${item.content}"></td>
+                <td th:text="${item.itemTypeId}"></td>
                 <td th:text="${item.saleStatus}"></td>
+                <!--                <td th:text="${item.createDatetime}"></td>-->
+                <td>
+                    <a th:href="@{${item.filepath}}">이미지 보기</a>
+                </td>
                 <td>
                     <a href="#" th:href="@{/items/{id}/edit (id=${item.itemId})}"
                        class="btn btn-primary" role="button">수정</a>
@@ -30,12 +37,12 @@
             </tr>
             </tbody>
         </table>
-        <div class="col">
-            <button class="w-50 btn btn-secondary btn-lg"
-                    onclick="location.href='loginHome.html'"
-                    th:onclick="|location.href='@{/login}'|"
-                    type="button">목록으로</button>
-        </div>
+        <!--        <div class="col">-->
+        <!--            <button class="w-50 btn btn-secondary btn-lg"-->
+        <!--                    onclick="location.href='home.html'"-->
+        <!--                    th:onclick="|location.href='@{/}'|"-->
+        <!--                    type="button">목록으로</button>-->
+        <!--        </div>-->
     </div>
     <div th:replace="fragments/footer :: footer"/>
 </div> <!-- /container -->
