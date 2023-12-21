@@ -30,6 +30,10 @@
         <input type="text" id="title" name="title" class="form-control" value="10000" th:value="${item.title}" disabled>
     </div>
     <div>
+        <img th:src="@{|/files/${item.getFilename()}|}" width="400" height="400"/>
+<!--        <input type="text" id="title" name="title" class="form-control" value="10000" th:value="${item.title}" disabled>-->
+    </div>
+    <div>
         <label for="content">상세설명</label>
         <input type="text" id="content" name="content" class="form-control" value="상품A" th:value="${item.content}"
                disabled>

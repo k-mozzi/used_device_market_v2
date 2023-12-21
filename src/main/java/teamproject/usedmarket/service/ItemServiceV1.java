@@ -50,7 +50,22 @@ private String fileDir;
     }
 
     @Override
-    public void update(Long itemId, ItemUpdateDto updateParam) {
+    public void update(Long itemId, ItemUpdateDto updateParam,MultipartFile file) throws IOException {
+        String projectPath = "C:\\Users\\82109\\Desktop\\spring_img";
+
+        UUID uuid = UUID.randomUUID();
+
+        String un_fileName = uuid + "_" + file.getOriginalFilename();
+        String fileName = UriUtils.encode(un_fileName, StandardCharsets.UTF_8);
+
+        File saveFile = new File(projectPath, fileName); //경로, 파일이름 지정
+
+        file.transferTo(saveFile);
+
+        updateParam.setFilename(fileName);
+        updateParam.setFilepath("/files/"+fileName);
+
+
         itemRepository.update(itemId, updateParam);
     }
 

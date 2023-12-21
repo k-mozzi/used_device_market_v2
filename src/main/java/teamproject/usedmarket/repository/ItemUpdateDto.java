@@ -15,17 +15,21 @@ public class ItemUpdateDto {
 //    private Long buyerMemberId;
 //    private int viewsCount;
     private Date updateDatetime;
+    private String filename;
+    private String filepath;
 
 
     public ItemUpdateDto() {
     }
 
-    public ItemUpdateDto(String title, String content, Integer price, int itemTypeId, int saleStatus, Date updateDatetime) {
+    public ItemUpdateDto(String title, String content, Integer price, int itemTypeId, int saleStatus, Date updateDatetime, String filename, String filepath) {
         this.title = title;
         this.content = content;
         this.price = price;
         this.itemTypeId = itemTypeId;
         this.saleStatus = saleStatus;
         this.updateDatetime = updateDatetime;
+        this.filename = filename;
+        this.filepath = filepath;
     }
 }
