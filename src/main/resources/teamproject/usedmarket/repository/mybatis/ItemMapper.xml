@@ -16,8 +16,7 @@
         where item_id = #{itemId}
     </update>
     <select id="findById" resultType="item">
-        select id, title, price, content
-        from item
+        select * from item
         where item_id = #{itemId}
     </select>
     <select id="findAll" resultType="item">
