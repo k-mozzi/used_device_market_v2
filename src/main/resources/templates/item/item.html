@@ -53,16 +53,24 @@
                     th:selected="${status.saleStatusId == selectedSaleStatus}"/>
         </select>
     </div>
+    <div>
+        <div>조회수: <span th:text="${item.viewsCount}"></span></div>
+    </div>
+    <!--  수정 이력이 있는 경우에만 수정일 출력  -->
+    <div th:if="${item.updateDatetime != null}">
+        <div>최종 수정 일자: <span th:text="${#dates.format(item.updateDatetime, 'yyyy-MM-dd HH:mm:ss')}"></span></div>
+    </div>
 
     <hr class="my-4">
 
     <div class="row">
-        <!--        <div class="col">-->
-        <!--            <button class="w-100 btn btn-primary btn-lg"-->
-        <!--                    onclick="location.href='editForm.html'"-->
-        <!--                    th:onclick="|location.href='@{/items/{itemId}/edit(itemId=${item.id})}'|"-->
-        <!--                    type="button">상품 수정</button>-->
-        <!--        </div>-->
+        <div class="col">
+            <button class="w-100 btn btn-primary btn-lg"
+                    onclick="location.href='editForm.html'"
+                    th:onclick="|location.href='@{/items/{itemId}/edit(itemId=${item.itemId})}'|"
+                    type="button">상품 수정
+            </button>
+        </div>
         <div class="col">
             <button class="w-100 btn btn-secondary btn-lg"
                     onclick="location.href='items.html'"
