@@ -48,4 +48,9 @@
     <!--            </if>-->
     <!--        </where>-->
     <!--    </select>-->
+
+    <delete id="delete">
+        delete from item
+        where item_id = #{itemId}
+    </delete>
 </mapper>

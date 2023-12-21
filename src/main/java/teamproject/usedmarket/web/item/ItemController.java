@@ -80,4 +80,11 @@ public class ItemController {
         return "redirect:/items/{itemId}";
     }
 
+    @GetMapping("/{itemId}/delete")
+    public String delete(@PathVariable Long itemId) {
+        itemService.delete(itemId);
+        log.info("delete itemId={}", itemId);
+        return "redirect:/items";
+    }
+
 }

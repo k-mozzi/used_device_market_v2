@@ -88,5 +88,10 @@ public class ItemServiceV1 implements ItemService {
         return itemRepository.findAll();
     }
 
+    @Override
+    public void delete(Long itemId) {
+        itemRepository.delete(itemId);
+    }
+
 
 }
