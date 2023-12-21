@@ -47,7 +47,7 @@ public class MyBatisItemRepository implements ItemRepository {
 
     @Override
     public void delete(Long itemId) {
-
+        itemMapper.delete(itemId);
     }
 
 

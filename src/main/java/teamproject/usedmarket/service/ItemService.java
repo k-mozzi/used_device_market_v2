@@ -17,4 +17,6 @@ public interface ItemService {
     Optional<Item> findById(Long id);
 
     List<Item> findItems();
+
+    void delete(Long itemId);
 }
