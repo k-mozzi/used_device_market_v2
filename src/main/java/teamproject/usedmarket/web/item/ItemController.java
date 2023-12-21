@@ -1,6 +1,7 @@
 package teamproject.usedmarket.web.item;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,7 @@ import java.util.Date;
 import java.util.List;
 
 
+@Slf4j
 @Controller
 @RequestMapping("/items")
 @RequiredArgsConstructor
@@ -33,14 +35,23 @@ public class ItemController {
     @GetMapping("/{itemId}")
     public String item(@PathVariable long itemId, Model model) {
         Item item = itemService.findById(itemId).get();
-        model.addAttribute("item", item);
-        return "item/item";
+        if (item != null) {
+            model.addAttribute("item", item);
+            model.addAttribute("selectedItemTypeId", item.getItemTypeId());
+            model.addAttribute("itemTypes", ItemType.values());
+            model.addAttribute("selectedSaleStatus", item.getSaleStatus());
+            model.addAttribute("statuses", SaleStatus.values());
+            return "item/item";
+        } else {
+            // 아이템이 존재하지 않는 경우에 대한 예외 처리
+            return "redirect:/items";
+        }
     }
 
     @GetMapping("/add")
     public String addForm(@ModelAttribute Item item, Model model) {
-        model.addAttribute("statuses", SaleStatus.values());
         model.addAttribute("itemTypes", ItemType.values());
+        model.addAttribute("statuses", SaleStatus.values());
         return "item/addForm";
     }
 
