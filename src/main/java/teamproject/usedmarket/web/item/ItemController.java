@@ -2,6 +2,10 @@ package teamproject.usedmarket.web.item;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -70,6 +74,7 @@ public class ItemController {
         model.addAttribute("item", item);
         return "item/editForm";
     }
+
 
 //    @PostMapping("/{itemId}/edit")
 //    public String edit(@PathVariable Long itemId, @ModelAttribute ItemUpdateDto updateParam, MultipartFile file) {

@@ -27,10 +27,6 @@ public class Item {
     private String filepath;
 
 
-    private UploadFile attachFile;
-    private List<UploadFile> imageFiles;
-
-
 
 
     public Item(int itemTypeId, String title, String content, Integer price, int saleStatus,
