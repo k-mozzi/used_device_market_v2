@@ -2,14 +2,12 @@ package teamproject.usedmarket.service;
 
 
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriUtils;
 import teamproject.usedmarket.domain.item.Item;
 import teamproject.usedmarket.repository.ItemRepository;
 import teamproject.usedmarket.repository.ItemUpdateDto;
-import teamproject.usedmarket.repository.ViewsCountUpdateDto;
 
 import java.io.File;
 import java.io.IOException;

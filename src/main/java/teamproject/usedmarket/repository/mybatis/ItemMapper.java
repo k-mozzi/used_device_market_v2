@@ -3,7 +3,6 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import teamproject.usedmarket.domain.item.Item;
 import teamproject.usedmarket.repository.ItemUpdateDto;
-import teamproject.usedmarket.repository.ViewsCountUpdateDto;
 
 import java.util.List;
 import java.util.Optional;
