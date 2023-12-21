@@ -16,7 +16,7 @@ public interface ItemRepository {
 
     public void update(Long itemId, ItemUpdateDto updateParam);
 
-    public void updateViewsCount(Long itemId, ViewsCountUpdateDto updateParam);
+    void incrementViewsCount(Long itemId);
 
     public void delete(Long itemId);
 }

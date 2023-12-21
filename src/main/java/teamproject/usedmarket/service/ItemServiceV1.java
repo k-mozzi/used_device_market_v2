@@ -23,6 +23,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class ItemServiceV1 implements ItemService {
 
+    public static final String FILE_PATH = "/Users/kimgang/Documents/SpringProject/imageFile";
     private final ItemRepository itemRepository;
 
 private String fileDir;
@@ -30,9 +31,7 @@ private String fileDir;
     public void save(Item item, MultipartFile file) throws IOException {
 
 
-        String projectPath = "C:\\Users\\82109\\Desktop\\spring_img";
-//        String projectPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\files\\";
-//        String projectPath = System.getProperty("user.dir") + "/src/main/resources/static/files";
+//        String projectPath = "C:\\Users\\82109\\Desktop\\spring_img";
 
 
         UUID uuid = UUID.randomUUID();
@@ -40,7 +39,7 @@ private String fileDir;
         String un_fileName = uuid + "_" + file.getOriginalFilename();
         String fileName = UriUtils.encode(un_fileName, StandardCharsets.UTF_8);
 
-        File saveFile = new File(projectPath, fileName); //경로, 파일이름 지정
+        File saveFile = new File(FILE_PATH, fileName); //경로, 파일이름 지정
 
         file.transferTo(saveFile);
 
@@ -52,14 +51,13 @@ private String fileDir;
 
     @Override
     public void update(Long itemId, ItemUpdateDto updateParam,MultipartFile file) throws IOException {
-        String projectPath = "C:\\Users\\82109\\Desktop\\spring_img";
 
         UUID uuid = UUID.randomUUID();
 
         String un_fileName = uuid + "_" + file.getOriginalFilename();
         String fileName = UriUtils.encode(un_fileName, StandardCharsets.UTF_8);
 
-        File saveFile = new File(projectPath, fileName); //경로, 파일이름 지정
+        File saveFile = new File(FILE_PATH, fileName); //경로, 파일이름 지정
 
         file.transferTo(saveFile);
 
@@ -74,8 +72,8 @@ private String fileDir;
     public Optional<Item> findById(Long id) {
         Optional<Item> findItem = itemRepository.findByItemId(id);
         findItem.ifPresent(item -> {
-            ViewsCountUpdateDto updateParam = new ViewsCountUpdateDto(item.getViewsCount() + 1);
-            itemRepository.updateViewsCount(findItem.get().getItemId(), updateParam);
+            itemRepository.incrementViewsCount(id);
+            item.setViewsCount(item.getViewsCount() + 1);
         });
         return findItem;
     }

@@ -21,9 +21,9 @@
         where item_id = #{itemId}
     </update>
 
-    <update id="updateViewsCount">
+    <update id="incrementViewsCount">
         update item
-        set views_count=#{updateParam.viewsCount}
+        set views_count = views_count + 1
         where item_id = #{itemId}
     </update>
 

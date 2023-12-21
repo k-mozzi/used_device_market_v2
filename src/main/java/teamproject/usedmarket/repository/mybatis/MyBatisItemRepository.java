@@ -39,11 +39,11 @@ public class MyBatisItemRepository implements ItemRepository {
     @Override
     public void update(Long itemId, ItemUpdateDto updateParam) {
         itemMapper.update(itemId, updateParam);
+        log.info("update item={}", updateParam.getUpdateDatetime());
     }
-
     @Override
-    public void updateViewsCount(Long itemId, ViewsCountUpdateDto updateParam) {
-        itemMapper.updateViewsCount(itemId, updateParam);
+    public void incrementViewsCount(Long itemId) {
+        itemMapper.incrementViewsCount(itemId);
     }
 
     @Override

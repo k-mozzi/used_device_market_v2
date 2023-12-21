@@ -15,7 +15,7 @@ public interface ItemMapper {
 
     void update(@Param("itemId") Long itemId, @Param("updateParam") ItemUpdateDto updateParam);
 
-    void updateViewsCount(@Param("itemId") Long itemId, @Param("updateParam") ViewsCountUpdateDto updateParam);
+    void incrementViewsCount(Long itemId);
 
     List<Item> findAll();
 
