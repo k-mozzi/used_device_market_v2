@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 import teamproject.usedmarket.domain.item.Item;
 import teamproject.usedmarket.repository.ItemRepository;
 import teamproject.usedmarket.repository.ItemUpdateDto;
-import teamproject.usedmarket.repository.ViewsCountUpdateDto;
 
 import java.util.List;
 import java.util.Optional;
