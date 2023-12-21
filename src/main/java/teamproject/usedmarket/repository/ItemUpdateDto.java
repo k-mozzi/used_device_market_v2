@@ -22,6 +22,15 @@ public class ItemUpdateDto {
     public ItemUpdateDto() {
     }
 
+    public ItemUpdateDto(String title, String content, Integer price, int itemTypeId, int saleStatus, Date updateDatetime) {
+        this.title = title;
+        this.content = content;
+        this.price = price;
+        this.itemTypeId = itemTypeId;
+        this.saleStatus = saleStatus;
+        this.updateDatetime = updateDatetime;
+    }
+
     public ItemUpdateDto(String title, String content, Integer price, int itemTypeId, int saleStatus, Date updateDatetime, String filename, String filepath) {
         this.title = title;
         this.content = content;
