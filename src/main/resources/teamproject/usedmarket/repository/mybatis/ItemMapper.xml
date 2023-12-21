@@ -3,25 +3,31 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="teamproject.usedmarket.repository.mybatis.ItemMapper">
     <insert id="save" useGeneratedKeys="true" keyProperty="itemId">
-        insert into item (item_type_id, title, price, content, sale_status, create_datetime, update_datetime, filename, filepath)
-        values (#{itemTypeId}, #{title}, #{price}, #{content}, #{saleStatus},
-                #{createDatetime, jdbcType=TIMESTAMP}, #{updateDatetime, jdbcType=TIMESTAMP}, #{filename}, #{filepath})
+        insert into item (item_type_id, title, price, content, sale_status, views_count, create_datetime, filename, filepath)
+        values (#{itemTypeId}, #{title}, #{price}, #{content}, #{saleStatus}, #{viewsCount},
+                #{createDatetime, jdbcType=TIMESTAMP}, #{filename}, #{filepath})
     </insert>
 
     <update id="update">
         update item
-        set item_name=#{updateParam.itemName},
+        set title=#{updateParam.title},
+            content=#{updateParam.content},
             price=#{updateParam.price},
-            seller=#{updateParam.seller}
+            item_type_id=#{updateParam.itemTypeId},
+            sale_status=#{updateParam.saleStatus},
+            update_datetime=#{updateParam.updateDatetime, jdbcType=TIMESTAMP}
         where item_id = #{itemId}
     </update>
+
     <select id="findById" resultType="item">
         select * from item
         where item_id = #{itemId}
     </select>
+
     <select id="findAll" resultType="item">
         select * from item order by item_id desc
     </select>
+
     <!--    <select id="findAll" resultType="Item">-->
     <!--        select id, item_name, price, quantity-->
     <!--        from item-->
