@@ -14,7 +14,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry
                 .addResourceHandler("/files/**")
-                .addResourceLocations("file:///C:/Users/82109/Desktop/spring_img/");
+                .addResourceLocations("file:/Users/kimgang/Documents/SpringProject/imageFile/");
     }
 
 }

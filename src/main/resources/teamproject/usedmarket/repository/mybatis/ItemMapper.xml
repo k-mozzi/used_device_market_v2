@@ -21,6 +21,12 @@
         where item_id = #{itemId}
     </update>
 
+    <update id="incrementViewsCount">
+        update item
+        set views_count = views_count + 1
+        where item_id = #{itemId}
+    </update>
+
     <select id="findById" resultType="item">
         select * from item
         where item_id = #{itemId}

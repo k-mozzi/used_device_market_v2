@@ -2,14 +2,14 @@ package teamproject.usedmarket.service;
 
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
+import lombok.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriUtils;
 import teamproject.usedmarket.domain.item.Item;
 import teamproject.usedmarket.repository.ItemRepository;
 import teamproject.usedmarket.repository.ItemUpdateDto;
+import teamproject.usedmarket.repository.ViewsCountUpdateDto;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,65 +20,62 @@ import java.util.UUID;
 
 
 @Service
-@Slf4j
 @RequiredArgsConstructor
 public class ItemServiceV1 implements ItemService {
 
+    public static final String FILE_PATH = "/Users/kimgang/Documents/SpringProject/imageFile";
     private final ItemRepository itemRepository;
 
-    String projectPath = "C:\\Users\\82109\\Desktop\\spring_img";
+private String fileDir;
     @Override
     public void save(Item item, MultipartFile file) throws IOException {
-        if (file.getSize() == 0) {
-            itemRepository.save(item);
-        } else {
-            UUID uuid = UUID.randomUUID();
 
-            String un_fileName = uuid + "_" + file.getOriginalFilename();
-            String fileName = UriUtils.encode(un_fileName, StandardCharsets.UTF_8);
 
-            File saveFile = new File(projectPath, fileName); //경로, 파일이름 지정
+//        String projectPath = "C:\\Users\\82109\\Desktop\\spring_img";
 
-            file.transferTo(saveFile);
 
-            item.setFilename(fileName);
-            item.setFilepath("/files/"+fileName);
+        UUID uuid = UUID.randomUUID();
 
-            itemRepository.save(item);
-        }
+        String un_fileName = uuid + "_" + file.getOriginalFilename();
+        String fileName = UriUtils.encode(un_fileName, StandardCharsets.UTF_8);
 
+        File saveFile = new File(FILE_PATH, fileName); //경로, 파일이름 지정
+
+        file.transferTo(saveFile);
+
+        item.setFilename(fileName);
+        item.setFilepath("/files/"+fileName);
+
+        itemRepository.save(item);
     }
 
     @Override
     public void update(Long itemId, ItemUpdateDto updateParam,MultipartFile file) throws IOException {
-        log.info("filesize2={}", file.getSize());
-        if (file.getSize()==0) {
 
-            Item findItem = itemRepository.findByItemId(itemId).get();
-            updateParam.setFilename(findItem.getFilename());
-            updateParam.setFilepath(findItem.getFilepath());
-            itemRepository.update(itemId, updateParam);
-        }else {
-            UUID uuid = UUID.randomUUID();
-            String un_fileName = uuid + "_" + file.getOriginalFilename();
-            String fileName = UriUtils.encode(un_fileName, StandardCharsets.UTF_8);
+        UUID uuid = UUID.randomUUID();
 
-            File saveFile = new File(projectPath, fileName); //경로, 파일이름 지정
+        String un_fileName = uuid + "_" + file.getOriginalFilename();
+        String fileName = UriUtils.encode(un_fileName, StandardCharsets.UTF_8);
 
-            file.transferTo(saveFile);
+        File saveFile = new File(FILE_PATH, fileName); //경로, 파일이름 지정
 
-            updateParam.setFilename(fileName);
-            updateParam.setFilepath("/files/"+fileName);
+        file.transferTo(saveFile);
+
+        updateParam.setFilename(fileName);
+        updateParam.setFilepath("/files/"+fileName);
 
 
-            itemRepository.update(itemId, updateParam);
-        }
-
+        itemRepository.update(itemId, updateParam);
     }
 
     @Override
     public Optional<Item> findById(Long id) {
-        return itemRepository.findByItemId(id);
+        Optional<Item> findItem = itemRepository.findByItemId(id);
+        findItem.ifPresent(item -> {
+            itemRepository.incrementViewsCount(id);
+            item.setViewsCount(item.getViewsCount() + 1);
+        });
+        return findItem;
     }
 
     @Override
