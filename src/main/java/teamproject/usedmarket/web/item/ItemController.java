@@ -74,9 +74,9 @@ public class ItemController {
     }
 
     @PostMapping("/{itemId}/edit")
-    public String edit(@PathVariable Long itemId, @ModelAttribute ItemUpdateDto updateParam) {
+    public String edit(@PathVariable Long itemId, @ModelAttribute ItemUpdateDto updateParam,@RequestParam("file") MultipartFile file) throws IOException {
         updateParam.setUpdateDatetime(new Date());
-        itemService.update(itemId, updateParam);
+        itemService.update(itemId, updateParam, file);
         return "redirect:/items/{itemId}";
     }
 

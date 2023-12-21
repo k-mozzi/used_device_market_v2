@@ -12,7 +12,7 @@ public interface ItemService {
 
     void save(Item item, MultipartFile file) throws IOException;
 
-    void update(Long itemId, ItemUpdateDto updateParam);
+    void update(Long itemId, ItemUpdateDto updateParam, MultipartFile file) throws IOException;
 
     Optional<Item> findById(Long id);
 

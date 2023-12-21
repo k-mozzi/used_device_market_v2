@@ -15,7 +15,9 @@
             price=#{updateParam.price},
             item_type_id=#{updateParam.itemTypeId},
             sale_status=#{updateParam.saleStatus},
-            update_datetime=#{updateParam.updateDatetime, jdbcType=TIMESTAMP}
+            update_datetime=#{updateParam.updateDatetime, jdbcType=TIMESTAMP},
+            filename=#{updateParam.filename},
+            filepath=#{updateParam.filepath}
         where item_id = #{itemId}
     </update>
 
