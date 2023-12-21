@@ -15,6 +15,7 @@
 <!--                <th>판매여부</th>-->
 <!--                <th>카테고리</th>-->
                 <th>등록 일자</th>
+                <th>filename</th>
                 <th>이미지 보기</th>
                 <th></th>
             </tr>
@@ -28,8 +29,10 @@
 <!--                <td th:text="${item.saleStatus}"></td>-->
 <!--                <td th:text="${item.itemTypeId}"></td>-->
                 <td th:text="${#dates.format(item.createDatetime, 'yyyy-MM-dd HH:mm:ss')}">등록 일자</td>
+                <td th:text="${item.filename}"></td>
                 <td>
-                    <img th:src="@{${item.filepath}}"/>
+<!--                    <a th:href="@{${item.filepath}}">sibal</a>-->
+                    <img th:src="@{|/img/product/${item.filename}|}" width="100" height="100" alt=""/>
                 </td>
                 <td>
                     <a href="#" th:href="@{/items/{id}/edit (id=${item.itemId})}"

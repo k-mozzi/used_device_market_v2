@@ -2,6 +2,7 @@ package teamproject.usedmarket.service;
 
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import teamproject.usedmarket.domain.item.Item;
@@ -21,11 +22,13 @@ public class ItemServiceV1 implements ItemService {
 
     private final ItemRepository itemRepository;
 
+
     @Override
     public void save(Item item, MultipartFile file) throws IOException {
 
+        String projectPath = "C:\\Users\\82109\\";
 //        String projectPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\files";
-        String projectPath = System.getProperty("user.dir") + "/src/main/resources/static/files";
+//        String projectPath = System.getProperty("user.dir") + "/src/main/resources/static/files";
 
 
         UUID uuid = UUID.randomUUID();
@@ -37,7 +40,7 @@ public class ItemServiceV1 implements ItemService {
         file.transferTo(saveFile);
 
         item.setFilename(fileName);
-        item.setFilepath("/files/"+fileName);
+        item.setFilepath(projectPath+fileName);
 
         itemRepository.save(item);
     }
