@@ -10,7 +10,7 @@ import java.util.Optional;
 
 public interface ItemService {
 
-    void save(Item item, MultipartFile file) throws IOException;
+    void save(Item item, MultipartFile imageFiles) throws IOException;
 
     void update(Long itemId, ItemUpdateDto updateParam, MultipartFile file) throws IOException;
 

@@ -9,6 +9,7 @@ import org.springframework.web.util.UriUtils;
 import teamproject.usedmarket.domain.item.Item;
 import teamproject.usedmarket.repository.ItemRepository;
 import teamproject.usedmarket.repository.ItemUpdateDto;
+import teamproject.usedmarket.web.item.ItemForm;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,9 +30,11 @@ public class ItemServiceV1 implements ItemService {
     String projectPath = "C:\\Users\\82109\\Desktop\\spring_img";
     @Override
     public void save(Item item, MultipartFile file) throws IOException {
+
         if (file.getSize() == 0) {
             itemRepository.save(item);
         } else {
+
             UUID uuid = UUID.randomUUID();
 
             String un_fileName = uuid + "_" + file.getOriginalFilename();

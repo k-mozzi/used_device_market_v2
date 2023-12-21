@@ -57,7 +57,7 @@ public class ItemController {
     }
 
     @PostMapping("/add")
-    public String addItem(@ModelAttribute Item item,@RequestParam("file") MultipartFile file) throws IOException {
+    public String addItem(@ModelAttribute Item item,@RequestParam("imageFiles") MultipartFile file) throws IOException {
 
         item.setCreateDatetime(new Date());
         itemService.save(item, file);
