@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import teamproject.usedmarket.domain.item.Item;
 import teamproject.usedmarket.repository.ItemRepository;
 import teamproject.usedmarket.repository.ItemUpdateDto;
+import teamproject.usedmarket.repository.ViewsCountUpdateDto;
 
 import java.util.List;
 import java.util.Optional;
@@ -38,6 +39,11 @@ public class MyBatisItemRepository implements ItemRepository {
     @Override
     public void update(Long itemId, ItemUpdateDto updateParam) {
         itemMapper.update(itemId, updateParam);
+    }
+
+    @Override
+    public void updateViewsCount(Long itemId, ViewsCountUpdateDto updateParam) {
+        itemMapper.updateViewsCount(itemId, updateParam);
     }
 
     @Override

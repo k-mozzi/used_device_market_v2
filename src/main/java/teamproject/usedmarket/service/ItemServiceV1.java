@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 import teamproject.usedmarket.domain.item.Item;
 import teamproject.usedmarket.repository.ItemRepository;
 import teamproject.usedmarket.repository.ItemUpdateDto;
+import teamproject.usedmarket.repository.ViewsCountUpdateDto;
 
 import java.io.File;
 import java.io.IOException;
@@ -49,7 +50,12 @@ public class ItemServiceV1 implements ItemService {
 
     @Override
     public Optional<Item> findById(Long id) {
-        return itemRepository.findByItemId(id);
+        Optional<Item> findItem = itemRepository.findByItemId(id);
+        findItem.ifPresent(item -> {
+            ViewsCountUpdateDto updateParam = new ViewsCountUpdateDto(item.getViewsCount() + 1);
+            itemRepository.updateViewsCount(findItem.get().getItemId(), updateParam);
+        });
+        return findItem;
     }
 
     @Override
