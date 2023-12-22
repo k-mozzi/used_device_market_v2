@@ -30,7 +30,11 @@
                 </td>
                 <td th:text="${#dates.format(item.createDatetime, 'yyyy-MM-dd HH:mm:ss')}">등록 일자</td>
                 <td>
-                    <img th:if="${item.filename}" th:src="@{|/files/${item.getFilename()}|}" width="100" height="100"/>
+                    <block th:each="image : ${images}">
+<!--                    <img th:if="${item.filename}" th:src="@{|/files/${item.getFilename()}|}" width="100" height="100"/>-->
+                    <img th:if="${item.itemId == image.itemId}" th:each="image : ${image.imageFiles}"
+                     th:src="@{|/files/${image.filenames[0]}|}" width="100" height="100"/>
+                    </block>
                 </td>
 <!--                <td>-->
 <!--                    <a href="#" th:href="@{/items/{itemId}/edit (id=${item.itemId})}" class="btn btn-primary" role="button">수정</a>-->

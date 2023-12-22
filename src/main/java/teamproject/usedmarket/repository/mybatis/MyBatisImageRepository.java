@@ -30,8 +30,8 @@ public class MyBatisImageRepository implements ImageRepository {
     }
 
     @Override
-    public Optional<Item> findByItemId(Long itemId) {
-        return imageMapper.findById(itemId);
+    public Optional<ItemImage> findByItemId(Long itemId) {
+        return imageMapper.findByItemId(itemId);
     }
 
     @Override

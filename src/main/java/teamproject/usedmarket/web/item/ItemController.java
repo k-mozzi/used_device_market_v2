@@ -35,7 +35,9 @@ public class ItemController {
     @GetMapping
     public String items(Model model) {
         List<Item> items = itemService.findItems();
+        List<ItemImage> images = imageService.findImages();
         model.addAttribute("items", items);
+        model.addAttribute("images", images);
         return "item/items";
     }
 
@@ -63,7 +65,7 @@ public class ItemController {
     }
 
     @PostMapping("/add")
-    public String addItem(@ModelAttribute Item item,@RequestParam("imageFiles") MultipartFile file,Model model) throws IOException {
+    public String addItem(@ModelAttribute Item item,@RequestParam("imageFiles") List<MultipartFile> file,Model model) throws IOException {
 
 
         item.setCreateDatetime(new Date());
@@ -72,7 +74,7 @@ public class ItemController {
 
         log.info("id value = {}",saveditem.getItemId());
         ItemImage savedImage = imageService.save(saveditem.getItemId(), file);
-        model.addAttribute("image", savedImage);
+
 
         return "redirect:/items";
     }

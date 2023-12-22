@@ -16,7 +16,12 @@ public class ItemImage {
 
 //    private Item item;
     private Long itemId;
-    private String fileName;
+    private List<String> fileNames;
+    private String fileName1;
+    private String fileName2;
+    private String fileName3;
+    private String fileName4;
+    private String fileName5;
     private String filePath;
     private Integer orderingNumber;
     private List<MultipartFile> imageFiles;

@@ -9,8 +9,8 @@
 <!--    </resultMap>-->
 
     <insert id="save" useGeneratedKeys="true" keyProperty="itemImageId" >
-        insert into item_image (item_id, file_path, file_name, ordering_number, create_datetime)
-        values (#{itemId}, #{filePath}, #{fileName}, #{orderingNumber},
+        insert into item_image (item_id, file_path, file_name1, file_name2, file_name3, file_name4, file_name5, ordering_number, create_datetime)
+        values (#{itemId}, #{filePath}, #{fileNames.get(0)}, #{fileNames.get(1)}, #{fileNames.get(2)}, #{fileNames.get(3)}, #{fileNames.get(4)}, #{orderingNumber},
                 #{createDatetime, jdbcType=TIMESTAMP})
     </insert>
 
@@ -38,6 +38,10 @@
     <select id="findById" resultType="item">
         select * from item
         where item_id = #{itemId}
+    </select>
+
+   <select id="findByItemId" resultType="itemImage">
+        select file_name from item_image left join item on item_image.item_id = item.item_id;
     </select>
 
     <select id="findAll" resultType="itemImage">

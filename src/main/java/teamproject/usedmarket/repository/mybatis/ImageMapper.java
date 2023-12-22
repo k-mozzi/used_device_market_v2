@@ -21,6 +21,7 @@ public interface ImageMapper {
     List<ItemImage> findAll();
 
     Optional<Item> findById(Long id);
+    Optional<ItemImage> findByItemId(Long itemId);
 
     void delete(Long itemId);
 }

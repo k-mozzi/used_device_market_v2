@@ -11,7 +11,9 @@ public interface ImageRepository {
 
     public ItemImage save(ItemImage itemImage);
 
-    public Optional<Item> findByItemId(Long itemId);
+
+    public Optional<ItemImage> findByItemId(Long itemId);
+
 
     public List<ItemImage> findAll();
 
