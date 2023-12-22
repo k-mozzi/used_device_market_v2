@@ -58,4 +58,11 @@ public class MemberController {
         model.addAttribute("members", members);
         return "members/members";
     }
+
+//    @GetMapping
+//    public String memberInfo(Model model) {
+//        loginService.findOne()
+//        model.addAttribute("member", member);
+//        return "members/memberInfo";
+//    }
 }

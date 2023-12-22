@@ -21,16 +21,6 @@ public class HomeController {
     private final MemberRepository memberRepository;
 
     @GetMapping("/")
-    public String home() {
-        return "home";
-    }
-
-    @GetMapping("/loginHome")
-    public String loginHome() {
-        return "loginHome";
-    }
-
-//    @GetMapping("/")
     public String homeLogin(@CookieValue(name = "memberId", required = false) Long memberId, Model model) {
 
         if (memberId == null) {
@@ -47,4 +37,5 @@ public class HomeController {
         model.addAttribute("loginForm", loginMember);
         return "loginHome";
     }
+
 }
