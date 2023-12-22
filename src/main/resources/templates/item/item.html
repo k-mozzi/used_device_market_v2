@@ -30,7 +30,7 @@
         <input type="text" id="title" name="title" class="form-control" value="10000" th:value="${item.title}" disabled>
     </div>
     <div>
-        <img th:if="${item.filename}" th:src="@{|/files/${item.getFilename()}|}" width="400" height="400"/>
+        <img th:if=${image.fileNames}" th:each="image : ${image.fileNames}"  th:src="@{|/files/${image.fileNames}|}" width="400" height="400"/>
 <!--        <input type="text" id="title" name="title" class="form-control" value="10000" th:value="${item.title}" disabled>-->
     </div>
     <div>

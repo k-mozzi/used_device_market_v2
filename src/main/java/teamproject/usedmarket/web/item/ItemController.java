@@ -44,12 +44,15 @@ public class ItemController {
     @GetMapping("/{itemId}")
     public String item(@PathVariable long itemId, Model model) {
         Item item = itemService.findById(itemId).get();
+        ItemImage itemImage = imageService.findByitemId(itemId).get();
         if (item != null) {
             model.addAttribute("item", item);
             model.addAttribute("selectedItemTypeId", item.getItemTypeId());
             model.addAttribute("itemTypes", ItemType.values());
             model.addAttribute("selectedSaleStatus", item.getSaleStatus());
             model.addAttribute("statuses", SaleStatus.values());
+            model.addAttribute("image", itemImage);
+            itemService.incrementViewsCount(itemId);
             return "item/item";
         } else {
             // 아이템이 존재하지 않는 경우에 대한 예외 처리

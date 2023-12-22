@@ -97,10 +97,7 @@ public class ItemServiceV1 implements ItemService {
         findItem.ifPresent(item -> {
             itemRepository.incrementViewsCount(itemId);
             item.setViewsCount(item.getViewsCount() + 1);
-
         });
-
-//        return findItem;
     }
 
     @Override

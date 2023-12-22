@@ -41,7 +41,7 @@
     </select>
 
    <select id="findByItemId" resultType="itemImage">
-        select file_name from item_image left join item on item_image.item_id = item.item_id;
+        select item.item_id, file_name1, file_name2, file_name3, file_name4, file_name5 from item_image left join item on item_image.item_id = item.item_id;
     </select>
 
     <select id="findAll" resultType="itemImage">

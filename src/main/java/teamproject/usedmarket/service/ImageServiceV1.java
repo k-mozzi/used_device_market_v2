@@ -1,7 +1,9 @@
 package teamproject.usedmarket.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriUtils;
 import teamproject.usedmarket.domain.item.Item;
@@ -16,6 +18,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 @RequiredArgsConstructor
+@Slf4j
 @Service
 public class ImageServiceV1 implements ImageService {
 
@@ -38,6 +41,7 @@ public class ImageServiceV1 implements ImageService {
 
     @Override
     public ItemImage save(Long itemId, List<MultipartFile> file) throws IOException {
+
 
         ItemImage itemImage = new ItemImage();
         if (file.isEmpty()) {
@@ -64,26 +68,22 @@ public class ImageServiceV1 implements ImageService {
                 multipartFile.transferTo(saveFile); //저장
 
             }
+            log.info("fileTong크기= {}",fileTong.size());
 
-            itemImage.setFileName1("3bb22ce5-31d2-48ac-b53f-953314e48bf7_efefef.PNG");
-            itemImage.setFileName2("3bb22ce5-31d2-48ac-b53f-953314e48bf7_efefef.PNG");
-            itemImage.setFileName3("3bb22ce5-31d2-48ac-b53f-953314e48bf7_efefef.PNG");
-            itemImage.setFileName4("3bb22ce5-31d2-48ac-b53f-953314e48bf7_efefef.PNG");
-            itemImage.setFileName5("3bb22ce5-31d2-48ac-b53f-953314e48bf7_efefef.PNG");
 
-            if (!fileTong.isEmpty()){
+            if (fileTong !=null && file.size() > 0){
                 itemImage.setFileName1(fileTong.get(0));
             }
-            if (!fileTong.get(1).isEmpty()) {
+            if (fileTong !=null && file.size() > 1) {
                 itemImage.setFileName2(fileTong.get(1));
             }
-            if (!fileTong.get(2).isEmpty()) {
+            if (fileTong !=null && file.size() > 2) {
                 itemImage.setFileName3(fileTong.get(2));
             }
-            if (!fileTong.get(3).isEmpty()) {
+            if (fileTong !=null && file.size() > 3) {
                 itemImage.setFileName4(fileTong.get(3));
             }
-            if (!fileTong.get(4).isEmpty()) {
+            if (fileTong !=null && file.size() > 4) {
                 itemImage.setFileName5(fileTong.get(4));
             }
 

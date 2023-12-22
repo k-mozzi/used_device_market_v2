@@ -31,7 +31,7 @@
                 <td>
                     <block th:each="image : ${images}">
 <!--                    <img th:if="${item.filename}" th:src="@{|/files/${item.getFilename()}|}" width="100" height="100"/>-->
-                    <img th:if="${item.itemId == image.itemId}" th:src="@{|/files/${image.fileName1}|}" width="100" height="100"/>
+                    <img th:if="${item.itemId == image.itemId} and ${image.fileName1}" th:src="@{|/files/${image.fileName1}|}" width="100" height="100"/>
                     </block>
                 </td>
                 <!--                <td>-->
