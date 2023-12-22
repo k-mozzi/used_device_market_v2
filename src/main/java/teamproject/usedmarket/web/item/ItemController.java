@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import teamproject.usedmarket.domain.item.Item;
 import teamproject.usedmarket.domain.item.ItemType;
 import teamproject.usedmarket.domain.item.SaleStatus;
@@ -66,7 +67,7 @@ public class ItemController {
     }
 
     @GetMapping("/{itemId}/edit")
-    public String editForm(@PathVariable Long itemId, Model model, HttpSession session) {
+    public String editForm(@PathVariable Long itemId, Model model, HttpSession session, RedirectAttributes redirectAttributes) {
         Item item = itemService.findById(itemId).get();
 
         //셀러 아이디와 로그인 아이디가 동일할 때만 접근 가능! 일단 아이템 등록할 때 셀러 멤버 아이디 바인딩 해야 함
@@ -74,6 +75,7 @@ public class ItemController {
         Long sellerMemberId = item.getSellerMemberId();
         if (!currentMemberId.equals(sellerMemberId)) {
             log.info("아이디가 달라용");
+            redirectAttributes.addFlashAttribute("error", "타인의 게시물은 수정할 수 없습니다.");
             return "redirect:/items";
         }
 
@@ -91,13 +93,14 @@ public class ItemController {
     }
 
     @GetMapping("/{itemId}/delete")
-    public String delete(@PathVariable Long itemId, HttpSession session) {
+    public String delete(@PathVariable Long itemId, HttpSession session, RedirectAttributes redirectAttributes) {
         Item item = itemService.findById(itemId).get();
 
         Long currentMemberId = (Long) session.getAttribute("memberId");
         Long sellerMemberId = item.getSellerMemberId();
         if (!currentMemberId.equals(sellerMemberId)) {
             log.info("아이디가 달라용");
+            redirectAttributes.addFlashAttribute("error", "타인의 게시물은 삭제할 수 없습니다.");
             return "redirect:/items";
         }
 
