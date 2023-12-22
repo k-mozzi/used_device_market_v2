@@ -4,16 +4,15 @@
 <body>
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+    <div th:if="${not #strings.isEmpty(error)}" class="alert alert-danger" role="alert">
+        <p th:text="${error}"></p>
+    </div>
     <div>
         <table class="table table-striped">
             <thead>
             <tr>
                 <th>#</th>
                 <th>제목</th>
-                <!--                <th>가격</th>-->
-                <!--                <th>내용</th>-->
-                <!--                <th>판매여부</th>-->
-                <!--                <th>카테고리</th>-->
                 <th>등록 일자</th>
                 <th>이미지 보기</th>
                 <th></th>
