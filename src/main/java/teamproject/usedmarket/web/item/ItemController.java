@@ -12,6 +12,7 @@ import teamproject.usedmarket.domain.item.SaleStatus;
 import teamproject.usedmarket.repository.ItemUpdateDto;
 import teamproject.usedmarket.service.ItemService;
 
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
@@ -42,6 +43,7 @@ public class ItemController {
             model.addAttribute("itemTypes", ItemType.values());
             model.addAttribute("selectedSaleStatus", item.getSaleStatus());
             model.addAttribute("statuses", SaleStatus.values());
+            itemService.incrementViewsCount(itemId);
             return "item/item";
         } else {
             // 아이템이 존재하지 않는 경우에 대한 예외 처리
@@ -57,16 +59,24 @@ public class ItemController {
     }
 
     @PostMapping("/add")
-    public String addItem(@ModelAttribute Item item,@RequestParam("file") MultipartFile file) throws IOException {
-
+    public String addItem(@ModelAttribute Item item, @RequestParam("file") MultipartFile file, HttpSession session) throws IOException {
         item.setCreateDatetime(new Date());
-        itemService.save(item, file);
+        itemService.save(item, file, session);
         return "redirect:/items";
     }
 
     @GetMapping("/{itemId}/edit")
-    public String editForm(@PathVariable Long itemId, Model model) {
+    public String editForm(@PathVariable Long itemId, Model model, HttpSession session) {
         Item item = itemService.findById(itemId).get();
+
+        //셀러 아이디와 로그인 아이디가 동일할 때만 접근 가능! 일단 아이템 등록할 때 셀러 멤버 아이디 바인딩 해야 함
+        Long currentMemberId = (Long) session.getAttribute("memberId");
+        Long sellerMemberId = item.getSellerMemberId();
+        if (!currentMemberId.equals(sellerMemberId)) {
+            log.info("아이디가 달라용");
+            return "redirect:/items";
+        }
+
         model.addAttribute("item", item);
         model.addAttribute("itemTypes", ItemType.values());
         model.addAttribute("statuses", SaleStatus.values());
@@ -74,14 +84,23 @@ public class ItemController {
     }
 
     @PostMapping("/{itemId}/edit")
-    public String edit(@PathVariable Long itemId, @ModelAttribute ItemUpdateDto updateParam,@RequestParam("file") MultipartFile file) throws IOException {
+    public String edit(@PathVariable Long itemId, @ModelAttribute ItemUpdateDto updateParam, @RequestParam("file") MultipartFile file) throws IOException {
         updateParam.setUpdateDatetime(new Date());
         itemService.update(itemId, updateParam, file);
         return "redirect:/items/{itemId}";
     }
 
     @GetMapping("/{itemId}/delete")
-    public String delete(@PathVariable Long itemId) {
+    public String delete(@PathVariable Long itemId, HttpSession session) {
+        Item item = itemService.findById(itemId).get();
+
+        Long currentMemberId = (Long) session.getAttribute("memberId");
+        Long sellerMemberId = item.getSellerMemberId();
+        if (!currentMemberId.equals(sellerMemberId)) {
+            log.info("아이디가 달라용");
+            return "redirect:/items";
+        }
+
         itemService.delete(itemId);
         log.info("delete itemId={}", itemId);
         return "redirect:/items";

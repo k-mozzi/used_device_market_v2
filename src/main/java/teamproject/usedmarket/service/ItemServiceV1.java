@@ -8,7 +8,9 @@ import org.springframework.web.util.UriUtils;
 import teamproject.usedmarket.domain.item.Item;
 import teamproject.usedmarket.repository.ItemRepository;
 import teamproject.usedmarket.repository.ItemUpdateDto;
+import teamproject.usedmarket.repository.MemberRepository;
 
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -27,7 +29,12 @@ public class ItemServiceV1 implements ItemService {
 //    String projectPath = "C:\\Users\\82109\\Desktop\\spring_img";
 
     @Override
-    public void save(Item item, MultipartFile file) throws IOException {
+    public void save(Item item, MultipartFile file, HttpSession session) throws IOException {
+
+        //세션에서 멤버 아이디 가져온 후 아이템 객체의 setSellerMemberId에 바인딩
+        Long currentMemberId = (Long) session.getAttribute("memberId");
+        item.setSellerMemberId(currentMemberId);
+
         if (file.getSize() == 0) {
             itemRepository.save(item);
         } else {
@@ -50,7 +57,6 @@ public class ItemServiceV1 implements ItemService {
     @Override
     public void update(Long itemId, ItemUpdateDto updateParam, MultipartFile file) throws IOException {
         if (file.getSize() == 0) {
-
             Item findItem = itemRepository.findByItemId(itemId).get();
             updateParam.setFilename(findItem.getFilename());
             updateParam.setFilepath(findItem.getFilepath());
@@ -75,12 +81,16 @@ public class ItemServiceV1 implements ItemService {
 
     @Override
     public Optional<Item> findById(Long id) {
-        Optional<Item> findItem = itemRepository.findByItemId(id);
+        return itemRepository.findByItemId(id);
+    }
+
+    @Override
+    public void incrementViewsCount(Long itemId) {
+        Optional<Item> findItem = itemRepository.findByItemId(itemId);
         findItem.ifPresent(item -> {
-            itemRepository.incrementViewsCount(id);
+            itemRepository.incrementViewsCount(itemId);
             item.setViewsCount(item.getViewsCount() + 1);
         });
-        return findItem;
     }
 
     @Override
@@ -92,6 +102,5 @@ public class ItemServiceV1 implements ItemService {
     public void delete(Long itemId) {
         itemRepository.delete(itemId);
     }
-
 
 }
