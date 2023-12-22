@@ -36,7 +36,6 @@ public class LoginController {
      * 로그인 기능
      * 중복 아이디면 로그인 화면으로 돌아감
      */
-
     @PostMapping("/login")
     public String login(@Validated @ModelAttribute LoginForm form, BindingResult bindingResult,
                         @RequestParam(defaultValue = "/") String redirectURL,
@@ -61,6 +60,7 @@ public class LoginController {
         HttpSession session = request.getSession(); //request.getSession()의 디폴트가 true라 생략 가능
         //세션에 로그인 회원 정보 보관
         session.setAttribute(SessionConst.LOGIN_MEMBER, loginMember);
+        session.setAttribute("memberId", loginMember.getMemberId());
 
         return "redirect:" + redirectURL;
     }
