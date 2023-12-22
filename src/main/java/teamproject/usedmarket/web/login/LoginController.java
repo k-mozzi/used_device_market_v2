@@ -56,7 +56,7 @@ public class LoginController {
         //쿠키에 시간 정보를 주지 않으면 세션 쿠키로 설정됨(브라우저 종료시 모두 종료)
         Cookie idCookie = new Cookie("memberId", String.valueOf(loginMember.getMemberId()));
         response.addCookie(idCookie);
-        return "loginHome";
+        return "redirect:/";
     }
 
     @PostMapping("/logout")
