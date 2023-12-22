@@ -10,13 +10,13 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ImageService {
-    void save(Long itemId, MultipartFile imageFiles) throws IOException;
+    ItemImage save(Long itemId, MultipartFile imageFiles) throws IOException;
 
     void update(Long itemId, ItemUpdateDto updateParam, MultipartFile file) throws IOException;
 
     Optional<ItemImage> findById(Long id);
 
-//    List<Item> findItems();
+    List<ItemImage> findImages();
 
 //    void delete(Long itemId);
 }

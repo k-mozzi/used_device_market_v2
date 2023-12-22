@@ -2,11 +2,13 @@ package teamproject.usedmarket.web.item;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import teamproject.usedmarket.domain.item.Item;
+import teamproject.usedmarket.domain.item.ItemImage;
 import teamproject.usedmarket.domain.item.ItemType;
 import teamproject.usedmarket.domain.item.SaleStatus;
 import teamproject.usedmarket.repository.ItemUpdateDto;
@@ -16,6 +18,7 @@ import teamproject.usedmarket.service.ItemService;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 
 @Slf4j
@@ -26,6 +29,7 @@ public class ItemController {
 
     private final ItemService itemService;
     private final ImageService imageService;
+
 
 
     @GetMapping
@@ -59,11 +63,17 @@ public class ItemController {
     }
 
     @PostMapping("/add")
-    public String addItem(@ModelAttribute Item item,@RequestParam("imageFiles") MultipartFile file) throws IOException {
-//        imageService.save(item.getItemId(),file);
+    public String addItem(@ModelAttribute Item item,@RequestParam("imageFiles") MultipartFile file,Model model) throws IOException {
+
 
         item.setCreateDatetime(new Date());
-        itemService.save(item, file);
+        Item saveditem = itemService.save(item,null);
+
+
+        log.info("id value = {}",saveditem.getItemId());
+        ItemImage savedImage = imageService.save(saveditem.getItemId(), file);
+        model.addAttribute("image", savedImage);
+
         return "redirect:/items";
     }
 

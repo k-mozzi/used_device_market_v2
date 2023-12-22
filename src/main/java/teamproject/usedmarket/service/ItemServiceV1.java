@@ -22,16 +22,19 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class ItemServiceV1 implements ItemService {
 
-    public static final String FILE_PATH = "/Users/kimgang/Documents/SpringProject/imageFile";
+//    public static final String FILE_PATH = "/Users/kimgang/Documents/SpringProject/imageFile";
     private final ItemRepository itemRepository;
 
-//    String projectPath = "C:\\Users\\82109\\Desktop\\spring_img";
+    String FILE_PATH = "C:\\Users\\82109\\Desktop\\spring_img";
 
     @Override
-    public void save(Item item, MultipartFile file) throws IOException {
-
-        if (file.getSize() == 0) {
-            itemRepository.save(item);
+    public Item save(Item item, MultipartFile file) throws IOException {
+        if (file == null) {
+            Item itemzero1 = itemRepository.save(item);
+            return itemzero1;
+        } else if (file.getSize() == 0) {
+            Item itemzero = itemRepository.save(item);
+            return itemzero;
         } else {
 
             UUID uuid = UUID.randomUUID();
@@ -46,7 +49,8 @@ public class ItemServiceV1 implements ItemService {
             item.setFilename(fileName);
             item.setFilepath("/files/" + fileName);
 
-            itemRepository.save(item);
+            Item itemYes = itemRepository.save(item);
+            return itemYes;
         }
     }
 
