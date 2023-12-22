@@ -17,6 +17,8 @@ public interface ItemService {
 
     Optional<Item> findById(Long id);
 
+    String findMemberNameBySellerMemberId(Long sellerMemberId, Long itemId);
+
     void incrementViewsCount(Long itemId);
 
     List<Item> findItems();

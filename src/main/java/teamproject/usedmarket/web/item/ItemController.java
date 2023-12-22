@@ -44,7 +44,9 @@ public class ItemController {
     @GetMapping("/{itemId}")
     public String item(@PathVariable long itemId, Model model) {
         Item item = itemService.findById(itemId).get();
-        ItemImage itemImage = imageService.findByitemId(itemId).get();
+        Long sellerMemberId = item.getSellerMemberId();
+        String foundMemberName = itemService.findMemberNameBySellerMemberId(sellerMemberId, itemId);
+//        ItemImage itemImage = imageService.findByitemId(itemId).get();
         if (item != null) {
             model.addAttribute("item", item);
             model.addAttribute("selectedItemTypeId", item.getItemTypeId());
@@ -52,6 +54,7 @@ public class ItemController {
             model.addAttribute("selectedSaleStatus", item.getSaleStatus());
             model.addAttribute("statuses", SaleStatus.values());
             model.addAttribute("image", itemImage);
+            model.addAttribute("foundMemberName", foundMemberName);
             itemService.incrementViewsCount(itemId);
             return "item/item";
         } else {

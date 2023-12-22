@@ -31,6 +31,12 @@ public class MyBatisItemRepository implements ItemRepository {
     }
 
     @Override
+    public String findMemberNameBySellerMemberId(Long sellerMemberId, Long itemId) {
+        log.info("sellerMemberId={}", sellerMemberId);
+        return itemMapper.findMemberNameBySellerMemberId(sellerMemberId, itemId);
+    }
+
+    @Override
     public List<Item> findAll() {
         return itemMapper.findAll();
     }
@@ -49,10 +55,5 @@ public class MyBatisItemRepository implements ItemRepository {
     public void delete(Long itemId) {
         itemMapper.delete(itemId);
     }
-
-
-
-
-
 
 }

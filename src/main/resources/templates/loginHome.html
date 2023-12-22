@@ -7,6 +7,7 @@
 <body>
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader" />
+    <h4 class="mb-3" th:text="|사용자: ${member.memberName}|">로그인 사용자 이름</h4>
     <div class="jumbotron">
         <h1>HELLO SHOP</h1>
         <p class="lead">회원 기능</p>

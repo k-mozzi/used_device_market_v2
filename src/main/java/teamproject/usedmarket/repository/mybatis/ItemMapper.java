@@ -20,6 +20,8 @@ public interface ItemMapper {
 
     Optional<Item> findById(Long id);
 
+    String findMemberNameBySellerMemberId(Long sellerMemberId, Long itemId);
+
     void delete(Long itemId);
 
 }

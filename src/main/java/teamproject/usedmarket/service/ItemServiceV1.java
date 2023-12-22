@@ -92,6 +92,11 @@ public class ItemServiceV1 implements ItemService {
     }
 
     @Override
+    public String findMemberNameBySellerMemberId(Long sellerMemberId, Long itemId) {
+        return itemRepository.findMemberNameBySellerMemberId(sellerMemberId, itemId);
+    }
+
+    @Override
     public void incrementViewsCount(Long itemId) {
         Optional<Item> findItem = itemRepository.findByItemId(itemId);
         findItem.ifPresent(item -> {
