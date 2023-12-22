@@ -38,12 +38,16 @@ public class ItemController {
     @GetMapping("/{itemId}")
     public String item(@PathVariable long itemId, Model model) {
         Item item = itemService.findById(itemId).get();
+        Long sellerMemberId = item.getSellerMemberId();
+        String foundMemberName = itemService.findMemberNameBySellerMemberId(sellerMemberId, itemId);
+
         if (item != null) {
             model.addAttribute("item", item);
             model.addAttribute("selectedItemTypeId", item.getItemTypeId());
             model.addAttribute("itemTypes", ItemType.values());
             model.addAttribute("selectedSaleStatus", item.getSaleStatus());
             model.addAttribute("statuses", SaleStatus.values());
+            model.addAttribute("foundMemberName", foundMemberName);
             itemService.incrementViewsCount(itemId);
             return "item/item";
         } else {
