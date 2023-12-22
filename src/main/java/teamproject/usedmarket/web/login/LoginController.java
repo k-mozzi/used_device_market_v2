@@ -8,11 +8,13 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import teamproject.usedmarket.SessionConst;
 import teamproject.usedmarket.service.LoginService;
 import teamproject.usedmarket.domain.member.Member;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @Slf4j
 @Data
@@ -34,49 +36,42 @@ public class LoginController {
      * 로그인 기능
      * 중복 아이디면 로그인 화면으로 돌아감
      */
+
     @PostMapping("/login")
-    public String login(@Validated @ModelAttribute LoginForm loginForm,
-                        BindingResult bindingResult, HttpServletResponse response) {
+    public String login(@Validated @ModelAttribute LoginForm form, BindingResult bindingResult,
+                        @RequestParam(defaultValue = "/") String redirectURL,
+                        HttpServletRequest request) {
+
         //검증 로직
         if (bindingResult.hasErrors()) {
             log.info("errors={}", bindingResult);
             return "login/loginForm";
         }
 
-        Member loginMember = loginService.login(loginForm.getLoginId(), loginForm.getPassword());
+        Member loginMember = loginService.login(form.getLoginId(), form.getPassword());
 
         //로그인 실패 로직
         if (loginMember == null) {
             bindingResult.reject("loginFail", "아이디 또는 비밀번호가 맞지 않습니다.");
-            log.info("errors={}", bindingResult);
             return "login/loginForm";
         }
 
         //로그인 성공 처리
-        //쿠키에 시간 정보를 주지 않으면 세션 쿠키로 설정됨(브라우저 종료시 모두 종료)
-        Cookie idCookie = new Cookie("memberId", String.valueOf(loginMember.getMemberId()));
-        response.addCookie(idCookie);
-        return "redirect:/";
+        //세션이 있으면 있는 세션 반환, 없으면 신규 세션 생성
+        HttpSession session = request.getSession(); //request.getSession()의 디폴트가 true라 생략 가능
+        //세션에 로그인 회원 정보 보관
+        session.setAttribute(SessionConst.LOGIN_MEMBER, loginMember);
+
+        return "redirect:" + redirectURL;
     }
 
     @PostMapping("/logout")
-    public String logout(HttpServletResponse response) {
-
-        //쿠키로 로그인 사용자 인증해서 로직을 변경했음
-        expireCookie(response, "memberId");
+    public String logoutV3(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
         return "redirect:/";
-
-//        //세션을 삭제한다.
-//        HttpSession session = request.getSession(false);
-//        if (session != null) {
-//            session.invalidate();
-//        }
-//        return "redirect:/login";
     }
 
-    private void expireCookie(HttpServletResponse response, String cookieName) {
-        Cookie cookie = new Cookie(cookieName, null);
-        cookie.setMaxAge(0);
-        response.addCookie(cookie);
-    }
 }
