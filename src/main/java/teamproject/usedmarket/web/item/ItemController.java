@@ -11,6 +11,7 @@ import teamproject.usedmarket.domain.item.ItemImage;
 import teamproject.usedmarket.domain.item.ItemType;
 import teamproject.usedmarket.domain.item.SaleStatus;
 import teamproject.usedmarket.repository.ItemUpdateDto;
+import teamproject.usedmarket.service.ImageService;
 import teamproject.usedmarket.service.ItemService;
 
 import javax.servlet.http.HttpSession;
@@ -63,10 +64,10 @@ public class ItemController {
     }
 
     @PostMapping("/add")
-    public String addItem(@ModelAttribute Item item, @RequestParam("file") MultipartFile file, HttpSession session) throws IOException {
+    public String addItem(@ModelAttribute Item item, @RequestParam("imageFiles") List<MultipartFile> file, HttpSession session) throws IOException {
         item.setCreateDatetime(new Date());
-        itemService.save(item, null, session);
-        log.info("id value = {}",saveditem.getItemId());
+        Item saveditem = itemService.save(item, null, session);
+        log.info("id value = {}", saveditem.getItemId());
         ItemImage savedImage = imageService.save(saveditem.getItemId(), file);
 
 

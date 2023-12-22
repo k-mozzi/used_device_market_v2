@@ -10,7 +10,7 @@
 
     <insert id="save" useGeneratedKeys="true" keyProperty="itemImageId" >
         insert into item_image (item_id, file_path, file_name1, file_name2, file_name3, file_name4, file_name5, ordering_number, create_datetime)
-        values (#{itemId}, #{filePath}, #{fileNames.get(0)}, #{fileNames.get(1)}, #{fileNames.get(2)}, #{fileNames.get(3)}, #{fileNames.get(4)}, #{orderingNumber},
+        values (#{itemId}, #{filePath}, #{fileName1}, #{fileName2}, #{fileName3}, #{fileName4}, #{fileName5}, #{orderingNumber},
                 #{createDatetime, jdbcType=TIMESTAMP})
     </insert>
 
