@@ -10,6 +10,7 @@ import teamproject.usedmarket.repository.ItemRepository;
 import teamproject.usedmarket.repository.ItemUpdateDto;
 import teamproject.usedmarket.web.item.ItemForm;
 
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -22,21 +23,21 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class ItemServiceV1 implements ItemService {
 
-//    public static final String FILE_PATH = "/Users/kimgang/Documents/SpringProject/imageFile";
+    public static final String FILE_PATH = "/Users/kimgang/Documents/SpringProject/imageFile";
     private final ItemRepository itemRepository;
 
-    String FILE_PATH = "C:\\Users\\82109\\Desktop\\spring_img";
+//    String projectPath = "C:\\Users\\82109\\Desktop\\spring_img";
 
     @Override
-    public Item save(Item item, MultipartFile file) throws IOException {
-        if (file == null) {
-            Item itemzero1 = itemRepository.save(item);
-            return itemzero1;
-        } else if (file.getSize() == 0) {
-            Item itemzero = itemRepository.save(item);
-            return itemzero;
-        } else {
+    public void save(Item item, MultipartFile file, HttpSession session) throws IOException {
 
+        //세션에서 멤버 아이디 가져온 후 아이템 객체의 setSellerMemberId에 바인딩
+        Long currentMemberId = (Long) session.getAttribute("memberId");
+        item.setSellerMemberId(currentMemberId);
+
+        if (file.getSize() == 0) {
+            itemRepository.save(item);
+        } else {
             UUID uuid = UUID.randomUUID();
 
             String un_fileName = uuid + "_" + file.getOriginalFilename();
@@ -49,8 +50,7 @@ public class ItemServiceV1 implements ItemService {
             item.setFilename(fileName);
             item.setFilepath("/files/" + fileName);
 
-            Item itemYes = itemRepository.save(item);
-            return itemYes;
+            itemRepository.save(item);
         }
     }
 
@@ -82,9 +82,14 @@ public class ItemServiceV1 implements ItemService {
 
     @Override
     public Optional<Item> findById(Long id) {
-        Optional<Item> findItem = itemRepository.findByItemId(id);
+        return itemRepository.findByItemId(id);
+    }
+
+    @Override
+    public void incrementViewsCount(Long itemId) {
+        Optional<Item> findItem = itemRepository.findByItemId(itemId);
         findItem.ifPresent(item -> {
-            itemRepository.incrementViewsCount(id);
+            itemRepository.incrementViewsCount(itemId);
             item.setViewsCount(item.getViewsCount() + 1);
         });
         return findItem;
