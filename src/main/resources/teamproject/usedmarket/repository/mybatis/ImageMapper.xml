@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="teamproject.usedmarket.repository.mybatis.ImageMapper">
+
+    <resultMap id="sibal" type="teamproject.usedmarket.domain.item.ItemImage">
+        <result column="item_image_id" property="itemImageId" javaType="Long" jdbcType="" />
+
+    </resultMap>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="itemImageId" >
+        insert into item (item_id, file_path, ordering_number, create_datetime)
+        values (#{item_id}, #{filePath}, #{orderingNumber},
+                #{createDatetime, jdbcType=TIMESTAMP})
+    </insert>
+
+
+
+    <update id="update" >
+        update item
+        set title=#{updateParam.title},
+            content=#{updateParam.content},
+            price=#{updateParam.price},
+            item_type_id=#{updateParam.itemTypeId},
+            sale_status=#{updateParam.saleStatus},
+            update_datetime=#{updateParam.updateDatetime, jdbcType=TIMESTAMP},
+            filename=#{updateParam.filename},
+            filepath=#{updateParam.filepath}
+        where item_id = #{itemId}
+    </update>
+
+    <update id="incrementViewsCount">
+        update item
+        set views_count = views_count + 1
+        where item_id = #{itemId}
+    </update>
+
+    <select id="findById" resultType="item">
+        select * from item
+        where item_id = #{itemId}
+    </select>
+
+    <select id="findAll" resultType="item">
+        select * from item order by item_id desc
+    </select>
+
+    <!--    <select id="findAll" resultType="Item">-->
+    <!--        select id, item_name, price, quantity-->
+    <!--        from item-->
+    <!--        <where>-->
+    <!--            <if test="itemName != null and itemName != ''">-->
+    <!--                and item_name like concat('%',#{itemName},'%')-->
+    <!--            </if>-->
+    <!--            <if test="maxPrice != null">-->
+    <!--                and price &lt;= #{maxPrice}-->
+    <!--            </if>-->
+    <!--        </where>-->
+    <!--    </select>-->
+
+    <delete id="delete">
+        delete from item
+        where item_id = #{itemId}
+    </delete>
+</mapper>

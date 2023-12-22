@@ -10,6 +10,7 @@ import teamproject.usedmarket.domain.item.Item;
 import teamproject.usedmarket.domain.item.ItemType;
 import teamproject.usedmarket.domain.item.SaleStatus;
 import teamproject.usedmarket.repository.ItemUpdateDto;
+import teamproject.usedmarket.service.ImageService;
 import teamproject.usedmarket.service.ItemService;
 
 import java.io.IOException;
@@ -24,6 +25,7 @@ import java.util.List;
 public class ItemController {
 
     private final ItemService itemService;
+    private final ImageService imageService;
 
 
     @GetMapping
@@ -58,6 +60,7 @@ public class ItemController {
 
     @PostMapping("/add")
     public String addItem(@ModelAttribute Item item,@RequestParam("imageFiles") MultipartFile file) throws IOException {
+//        imageService.save(item.getItemId(),file);
 
         item.setCreateDatetime(new Date());
         itemService.save(item, file);

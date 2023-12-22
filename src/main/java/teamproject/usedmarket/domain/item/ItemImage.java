@@ -12,7 +12,9 @@ import java.util.List;
 @Data
 public class ItemImage {
 
-    private int ItemImageId;
+    private int itemImageId;
+
+//    private Item item;
     private Long itemId;
     private String filePath;
     private Integer orderingNumber;
