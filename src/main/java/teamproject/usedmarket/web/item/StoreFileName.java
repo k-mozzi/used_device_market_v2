@@ -6,7 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @Data
-public class ItemForm {
+public class StoreFileName {
 
     private Long itemId;
     private String itemName;

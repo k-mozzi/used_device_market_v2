@@ -8,7 +8,6 @@ import org.springframework.web.util.UriUtils;
 import teamproject.usedmarket.domain.item.Item;
 import teamproject.usedmarket.repository.ItemRepository;
 import teamproject.usedmarket.repository.ItemUpdateDto;
-import teamproject.usedmarket.repository.MemberRepository;
 
 import javax.servlet.http.HttpSession;
 import java.io.File;
@@ -23,21 +22,26 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class ItemServiceV1 implements ItemService {
 
-    public static final String FILE_PATH = "/Users/kimgang/Documents/SpringProject/imageFile";
+//    public static final String FILE_PATH = "/Users/kimgang/Documents/SpringProject/imageFile";
     private final ItemRepository itemRepository;
 
-//    String projectPath = "C:\\Users\\82109\\Desktop\\spring_img";
+    String FILE_PATH = "C:\\Users\\82109\\Desktop\\spring_img";
 
     @Override
-    public void save(Item item, MultipartFile file, HttpSession session) throws IOException {
+    public Item save(Item item, MultipartFile file, HttpSession session) throws IOException {
 
         //세션에서 멤버 아이디 가져온 후 아이템 객체의 setSellerMemberId에 바인딩
         Long currentMemberId = (Long) session.getAttribute("memberId");
         item.setSellerMemberId(currentMemberId);
 
-        if (file.getSize() == 0) {
-            itemRepository.save(item);
+        if (file == null) {
+            Item itemzero1 = itemRepository.save(item);
+            return itemzero1;
+        } else if (file.getSize() == 0) {
+            Item itemzero = itemRepository.save(item);
+            return itemzero;
         } else {
+
             UUID uuid = UUID.randomUUID();
 
             String un_fileName = uuid + "_" + file.getOriginalFilename();
@@ -50,13 +54,15 @@ public class ItemServiceV1 implements ItemService {
             item.setFilename(fileName);
             item.setFilepath("/files/" + fileName);
 
-            itemRepository.save(item);
+            Item itemYes = itemRepository.save(item);
+            return itemYes;
         }
     }
 
     @Override
     public void update(Long itemId, ItemUpdateDto updateParam, MultipartFile file) throws IOException {
-        if (file.getSize() == 0) {
+        if (file == null) {
+
             Item findItem = itemRepository.findByItemId(itemId).get();
             updateParam.setFilename(findItem.getFilename());
             updateParam.setFilepath(findItem.getFilepath());
@@ -107,5 +113,6 @@ public class ItemServiceV1 implements ItemService {
     public void delete(Long itemId) {
         itemRepository.delete(itemId);
     }
+
 
 }

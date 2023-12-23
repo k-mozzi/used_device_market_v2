@@ -1,8 +1,10 @@
 package teamproject.usedmarket.domain.item;
 
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * 첨부파일
@@ -10,12 +12,14 @@ import java.util.Date;
 @Data
 public class ItemImage {
 
-    private int ItemImageId;
+    private int itemImageId;
     private Long itemId;
+    private String fileName;
     private String filePath;
     private Integer orderingNumber;
     private Date createDatetime;
     private Date updateDatetime;
+    private boolean repImageCheck;
 
 
 

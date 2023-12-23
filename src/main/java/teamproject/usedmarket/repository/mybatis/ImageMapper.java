@@ -1,27 +1,28 @@
 package teamproject.usedmarket.repository.mybatis;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import teamproject.usedmarket.domain.item.Item;
+import teamproject.usedmarket.domain.item.ItemImage;
 import teamproject.usedmarket.repository.ItemUpdateDto;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
 @Mapper
-public interface ItemMapper {
+public interface ImageMapper {
 
-    void save(Item item);
+    void save(ItemImage itemImage);
 
     void update(@Param("itemId") Long itemId, @Param("updateParam") ItemUpdateDto updateParam);
 
     void incrementViewsCount(Long itemId);
 
-    List<Item> findAll();
+    List<ItemImage> findAll();
 
     Optional<Item> findById(Long id);
-
-    String findMemberNameBySellerMemberId(@Param("sellerMemberId") Long sellerMemberId, Long itemId);
+    List<ItemImage> findByItemId(@Param("itemId") Long itemId);
 
     void delete(Long itemId);
-
 }

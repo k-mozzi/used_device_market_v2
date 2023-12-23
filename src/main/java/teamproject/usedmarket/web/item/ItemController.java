@@ -8,9 +8,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import teamproject.usedmarket.domain.item.Item;
+import teamproject.usedmarket.domain.item.ItemImage;
 import teamproject.usedmarket.domain.item.ItemType;
 import teamproject.usedmarket.domain.item.SaleStatus;
 import teamproject.usedmarket.repository.ItemUpdateDto;
+import teamproject.usedmarket.service.ImageService;
 import teamproject.usedmarket.service.ItemService;
 
 import javax.servlet.http.HttpSession;
@@ -26,12 +28,16 @@ import java.util.List;
 public class ItemController {
 
     private final ItemService itemService;
+    private final ImageService imageService;
+
 
 
     @GetMapping
     public String items(Model model) {
         List<Item> items = itemService.findItems();
+        List<ItemImage> images = imageService.findImages();
         model.addAttribute("items", items);
+        model.addAttribute("images", images);
         return "item/items";
     }
 
@@ -39,14 +45,15 @@ public class ItemController {
     public String item(@PathVariable long itemId, Model model) {
         Item item = itemService.findById(itemId).get();
         Long sellerMemberId = item.getSellerMemberId();
+        List<ItemImage> itemImages = imageService.findByItemId(itemId);
         String foundMemberName = itemService.findMemberNameBySellerMemberId(sellerMemberId, itemId);
-
         if (item != null) {
             model.addAttribute("item", item);
             model.addAttribute("selectedItemTypeId", item.getItemTypeId());
             model.addAttribute("itemTypes", ItemType.values());
             model.addAttribute("selectedSaleStatus", item.getSaleStatus());
             model.addAttribute("statuses", SaleStatus.values());
+            model.addAttribute("itemImages", itemImages);
             model.addAttribute("foundMemberName", foundMemberName);
             itemService.incrementViewsCount(itemId);
             return "item/item";
@@ -64,15 +71,20 @@ public class ItemController {
     }
 
     @PostMapping("/add")
-    public String addItem(@ModelAttribute Item item, @RequestParam("file") MultipartFile file, HttpSession session) throws IOException {
+    public String addItem(@ModelAttribute Item item, @RequestParam("imageFiles") List<MultipartFile> file, HttpSession session) throws IOException {
         item.setCreateDatetime(new Date());
-        itemService.save(item, file, session);
+        Item saveditem = itemService.save(item, null, session);
+        log.info("id value = {}", saveditem.getItemId());
+        imageService.save(saveditem.getItemId(), file);
+
+
         return "redirect:/items";
     }
 
     @GetMapping("/{itemId}/edit")
     public String editForm(@PathVariable Long itemId, Model model, HttpSession session, RedirectAttributes redirectAttributes) {
         Item item = itemService.findById(itemId).get();
+        List<ItemImage> itemImages = imageService.findByItemId(itemId);
 
         //셀러 아이디와 로그인 아이디가 동일할 때만 접근 가능! 일단 아이템 등록할 때 셀러 멤버 아이디 바인딩 해야 함
         Long currentMemberId = (Long) session.getAttribute("memberId");
@@ -86,13 +98,15 @@ public class ItemController {
         model.addAttribute("item", item);
         model.addAttribute("itemTypes", ItemType.values());
         model.addAttribute("statuses", SaleStatus.values());
+        model.addAttribute("itemImages", itemImages);
         return "item/editForm";
     }
 
     @PostMapping("/{itemId}/edit")
-    public String edit(@PathVariable Long itemId, @ModelAttribute ItemUpdateDto updateParam, @RequestParam("file") MultipartFile file) throws IOException {
+    public String edit(@PathVariable Long itemId, @ModelAttribute ItemUpdateDto updateParam, @RequestParam("imageFiles") List<MultipartFile> file) throws IOException {
         updateParam.setUpdateDatetime(new Date());
-        itemService.update(itemId, updateParam, file);
+        itemService.update(itemId, updateParam, null);
+        imageService.save(itemId,file);
         return "redirect:/items/{itemId}";
     }
 
