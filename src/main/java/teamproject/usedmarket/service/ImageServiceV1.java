@@ -43,43 +43,37 @@ public class ImageServiceV1 implements ImageService {
     public void save(Long itemId, List<MultipartFile> file) throws IOException {
 
 
-        ItemImage itemImage = new ItemImage();
-        if (file.isEmpty()) {
-            itemImage.setItemId(itemId);
-            itemImage.setCreateDatetime(new Date());
-            imageRepository.save(itemImage);
-        } else {
+                    ItemImage itemImage = new ItemImage();
                 for (MultipartFile multipartFile : file) {
-                    itemImage.setRepImageCheck(false);
-                    if (imageRepository.findByItemId(itemId).isEmpty()) {
-                        itemImage.setRepImageCheck(true);
+                    if (multipartFile.getSize() == 0) {
+
+                    } else {
+                        itemImage.setRepImageCheck(false);
+                        if (imageRepository.findByItemId(itemId).isEmpty()) {
+                            itemImage.setRepImageCheck(true);
+                        }
+
+                        itemImage.setItemId(itemId);
+                        itemImage.setCreateDatetime(new Date());
+
+                        UUID uuid = UUID.randomUUID();
+                        String un_fileName = uuid + "_" + multipartFile.getOriginalFilename();
+                        String fileName = UriUtils.encode(un_fileName, StandardCharsets.UTF_8);
+
+
+                        File saveFile = new File(FILE_PATH, fileName); //경로, 파일이름 지정
+
+                        multipartFile.transferTo(saveFile); //저장
+
+                        itemImage.setFileName(fileName);
+                        itemImage.setFilePath("/files/"+fileName);
+                        imageRepository.save(itemImage);
                     }
-
-                    itemImage.setItemId(itemId);
-                    itemImage.setCreateDatetime(new Date());
-
-                    UUID uuid = UUID.randomUUID();
-                    String un_fileName = uuid + "_" + multipartFile.getOriginalFilename();
-                    String fileName = UriUtils.encode(un_fileName, StandardCharsets.UTF_8);
-
-
-                    File saveFile = new File(FILE_PATH, fileName); //경로, 파일이름 지정
-
-                    multipartFile.transferTo(saveFile); //저장
-
-                    itemImage.setFileName(fileName);
-                    itemImage.setFilePath("/files/"+fileName);
-                    imageRepository.save(itemImage);
                 }
-
-
-
-
-
 
         }
 
-}
+
 
     @Override
     public void update(Long itemId, ItemUpdateDto updateParam, MultipartFile file) throws IOException {
