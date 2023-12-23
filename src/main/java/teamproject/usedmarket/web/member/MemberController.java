@@ -59,10 +59,10 @@ public class MemberController {
         return "members/members";
     }
 
-//    @GetMapping
-//    public String memberInfo(Model model) {
-//        loginService.findOne()
-//        model.addAttribute("member", member);
-//        return "members/memberInfo";
-//    }
+    @GetMapping("/memberInfo")
+    public String memberInfo(Model model) {
+        loginService.findOne()
+        model.addAttribute("member", member);
+        return "members/memberInfo";
+    }
 }

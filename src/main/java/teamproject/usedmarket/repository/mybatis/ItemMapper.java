@@ -20,7 +20,7 @@ public interface ItemMapper {
 
     Optional<Item> findById(Long id);
 
-    String findMemberNameBySellerMemberId(@Param("sellerMemberId") Long sellerMemberId, Long itemId);
+    String findMemberNameBySellerMemberId(@Param("sellerMemberId") Long sellerMemberId, @Param("itemId") Long itemId);
 
     void delete(Long itemId);
 
