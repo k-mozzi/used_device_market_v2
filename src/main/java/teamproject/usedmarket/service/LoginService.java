@@ -51,8 +51,8 @@ public class LoginService {
         return memberRepository.findAll();
     }
 
-    public Optional<Member> findOne(String loginId) {
-        return memberRepository.findByLoginId(loginId);
+    public Optional<Member> findOne(Long memberId) {
+        return memberRepository.findByMemberId(memberId);
     }
 
 }

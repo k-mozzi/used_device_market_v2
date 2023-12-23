@@ -6,10 +6,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import teamproject.usedmarket.domain.item.Item;
+import teamproject.usedmarket.domain.item.ItemImage;
+import teamproject.usedmarket.domain.item.ItemType;
+import teamproject.usedmarket.domain.item.SaleStatus;
 import teamproject.usedmarket.domain.member.Region;
 import teamproject.usedmarket.service.LoginService;
 import teamproject.usedmarket.domain.member.Member;
@@ -59,10 +60,14 @@ public class MemberController {
         return "members/members";
     }
 
-    @GetMapping("/memberInfo")
-    public String memberInfo(Model model) {
-        loginService.findOne()
+    @GetMapping("/{memberId}")
+    public String memberInfo(@PathVariable long memberId, Model model) {
+
+        Member member = loginService.findOne(memberId).get();
         model.addAttribute("member", member);
+        model.addAttribute("selectedRegionId", member.getRegionId());
+        model.addAttribute("regions", Region.values());
         return "members/memberInfo";
     }
+
 }

@@ -9,19 +9,16 @@
     </insert>
 
     <select id="findByMemberId" resultType="Member">
-        select member_id, login_id, member_name, password
-        from member
+        select * from member
         where member_id = #{member_id}
     </select>
 
     <select id="findByLoginId" resultType="Member">
-        select member_id, login_id, member_name, password
-        from member
+        select * from member
         where login_id = #{login_id}
     </select>
 
     <select id="findAll" resultType="Member">
-        select member_id, login_id, member_name, password, region_id, create_datetime, update_datetime
-        from member
+        select * from member
     </select>
 </mapper>

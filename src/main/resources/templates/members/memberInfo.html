@@ -1,13 +1,70 @@
-<!doctype html>
+<!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <meta charset="utf-8">
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container {
+            max-width: 560px;
+        }
+    </style>
 </head>
 <body>
-    마이페이지
+
+<div class="container">
+
+    <div class="py-5 text-center">
+        <h2>회원 상세</h2>
+    </div>
+    <div>
+        <label for="memberId">회원 ID</label>
+        <input type="text" id="memberId" name="memberId" class="form-control" th:value="${member.memberId}" disabled>
+    </div>
+    <div>
+        <label for="memberName">회원 이름</label>
+        <input type="text" id="memberName" name="memberName" class="form-control" th:value="${member.memberName}" disabled>
+    </div>
+    <div>
+        <div>지역</div>
+        <select id="region" name="region" class="form-control" th:field="${member.regionId}" disabled>
+            <option th:each="region : ${regions}" th:value="${region.regionId}" th:text="${region.description}"
+                    th:selected="${region.regionId == selectedRegionId}"/>
+        </select>
+    </div>
+    <div>
+        <label for="createDatetime">회원가입 일시</label>
+        <input type="text" id="createDatetime" name="createDatetime" class="form-control"
+                th:value="${member.createDatetime != null ? #dates.format(member.createDatetime, 'yyyy-MM-dd HH:mm:ss') : ''}" disabled>
+    </div>
+    <!--  수정 이력이 있는 경우에만 수정일 출력  -->
+    <div th:if="${member.updateDatetime != null}">
+        <div>최종 수정 일자: <span th:text="${#dates.format(member.updateDatetime, 'yyyy-MM-dd HH:mm:ss')}"></span></div>
+    </div>
+
+    <hr class="my-4">
+
+    <div class="row">
+        <div class="col">
+            <button class="w-100 btn btn-primary btn-lg"
+                    th:onclick="|location.href='@{/members/{memberId}/edit(memberId=${member.memberId})}'|"
+                    type="button">회원 정보 수정
+            </button>
+        </div>
+        <div class="col">
+            <button class="w-100 btn btn-secondary btn-lg"
+                    th:onclick="|location.href='@{/}'|"
+                    type="button">홈으로
+            </button>
+        </div>
+        <div class="col">
+            <button class="w-100 btn btn-danger btn-lg"
+                    th:onclick="|location.href='@{/members/{memberId}/delete(memberId=${member.memberId})}'|"
+                    type="button">회원 탈퇴
+            </button>
+        </div>
+    </div>
+
+</div>
 </body>
 </html>
