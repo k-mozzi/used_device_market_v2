@@ -22,10 +22,10 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class ItemServiceV1 implements ItemService {
 
-//    public static final String FILE_PATH = "/Users/kimgang/Documents/SpringProject/imageFile";
+    public static final String FILE_PATH = "/Users/kimgang/Documents/SpringProject/imageFile";
     private final ItemRepository itemRepository;
 
-    String FILE_PATH = "C:\\Users\\82109\\Desktop\\spring_img";
+//    String FILE_PATH = "C:\\Users\\82109\\Desktop\\spring_img";
 
     @Override
     public Item save(Item item, MultipartFile file, HttpSession session) throws IOException {

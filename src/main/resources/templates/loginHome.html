@@ -12,7 +12,7 @@
         <h1>HELLO SHOP</h1>
         <p class="lead">회원 기능</p>
         <p>
-            <a class="btn btn-lg btn-secondary" href="/members/memberInfo">회원 정보</a>
+            <a class="btn btn-lg btn-secondary" href="/members/memberInfo" th:href="@{/members/{memberId}(memberId=${member.memberId})}">회원 정보</a>
             <a class="btn btn-lg btn-secondary" href="/members">회원 목록</a>
         </p>
         <p class="lead">상품 기능</p>
