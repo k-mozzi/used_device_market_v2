@@ -33,22 +33,23 @@ public class MemberController {
     }
 
     @PostMapping("/add")
-    public String join(@Validated @ModelAttribute Member member, BindingResult bindingResult) {
+    public String join(@Validated @ModelAttribute Member member, BindingResult bindingResult, Model model) {
 
         try {
             if (bindingResult.hasErrors()) {
                 log.info("error={}", bindingResult);
+                model.addAttribute("regions", Region.values());
                 return "members/addMemberForm";
             }
 
             member.setCreateDatetime(new Date());
-            member.setUpdateDatetime(new Date());
 
             loginService.join(member);
             return "home";
         } catch (IllegalStateException e) {
             bindingResult.reject("join fail", e.getMessage());
             log.error("중복 아이디 예외 발생: {}", e.getMessage());
+            model.addAttribute("regions", Region.values());
             return "members/addMemberForm";
         }
     }
