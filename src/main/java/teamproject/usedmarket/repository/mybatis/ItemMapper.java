@@ -13,14 +13,13 @@ public interface ItemMapper {
     void save(Item item);
 
     void update(@Param("itemId") Long itemId, @Param("updateParam") ItemUpdateDto updateParam);
-
     void incrementViewsCount(Long itemId);
 
     List<Item> findAll();
 
     Optional<Item> findById(Long id);
 
-    String findMemberNameBySellerMemberId(@Param("sellerMemberId") Long sellerMemberId, Long itemId);
+    String findMemberNameBySellerMemberId(@Param("sellerMemberId") Long sellerMemberId,@Param("itemId") Long itemId);
 
     void delete(Long itemId);
 
