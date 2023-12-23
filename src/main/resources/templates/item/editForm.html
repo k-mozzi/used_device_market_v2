@@ -17,9 +17,9 @@
             <block th:each="itemImage : ${itemImages}">
                 <div class="form-check">
                     <img th:if="${itemImage.fileName}" th:src="@{|/files/${itemImage.fileName}|}" width="250" height="200"/>
-                    <input type="checkbox" id="open" name="open" th:field="${itemImage.getOpen()}" class="form-check-input"/>
+                    <input type="checkbox" id="itemImage.open" name="itemImage.open" class="form-check-input"/>
                     <input type="hidden" name="_open" value="on"/>
-                    <label for="open" class="form-check-label">삭제</label>
+                    <label for="itemImage.open" class="form-check-label">삭제</label>
                 </div>
             </block>
         </div>

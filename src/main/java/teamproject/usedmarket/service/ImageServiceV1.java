@@ -25,10 +25,10 @@ public class ImageServiceV1 implements ImageService {
 
 
 
-    public static final String FILE_PATH = "/Users/kimgang/Documents/SpringProject/imageFile";
+//    public static final String FILE_PATH = "/Users/kimgang/Documents/SpringProject/imageFile";
     private final ImageRepository imageRepository;
 
-//    String FILE_PATH = "C:\\Users\\82109\\Desktop\\spring_img";
+    String FILE_PATH = "C:\\Users\\82109\\Desktop\\spring_img";
 
     @Override
     public List<ItemImage> findByItemId(Long itemid) {
