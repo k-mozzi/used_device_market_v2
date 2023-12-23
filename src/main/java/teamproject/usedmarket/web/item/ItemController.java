@@ -105,10 +105,19 @@ public class ItemController {
     }
 
     @PostMapping("/{itemId}/edit")
-    public String edit(@PathVariable Long itemId, @ModelAttribute ItemUpdateDto updateParam, @RequestParam("imageFiles") List<MultipartFile> file) throws IOException {
+    public String edit(@PathVariable Long itemId, @ModelAttribute ItemUpdateDto updateParam,
+                       @RequestParam("imageFiles") List<MultipartFile> file,
+                       @RequestParam("open") Boolean open) throws IOException {
+
         updateParam.setUpdateDatetime(new Date());
         itemService.update(itemId, updateParam, null);
+        imageService.delete(itemId);
         imageService.save(itemId,file);
+        log.info("open={}",open);
+        List<ItemImage> itemImages = imageService.findByItemId(itemId);
+        for (ItemImage itemImage : itemImages) {
+            log.info("itemImage deleteCheck = {}",itemImage.isOpen());
+        }
         return "redirect:/items/{itemId}";
     }
 

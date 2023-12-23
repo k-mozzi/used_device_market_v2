@@ -61,7 +61,7 @@
     <!--    </select>-->
 
     <delete id="delete">
-        delete from item
-        where item_id = #{itemId}
+        delete from item_image
+        where item_image_id = #{itemImageId}
     </delete>
 </mapper>

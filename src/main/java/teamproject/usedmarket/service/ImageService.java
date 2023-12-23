@@ -19,5 +19,5 @@ public interface ImageService {
 
     List<ItemImage> findImages();
 
-//    void delete(Long itemId);
+    void delete(Long itemImageId);
 }

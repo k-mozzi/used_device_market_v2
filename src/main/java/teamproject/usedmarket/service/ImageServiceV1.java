@@ -89,4 +89,11 @@ public class ImageServiceV1 implements ImageService {
     public List<ItemImage> findImages() {
         return imageRepository.findAll();
     }
+
+    @Override
+    public void delete(Long itemImageId) {
+        imageRepository.delete(itemImageId);
+    }
+
+
 }
