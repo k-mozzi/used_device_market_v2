@@ -45,15 +45,15 @@ public class ItemController {
     public String item(@PathVariable long itemId, Model model) {
         Item item = itemService.findById(itemId).get();
         Long sellerMemberId = item.getSellerMemberId();
+        List<ItemImage> itemImages = imageService.findByItemId(itemId);
         String foundMemberName = itemService.findMemberNameBySellerMemberId(sellerMemberId, itemId);
-//        ItemImage itemImage = imageService.findByitemId(itemId).get();
         if (item != null) {
             model.addAttribute("item", item);
             model.addAttribute("selectedItemTypeId", item.getItemTypeId());
             model.addAttribute("itemTypes", ItemType.values());
             model.addAttribute("selectedSaleStatus", item.getSaleStatus());
             model.addAttribute("statuses", SaleStatus.values());
-            model.addAttribute("image", itemImage);
+            model.addAttribute("itemImages", itemImages);
             model.addAttribute("foundMemberName", foundMemberName);
             itemService.incrementViewsCount(itemId);
             return "item/item";
@@ -75,7 +75,7 @@ public class ItemController {
         item.setCreateDatetime(new Date());
         Item saveditem = itemService.save(item, null, session);
         log.info("id value = {}", saveditem.getItemId());
-        ItemImage savedImage = imageService.save(saveditem.getItemId(), file);
+        imageService.save(saveditem.getItemId(), file);
 
 
         return "redirect:/items";
@@ -84,6 +84,7 @@ public class ItemController {
     @GetMapping("/{itemId}/edit")
     public String editForm(@PathVariable Long itemId, Model model, HttpSession session, RedirectAttributes redirectAttributes) {
         Item item = itemService.findById(itemId).get();
+        List<ItemImage> itemImages = imageService.findByItemId(itemId);
 
         //셀러 아이디와 로그인 아이디가 동일할 때만 접근 가능! 일단 아이템 등록할 때 셀러 멤버 아이디 바인딩 해야 함
         Long currentMemberId = (Long) session.getAttribute("memberId");
@@ -97,13 +98,15 @@ public class ItemController {
         model.addAttribute("item", item);
         model.addAttribute("itemTypes", ItemType.values());
         model.addAttribute("statuses", SaleStatus.values());
+        model.addAttribute("itemImages", itemImages);
         return "item/editForm";
     }
 
     @PostMapping("/{itemId}/edit")
-    public String edit(@PathVariable Long itemId, @ModelAttribute ItemUpdateDto updateParam, @RequestParam("file") MultipartFile file) throws IOException {
+    public String edit(@PathVariable Long itemId, @ModelAttribute ItemUpdateDto updateParam, @RequestParam("imageFiles") List<MultipartFile> file) throws IOException {
         updateParam.setUpdateDatetime(new Date());
-        itemService.update(itemId, updateParam, file);
+        itemService.update(itemId, updateParam, null);
+        imageService.save(itemId,file);
         return "redirect:/items/{itemId}";
     }
 

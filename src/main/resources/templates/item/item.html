@@ -34,7 +34,11 @@
         <input type="text" id="title" name="title" class="form-control" value="10000" th:value="${item.title}" disabled>
     </div>
     <div>
-        <img th:if=${image.fileNames}" th:each="image : ${image.fileNames}"  th:src="@{|/files/${image.fileNames}|}" width="400" height="400"/>
+            <block th:each="itemImage : ${itemImages}">
+                <img th:if="${itemImage.fileName}" th:src="@{|/files/${itemImage.fileName}|}" width="250" height="200"/>
+            </block>
+<!--        <img th:if=${image.fileNames}" th:each="image : ${image.fileNames}"  th:src="@{|/files/${image.fileNames}|}" width="400" height="400"/>-->
+<!--        <img th:each="hor : ${hora}" th:src="@{|/files/${hor}|}" width="400" height="400"/>-->
 <!--        <input type="text" id="title" name="title" class="form-control" value="10000" th:value="${item.title}" disabled>-->
     </div>
     <div>

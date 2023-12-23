@@ -24,13 +24,12 @@ public class MyBatisImageRepository implements ImageRepository {
 
 
     @Override
-    public ItemImage save(ItemImage itemImage) {
+    public void save(ItemImage itemImage) {
         imageMapper.save(itemImage);
-        return itemImage;
     }
 
     @Override
-    public Optional<ItemImage> findByItemId(Long itemId) {
+    public List<ItemImage> findByItemId(Long itemId) {
         return imageMapper.findByItemId(itemId);
     }
 

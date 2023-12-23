@@ -8,7 +8,6 @@ import org.springframework.web.util.UriUtils;
 import teamproject.usedmarket.domain.item.Item;
 import teamproject.usedmarket.repository.ItemRepository;
 import teamproject.usedmarket.repository.ItemUpdateDto;
-import teamproject.usedmarket.web.item.ItemForm;
 
 import javax.servlet.http.HttpSession;
 import java.io.File;
@@ -62,7 +61,7 @@ public class ItemServiceV1 implements ItemService {
 
     @Override
     public void update(Long itemId, ItemUpdateDto updateParam, MultipartFile file) throws IOException {
-        if (file.getSize() == 0) {
+        if (file == null) {
 
             Item findItem = itemRepository.findByItemId(itemId).get();
             updateParam.setFilename(findItem.getFilename());

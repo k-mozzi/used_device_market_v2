@@ -43,9 +43,8 @@
     <select id="findMemberNameBySellerMemberId" resultType="java.lang.String">
         SELECT m.member_name
         FROM item i
-                 JOIN member m ON i.seller_member_id = m.member_id
-        WHERE i.seller_member_id = #{sellerMemberId}
-          AND i.item_id = #{itemId}
+        JOIN member m ON i.seller_member_id = m.member_id
+        WHERE i.seller_member_id = #{sellerMemberId} AND i.item_id = #{itemId}
     </select>
 
     <select id="findAll" resultType="item">

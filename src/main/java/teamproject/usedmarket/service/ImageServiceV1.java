@@ -31,67 +31,52 @@ public class ImageServiceV1 implements ImageService {
     String FILE_PATH = "C:\\Users\\82109\\Desktop\\spring_img";
 
     @Override
-    public Optional<ItemImage> findByitemId(Long itemid) {
-        Optional<ItemImage> findImage = imageRepository.findByItemId(itemid);
-        return findImage;
+    public List<ItemImage> findByItemId(Long itemid) {
+        List<ItemImage> findImages = imageRepository.findByItemId(itemid);
+        return findImages;
 
     }
 
 
 
     @Override
-    public ItemImage save(Long itemId, List<MultipartFile> file) throws IOException {
+    public void save(Long itemId, List<MultipartFile> file) throws IOException {
 
 
         ItemImage itemImage = new ItemImage();
         if (file.isEmpty()) {
             itemImage.setItemId(itemId);
             itemImage.setCreateDatetime(new Date());
-            itemImage.setImageFiles(file);
-
-            ItemImage savedImage = imageRepository.save(itemImage);
-            return savedImage;
+            imageRepository.save(itemImage);
         } else {
+                for (MultipartFile multipartFile : file) {
+                    itemImage.setRepImageCheck(false);
+                    if (imageRepository.findByItemId(itemId).isEmpty()) {
+                        itemImage.setRepImageCheck(true);
+                    }
 
-           List<String> fileTong = new ArrayList<>();
-            for (MultipartFile multipartFile : file) {
+                    itemImage.setItemId(itemId);
+                    itemImage.setCreateDatetime(new Date());
 
-                UUID uuid = UUID.randomUUID();
-
-                String un_fileName = uuid + "_" + multipartFile.getOriginalFilename();
-                String fileName = UriUtils.encode(un_fileName, StandardCharsets.UTF_8);
-                fileTong.add(fileName);
-
-
-                File saveFile = new File(FILE_PATH, fileName); //경로, 파일이름 지정
-
-                multipartFile.transferTo(saveFile); //저장
-
-            }
-            log.info("fileTong크기= {}",fileTong.size());
+                    UUID uuid = UUID.randomUUID();
+                    String un_fileName = uuid + "_" + multipartFile.getOriginalFilename();
+                    String fileName = UriUtils.encode(un_fileName, StandardCharsets.UTF_8);
 
 
-            if (fileTong !=null && file.size() > 0){
-                itemImage.setFileName1(fileTong.get(0));
-            }
-            if (fileTong !=null && file.size() > 1) {
-                itemImage.setFileName2(fileTong.get(1));
-            }
-            if (fileTong !=null && file.size() > 2) {
-                itemImage.setFileName3(fileTong.get(2));
-            }
-            if (fileTong !=null && file.size() > 3) {
-                itemImage.setFileName4(fileTong.get(3));
-            }
-            if (fileTong !=null && file.size() > 4) {
-                itemImage.setFileName5(fileTong.get(4));
-            }
+                    File saveFile = new File(FILE_PATH, fileName); //경로, 파일이름 지정
 
-            itemImage.setFileNames(fileTong);
-            itemImage.setItemId(itemId);
-            itemImage.setCreateDatetime(new Date());
-            ItemImage savedImage = imageRepository.save(itemImage);
-            return savedImage;
+                    multipartFile.transferTo(saveFile); //저장
+
+                    itemImage.setFileName(fileName);
+                    itemImage.setFilePath("/files/"+fileName);
+                    imageRepository.save(itemImage);
+                }
+
+
+
+
+
+
         }
 
 }

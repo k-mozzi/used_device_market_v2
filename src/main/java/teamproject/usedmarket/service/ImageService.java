@@ -10,8 +10,8 @@ import java.util.Optional;
 
 public interface ImageService {
 
-    Optional<ItemImage> findByitemId(Long itemid);
-    ItemImage save(Long itemId, List<MultipartFile> imageFiles) throws IOException;
+    List<ItemImage> findByItemId(Long itemid);
+    void save(Long itemId, List<MultipartFile> imageFiles) throws IOException;
 
     void update(Long itemId, ItemUpdateDto updateParam, MultipartFile file) throws IOException;
 

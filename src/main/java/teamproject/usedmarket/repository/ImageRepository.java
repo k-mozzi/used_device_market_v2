@@ -9,10 +9,10 @@ import java.util.Optional;
 
 public interface ImageRepository {
 
-    public ItemImage save(ItemImage itemImage);
+    public void save(ItemImage itemImage);
 
 
-    public Optional<ItemImage> findByItemId(Long itemId);
+    public List<ItemImage> findByItemId(Long itemId);
 
 
     public List<ItemImage> findAll();

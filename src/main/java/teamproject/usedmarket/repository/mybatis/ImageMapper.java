@@ -6,13 +6,14 @@ import teamproject.usedmarket.domain.item.Item;
 import teamproject.usedmarket.domain.item.ItemImage;
 import teamproject.usedmarket.repository.ItemUpdateDto;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
 @Mapper
 public interface ImageMapper {
 
-    void save(ItemImage imageMapper);
+    void save(ItemImage itemImage);
 
     void update(@Param("itemId") Long itemId, @Param("updateParam") ItemUpdateDto updateParam);
 
@@ -21,7 +22,7 @@ public interface ImageMapper {
     List<ItemImage> findAll();
 
     Optional<Item> findById(Long id);
-    Optional<ItemImage> findByItemId(Long itemId);
+    List<ItemImage> findByItemId(@Param("itemId") Long itemId);
 
     void delete(Long itemId);
 }
