@@ -9,6 +9,100 @@
             max-width: 560px;
         }
     </style>
+    <!-- jQuery를 사용하기 위한 CDN 추가 -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var currentMemberId = [[${currentMemberId}]];
+        var currentItemId = [[${currentItemId}]];
+        /*]]>*/
+    </script>
+    <script>
+        // 페이지 로드 시 초기 버튼 상태 설정
+        $(document).ready(function () {
+            updateInterestButton();
+        });
+
+        // Ajax를 사용하여 현재 관심 상품 상태를 가져오고 버튼을 업데이트하는 함수
+        function updateInterestButton() {
+            var memberId = currentMemberId;
+            var itemId = currentItemId;
+
+            $.ajax({
+                type: 'GET',
+                url: '/items/' + itemId + '/interestStatus',
+                success: function (response) {
+                    var interestButton = $('#interestButton');
+                    if (response === 'exists') {
+                        interestButton.text('관심 상품 삭제');
+                        interestButton.removeClass('btn-success').addClass('btn-warning');
+                    } else {
+                        interestButton.text('관심 상품 등록');
+                        interestButton.removeClass('btn-warning').addClass('btn-success');
+                    }
+                },
+                error: function () {
+                    console.error('서버 오류');
+                }
+            });
+        }
+
+        // Ajax를 사용하여 관심 상품 등록
+        function addInterest() {
+            var memberId = currentMemberId;
+            var itemId = currentItemId;
+
+            $.ajax({
+                type: 'POST',
+                url: '/items/' + itemId + '/addInterest',
+                success: function (response) {
+                    if (response === 'success') {
+                        console.log('관심 상품 등록 성공');
+                        updateInterestButton(); // 버튼 업데이트
+                    } else {
+                        console.error('관심 상품 등록 실패');
+                    }
+                },
+                error: function () {
+                    console.error('서버 오류');
+                }
+            });
+        }
+
+        // Ajax를 사용하여 관심 상품 삭제
+        function removeInterest() {
+            var memberId = currentMemberId;
+            var itemId = currentItemId;
+
+            $.ajax({
+                type: 'POST',
+                url: '/items/' + itemId + '/removeInterest',
+                success: function (response) {
+                    if (response === 'success') {
+                        console.log('관심 상품 삭제 성공');
+                        updateInterestButton(); // 버튼 업데이트
+                    } else {
+                        console.error('관심 상품 삭제 실패');
+                    }
+                },
+                error: function () {
+                    console.error('서버 오류');
+                }
+            });
+        }
+
+        // 토글 버튼 클릭 시 관심 상품 등록 또는 삭제 동작
+        function toggleInterest() {
+            var interestButton = $('#interestButton');
+
+            if (interestButton.text() === '관심 상품 등록') {
+                addInterest(); // 관심 상품 등록 기능 호출
+            } else {
+                removeInterest(); // 관심 상품 삭제 기능 호출
+            }
+        }
+    </script>
+
 </head>
 <body>
 
@@ -27,19 +121,20 @@
     </div>
     <div>
         <label for="foundMemberName">판매자</label>
-        <input type="text" id="foundMemberName" name="foundMemberName" class="form-control" th:value="${foundMemberName}" disabled>
+        <input type="text" id="foundMemberName" name="foundMemberName" class="form-control"
+               th:value="${foundMemberName}" disabled>
     </div>
     <div>
         <label for="title">제목</label>
         <input type="text" id="title" name="title" class="form-control" value="10000" th:value="${item.title}" disabled>
     </div>
     <div>
-            <block th:each="itemImage : ${itemImages}">
-                <img th:if="${itemImage.fileName}" th:src="@{|/files/${itemImage.fileName}|}" width="250" height="200"/>
-            </block>
-<!--        <img th:if=${image.fileNames}" th:each="image : ${image.fileNames}"  th:src="@{|/files/${image.fileNames}|}" width="400" height="400"/>-->
-<!--        <img th:each="hor : ${hora}" th:src="@{|/files/${hor}|}" width="400" height="400"/>-->
-<!--        <input type="text" id="title" name="title" class="form-control" value="10000" th:value="${item.title}" disabled>-->
+        <block th:each="itemImage : ${itemImages}">
+            <img th:if="${itemImage.fileName}" th:src="@{|/files/${itemImage.fileName}|}" width="250" height="200"/>
+        </block>
+        <!--        <img th:if=${image.fileNames}" th:each="image : ${image.fileNames}"  th:src="@{|/files/${image.fileNames}|}" width="400" height="400"/>-->
+        <!--        <img th:each="hor : ${hora}" th:src="@{|/files/${hor}|}" width="400" height="400"/>-->
+        <!--        <input type="text" id="title" name="title" class="form-control" value="10000" th:value="${item.title}" disabled>-->
     </div>
     <div>
         <label for="content">상세설명</label>
@@ -72,6 +167,12 @@
     <div th:if="${item.updateDatetime != null}">
         <div>최종 수정 일자: <span th:text="${#dates.format(item.updateDatetime, 'yyyy-MM-dd HH:mm:ss')}"></span></div>
     </div>
+    <div>
+        <!-- '관심 상품 등록/삭제' 버튼 -->
+        <button id="interestButton" class="w-100 btn" th:class="${isLiked} ? 'btn-warning btn-lg' : 'btn-success btn-lg'" th:onclick="|toggleInterest('@{/items/addInterest}', '@{/items/removeInterest}')|">
+            <span th:text="${isLiked} ? '관심 상품 삭제' : '관심 상품 등록'"></span>
+        </button>
+    </div>
 
     <hr class="my-4">
 
@@ -94,7 +195,8 @@
             <button class="w-100 btn btn-danger btn-lg"
                     onclick="location.href='items.html'"
                     th:onclick="|location.href='@{/items/{itemId}/delete(itemId=${item.itemId})}'|"
-                    type="button">삭제</button>
+                    type="button">삭제
+            </button>
         </div>
     </div>
 
