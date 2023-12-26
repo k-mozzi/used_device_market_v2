@@ -2,18 +2,18 @@ package teamproject.usedmarket.web.item;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import teamproject.usedmarket.domain.item.Item;
-import teamproject.usedmarket.domain.item.ItemImage;
-import teamproject.usedmarket.domain.item.ItemType;
-import teamproject.usedmarket.domain.item.SaleStatus;
+import teamproject.usedmarket.domain.item.*;
 import teamproject.usedmarket.repository.ItemUpdateDto;
 import teamproject.usedmarket.service.ImageService;
 import teamproject.usedmarket.service.ItemService;
+import teamproject.usedmarket.service.LikeService;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
@@ -31,6 +31,7 @@ public class ItemController {
 
     private final ItemService itemService;
     private final ImageService imageService;
+    private final LikeService likeService;
 
 
 
@@ -44,25 +45,25 @@ public class ItemController {
     }
 
     @GetMapping("/{itemId}")
-    public String item(@PathVariable long itemId, Model model) {
+    public String item(@PathVariable long itemId, Model model, HttpSession session) {
         Item item = itemService.findById(itemId).get();
         Long sellerMemberId = item.getSellerMemberId();
         List<ItemImage> itemImages = imageService.findByItemId(itemId);
         String foundMemberName = itemService.findMemberNameBySellerMemberId(sellerMemberId, itemId);
-        if (item != null) {
-            model.addAttribute("item", item);
-            model.addAttribute("selectedItemTypeId", item.getItemTypeId());
-            model.addAttribute("itemTypes", ItemType.values());
-            model.addAttribute("selectedSaleStatus", item.getSaleStatus());
-            model.addAttribute("statuses", SaleStatus.values());
-            model.addAttribute("itemImages", itemImages);
-            model.addAttribute("foundMemberName", foundMemberName);
-            itemService.incrementViewsCount(itemId);
-            return "item/item";
-        } else {
-            // 아이템이 존재하지 않는 경우에 대한 예외 처리
-            return "redirect:/items";
-        }
+        Long memberId = (Long) session.getAttribute("memberId");
+        boolean isLiked = likeService.existsByMemberIdAndItemId(memberId, itemId);
+        model.addAttribute("item", item);
+        model.addAttribute("selectedItemTypeId", item.getItemTypeId());
+        model.addAttribute("itemTypes", ItemType.values());
+        model.addAttribute("selectedSaleStatus", item.getSaleStatus());
+        model.addAttribute("statuses", SaleStatus.values());
+        model.addAttribute("itemImages", itemImages);
+        model.addAttribute("foundMemberName", foundMemberName);
+        model.addAttribute("currentMemberId", memberId);
+        model.addAttribute("currentItemId", itemId);
+        model.addAttribute("isLiked", isLiked);
+        itemService.incrementViewsCount(itemId);
+        return "item/item";
     }
 
     @GetMapping("/add")
@@ -127,6 +128,40 @@ public class ItemController {
         itemService.delete(itemId);
         log.info("delete itemId={}", itemId);
         return "redirect:/items";
+    }
+
+
+    /**
+     * 관심 상품 등록
+     */
+    @PostMapping("/{itemId}/addInterest")
+    public ResponseEntity<String> addInterest(@PathVariable Long itemId, HttpSession session) {
+        Long memberId = (Long) session.getAttribute("memberId");
+        ItemLike itemLike = new ItemLike(memberId, itemId);
+        likeService.addInterest(itemLike);
+        return ResponseEntity.ok("success");
+    }
+
+    /**
+     * 관심 상품 삭제
+     */
+    @PostMapping("/{itemId}/removeInterest")
+    public ResponseEntity<String> removeInterest(@PathVariable Long itemId, HttpSession session) {
+        Long memberId = (Long) session.getAttribute("memberId");
+        ItemLike itemLike = new ItemLike(memberId, itemId);
+        likeService.removeInterest(itemLike);
+        return ResponseEntity.ok("success");
+    }
+
+    /**
+     * 테이블에 관심 상품이 존재하는지 여부 확인
+     */
+    @GetMapping("/{itemId}/interestStatus")
+    @ResponseBody
+    public ResponseEntity<String> getInterestStatus(@PathVariable Long itemId, HttpSession session) {
+        Long memberId = (Long) session.getAttribute("memberId");
+        boolean exists = likeService.existsByMemberIdAndItemId(memberId, itemId);
+        return ResponseEntity.ok(exists ? "exists" : "not_exists");
     }
 
 }
