@@ -22,13 +22,15 @@
             <th:block th:each="itemImage : ${itemImages}">
 
                 <div class="col-12" th:field="${itemImage.itemImageId}">
+                    <p th:text="${itemImage}"></p>
                     <img class="col-141" th:if="${itemImage.fileName}" th:src="@{|/files/${itemImage.fileName}|}" width="250" height="200"/>
+<!--dawdwddddddddddddddddd-->
 
-                    <div id="resultDiv">
-                    <p th:if="${itemImageId}!=null" th:text="${itemImageId}"></p>
-                    </div>
+
+
                 </div>
-                <button class="btn btn-outline-secondary" type="button" onclick="dataSend()">삭제</button>
+
+                <button class="deleteBtn" type="button" data-filename="${photo}" onclick="dataSend()">삭제</button>
             </th:block>
         </div>
         <div class="form-group">
@@ -61,30 +63,31 @@
 </div> <!-- /container -->
 </body>
 <script th:inline="javascript">
+    /*<![CDATA[*/
+    $(document).ready(function () {
+        // 삭제 버튼 클릭 이벤트 처리
+        $('.deleteBtn').click(function () {
+            var filename = $(this).data('fileName');
+            deletePhoto(filename);
+        });
 
-
-    function dataSend(){
-
-    var itemImageId = /*[[${ids}]]*/;
-
-
-                 const sendDTO = {
-                           bal:itemImageId
-                           };
-                 $.ajax({
-                     url: "/send",
-                     data: sendDTO,
-                     type: 'POST',
-                 }).done(function (data){
-                     $("#resultDiv").replaceWith(data);
-                 });
-             }
-
-
-
-
-
-
+        // 사진 삭제 함수
+        function deletePhoto(filename) {
+            $.ajax({
+                type: 'DELETE',
+                url: '/delete/' + filename,
+                success: function (response) {
+                    console.log(response);
+                    // 사진 삭제 성공 시, 화면에서 해당 사진 삭제
+                    $('[data-filename="' + filename + '"]').remove();
+                },
+                error: function (error) {
+                    console.error('Error deleting photo:', error);
+                }
+            });
+        }
+    });
+    /*]]>*/
 </script>
 
 </html>
@@ -148,3 +151,20 @@
 
 
 <!--    /*]]*/-->
+
+
+<!--/*<![CDATA[*/-->
+<!--var itemImageId = /*[[${ids}]]*/;-->
+<!--/*]]>*/-->
+<!--function dataSend(){-->
+<!--const sendDTO = {-->
+<!--bal:itemImageId-->
+<!--};-->
+<!--$.ajax({-->
+<!--url: "/send",-->
+<!--data: sendDTO,-->
+<!--type: 'POST',-->
+<!--}).done(function (data){-->
+<!--$("#resultDiv").replaceWith(data);-->
+<!--});-->
+<!--}-->

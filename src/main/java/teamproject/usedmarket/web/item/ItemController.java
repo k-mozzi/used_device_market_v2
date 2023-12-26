@@ -87,9 +87,8 @@ public class ItemController {
     @GetMapping("/{itemId}/edit")
     public String editForm(@PathVariable Long itemId, Model model, HttpSession session, RedirectAttributes redirectAttributes) {
         Item item = itemService.findById(itemId).get();
+        ItemImage hello = new ItemImage();
         List<ItemImage> itemImages = imageService.findByItemId(itemId);
-
-
 
 
         //셀러 아이디와 로그인 아이디가 동일할 때만 접근 가능! 일단 아이템 등록할 때 셀러 멤버 아이디 바인딩 해야 함
@@ -105,6 +104,7 @@ public class ItemController {
         model.addAttribute("itemTypes", ItemType.values());
         model.addAttribute("statuses", SaleStatus.values());
         model.addAttribute("itemImages", itemImages);
+        model.addAttribute("hello", hello);
         return "item/editForm";
     }
 
