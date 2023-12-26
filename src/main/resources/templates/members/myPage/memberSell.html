@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header"/>
+<body>
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+    <div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>제목</th>
+                <th>등록 일자</th>
+                <th>이미지 보기</th>
+                <th></th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="soldItem : ${soldItems}">
+                <td>
+                    <a th:href="@{/items/{itemId}(itemId=${soldItem.itemId})}" th:text="${soldItem.itemId}"></a>
+                </td>
+                <td>
+                    <a th:href="@{/items/{itemId}(itemId=${soldItem.itemId})}" th:text="${soldItem.title}"></a>
+                </td>
+                <td th:text="${#dates.format(soldItem.createDatetime, 'yyyy-MM-dd HH:mm:ss')}">등록 일자</td>
+                <td>
+                    <block th:each="image : ${images}">
+                        <!--                    <img th:if="${item.filename}" th:src="@{|/files/${item.getFilename()}|}" width="100" height="100"/>-->
+                        <img th:if="${soldItem.itemId == image.itemId} and ${image.repImageCheck == true}" th:src="@{|/files/${image.fileName}|}" width="200" height="200"/>
+                    </block>
+                </td>
+                <!--                <td>-->
+                <!--                    <a href="#" th:href="@{/items/{itemId}/edit (id=${item.itemId})}" class="btn btn-primary" role="button">수정</a>-->
+                <!--                </td>-->
+            </tr>
+            </tbody>
+        </table>
+        <div class="col">
+            <button class="w-100 btn btn-secondary btn-lg"
+                    th:onclick="|location.href='@{/members/myPage}'|"
+                    type="button">MyPage
+            </button>
+        </div>
+    </div>
+    <div th:replace="fragments/footer :: footer"/>
+</div> <!-- /container -->
+</body>
+</html>

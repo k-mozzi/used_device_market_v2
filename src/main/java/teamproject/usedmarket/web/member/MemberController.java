@@ -11,6 +11,7 @@ import teamproject.usedmarket.SessionConst;
 import teamproject.usedmarket.domain.item.Item;
 import teamproject.usedmarket.domain.item.ItemImage;
 import teamproject.usedmarket.domain.member.Region;
+import teamproject.usedmarket.repository.MemberRepository;
 import teamproject.usedmarket.service.ImageService;
 import teamproject.usedmarket.service.LikeService;
 import teamproject.usedmarket.service.LoginService;
@@ -28,6 +29,7 @@ public class MemberController {
     private final LoginService loginService;
     private final LikeService likeService;
     private final ImageService imageService;
+    private final MemberRepository memberRepository;
 
     @GetMapping("/add")
     public String addForm(@ModelAttribute("member") Member member, Model model) {
@@ -91,6 +93,16 @@ public class MemberController {
         model.addAttribute("likedItems", likedItems);
         model.addAttribute("images", images);
         return "members/myPage/memberLike";
+    }
+
+    @GetMapping("/myPage/{memberId}/sell")
+    public String memberSell(@PathVariable long memberId, Model model) {
+
+        List<Item> soldItems = memberRepository.findSellItemByMemberId(memberId);
+        List<ItemImage> images = imageService.findImages();
+        model.addAttribute("soldItems", soldItems);
+        model.addAttribute("images", images);
+        return "members/myPage/memberSell";
     }
 
 }

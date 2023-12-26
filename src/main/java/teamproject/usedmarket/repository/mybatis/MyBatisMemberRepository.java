@@ -12,6 +12,7 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
+import teamproject.usedmarket.domain.item.Item;
 import teamproject.usedmarket.domain.member.Member;
 import teamproject.usedmarket.repository.MemberRepository;
 
@@ -47,4 +48,11 @@ public class MyBatisMemberRepository implements MemberRepository {
     public List<Member> findAll() {
         return memberMapper.findAll();
     }
+
+    @Override
+    public List<Item> findSellItemByMemberId(Long memberId) {
+        return memberMapper.findSellItemByMemberId(memberId);
+    }
+
+
 }

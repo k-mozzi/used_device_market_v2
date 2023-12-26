@@ -21,4 +21,11 @@
     <select id="findAll" resultType="Member">
         select * from member
     </select>
+
+    <select id="findSellItemByMemberId" resultType="item">
+        SELECT i.*
+        FROM item i
+        WHERE i.seller_member_id = #{memberId}
+    </select>
+
 </mapper>
