@@ -7,11 +7,12 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import teamproject.usedmarket.SessionConst;
 import teamproject.usedmarket.domain.item.Item;
 import teamproject.usedmarket.domain.item.ItemImage;
-import teamproject.usedmarket.domain.item.ItemType;
-import teamproject.usedmarket.domain.item.SaleStatus;
 import teamproject.usedmarket.domain.member.Region;
+import teamproject.usedmarket.service.ImageService;
+import teamproject.usedmarket.service.LikeService;
 import teamproject.usedmarket.service.LoginService;
 import teamproject.usedmarket.domain.member.Member;
 
@@ -25,6 +26,8 @@ import java.util.List;
 public class MemberController {
 
     private final LoginService loginService;
+    private final LikeService likeService;
+    private final ImageService imageService;
 
     @GetMapping("/add")
     public String addForm(@ModelAttribute("member") Member member, Model model) {
@@ -61,14 +64,33 @@ public class MemberController {
         return "members/members";
     }
 
-    @GetMapping("/{memberId}")
+    @GetMapping("myPage")
+    public String myPage(@SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) Member member, Model model) {
+        model.addAttribute("member", member);
+        return "members/myPage";
+    }
+
+    /**
+     * 회원 상세
+     */
+    @GetMapping("/myPage/{memberId}")
     public String memberInfo(@PathVariable long memberId, Model model) {
 
         Member member = loginService.findOne(memberId).get();
         model.addAttribute("member", member);
         model.addAttribute("selectedRegionId", member.getRegionId());
         model.addAttribute("regions", Region.values());
-        return "members/memberInfo";
+        return "members/myPage/memberInfo";
+    }
+
+    @GetMapping("/myPage/{memberId}/like")
+    public String memberLike(@PathVariable long memberId, Model model) {
+
+        List<Item> likedItems = likeService.findLikedItemByMemberId(memberId);
+        List<ItemImage> images = imageService.findImages();
+        model.addAttribute("likedItems", likedItems);
+        model.addAttribute("images", images);
+        return "members/myPage/memberLike";
     }
 
 }

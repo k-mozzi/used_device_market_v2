@@ -3,8 +3,11 @@ package teamproject.usedmarket.repository.mybatis;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
+import teamproject.usedmarket.domain.item.Item;
 import teamproject.usedmarket.domain.item.ItemLike;
 import teamproject.usedmarket.repository.LikeRepository;
+
+import java.util.List;
 
 @Slf4j
 @Repository
@@ -26,5 +29,10 @@ public class MyBatisLikeRepository implements LikeRepository {
     @Override
     public boolean existsByMemberIdAndItemId(Long memberId, Long itemId) {
         return likeMapper.existsByMemberIdAndItemId(memberId, itemId);
+    }
+
+    @Override
+    public List<Item> findLikedItemByMemberId(Long memberId) {
+        return likeMapper.findLikedItemByMemberId(memberId);
     }
 }

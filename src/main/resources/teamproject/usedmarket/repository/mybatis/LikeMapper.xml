@@ -20,4 +20,12 @@
         AND item_id = #{itemId}
     </select>
 
+    <select id="findLikedItemByMemberId" resultType="item">
+        SELECT i.*
+        FROM item_like il
+        JOIN item i ON il.item_id = i.item_id
+        WHERE il.member_id = #{memberId}
+    </select>
+
+
 </mapper>

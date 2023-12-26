@@ -9,23 +9,19 @@
     <div th:replace="fragments/bodyHeader :: bodyHeader" />
     <h4 class="mb-3" th:text="|사용자: ${member.memberName}|">로그인 사용자 이름</h4>
     <div class="jumbotron">
-        <h1>HELLO SHOP</h1>
+        <h1>My Page</h1>
         <p class="lead">회원 기능</p>
         <p>
-            <a class="btn btn-lg btn-secondary" href="/members/myPage">회원 정보</a>
-            <a class="btn btn-lg btn-secondary" href="/members">회원 목록</a>
+            <a class="btn btn-lg btn-secondary" th:href="@{/members/myPage/{memberId}(memberId=${member.memberId})}">회원 상세</a>
+            <a class="btn btn-lg btn-secondary" th:href="@{/members/myPage/{memberId}/like(memberId=${member.memberId})}">관심 상품</a>
         </p>
         <p class="lead">상품 기능</p>
         <p>
-            <a class="btn btn-lg btn-dark" href="/items/add">상품 등록</a>
-            <a class="btn btn-lg btn-dark" href="/items">상품 목록</a>
+            <a class="btn btn-lg btn-dark" href="/items/add">판매 목록</a>
+            <a class="btn btn-lg btn-dark" href="/items">구매 목록</a>
         </p>
-        <div class="col">
-            <form th:action="@{/logout}" method="post">
-                <button class="btn btn-lg btn-danger" type="submit">
-                    로그아웃
-                </button>
-            </form>
+        <div>
+            <a class="btn btn-lg btn-primary" href="/">홈으로</a>
         </div>
     </div>
     <div th:replace="fragments/footer :: footer" />
