@@ -20,7 +20,7 @@ public class ItemImage {
     private Date createDatetime;
     private Date updateDatetime;
     private boolean repImageCheck;
-    private boolean open;
+    private boolean deleteCheck;
 
 
 

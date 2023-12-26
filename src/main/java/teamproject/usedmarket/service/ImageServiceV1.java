@@ -91,7 +91,7 @@ public class ImageServiceV1 implements ImageService {
     }
 
     @Override
-    public void delete(Long itemImageId) {
+    public void delete(int itemImageId) {
         imageRepository.delete(itemImageId);
     }
 

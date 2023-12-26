@@ -1,6 +1,11 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/header :: header" />
+<head th:replace="fragments/header :: header">
+    <meta charset="utf-8">
+    <!-- jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+
+</head>
 <body>
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader"/>
@@ -14,14 +19,17 @@
         </div>
         <div class="form-group">
             <li>첨부파일<input type="file" multiple="multiple" name="imageFiles"></li>
-            <block th:each="itemImage : ${itemImages}">
-                <div class="form-check">
-                    <img th:if="${itemImage.fileName}" th:src="@{|/files/${itemImage.fileName}|}" width="250" height="200"/>
-                    <input type="checkbox" id="itemImage.open" name="itemImage.open" class="form-check-input"/>
-                    <input type="hidden" name="_open" value="on"/>
-                    <label for="itemImage.open" class="form-check-label">삭제</label>
+            <th:block th:each="itemImage : ${itemImages}">
+
+                <div class="col-12" th:field="${itemImage.itemImageId}">
+                    <img class="col-141" th:if="${itemImage.fileName}" th:src="@{|/files/${itemImage.fileName}|}" width="250" height="200"/>
+
+                    <div id="resultDiv">
+                    <p th:if="${itemImageId}!=null" th:text="${itemImageId}"></p>
+                    </div>
                 </div>
-            </block>
+                <button class="btn btn-outline-secondary" type="button" onclick="dataSend()">삭제</button>
+            </th:block>
         </div>
         <div class="form-group">
             <label th:for="content">상세설명</label>
@@ -52,4 +60,91 @@
     <div th:replace="fragments/footer :: footer" />
 </div> <!-- /container -->
 </body>
+<script th:inline="javascript">
+
+
+    function dataSend(){
+
+    var itemImageId = /*[[${ids}]]*/;
+
+
+                 const sendDTO = {
+                           bal:itemImageId
+                           };
+                 $.ajax({
+                     url: "/send",
+                     data: sendDTO,
+                     type: 'POST',
+                 }).done(function (data){
+                     $("#resultDiv").replaceWith(data);
+                 });
+             }
+
+
+
+
+
+
+</script>
+
 </html>
+<!--$.ajax({-->
+<!--// 요청방식: get-->
+<!--// 요청주소: /ex03-->
+<!--type: "get",-->
+<!--url: "/ex03",-->
+<!--// parameter 전달하기-->
+<!--data: {-->
+<!--"param1": val1,-->
+<!--"param2": "안녕"-->
+<!--},-->
+<!--// 요청이 성공했을 때 실행되는 부분-->
+<!--success: function(res) {-->
+<!--console.log("성공", res);-->
+<!--},-->
+<!--// 요청이 실패했을 때 실행되는 부분-->
+<!--error: function() {-->
+<!--console.log("실패");-->
+<!--}-->
+<!--})-->
+
+
+<!--$(function(){-->
+<!--$(".col-141").click(function(){-->
+<!--$(this).hide();-->
+<!--});-->
+<!--})-->
+
+
+<!--$("p").css("background-color", "blue");-->
+
+
+<!--$(() => {-->
+<!--$(".col-12").click(function(){-->
+<!--$(this).hide(),-->
+<!--$("p").css("background-color", "blue");-->
+<!--});-->
+<!--})-->
+
+
+<!--    /*<![CDATA[*/-->
+<!--        function dataSend(){-->
+
+<!--        var member = /*[[${item.itemId}]]*/;-->
+
+
+<!--                     const sendDTO = {-->
+<!--                               bal:member-->
+<!--                               };-->
+<!--                     $.ajax({-->
+<!--                         url: "/send",-->
+<!--                         data: sendDTO,-->
+<!--                         type: 'POST',-->
+<!--                     }).done(function (data){-->
+<!--                         $("#${itemImage.itemImageId}").replaceWith(data);-->
+<!--                     });-->
+<!--                 }-->
+
+
+
+<!--    /*]]*/-->

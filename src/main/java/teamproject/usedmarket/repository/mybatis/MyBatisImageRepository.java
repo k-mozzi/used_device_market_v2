@@ -49,7 +49,7 @@ public class MyBatisImageRepository implements ImageRepository {
     }
 
     @Override
-    public void delete(Long itemImageId) {
+    public void delete(int itemImageId) {
         imageMapper.delete(itemImageId);
     }
 

@@ -21,5 +21,5 @@ public interface ImageRepository {
 
     void incrementViewsCount(Long itemId);
 
-    public void delete(Long itemImageId);
+    public void delete(int itemImageId);
 }

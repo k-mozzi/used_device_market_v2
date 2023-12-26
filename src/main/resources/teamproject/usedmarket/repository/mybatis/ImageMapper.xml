@@ -40,7 +40,7 @@
     </select>
 
    <select id="findByItemId" resultType="itemImage">
-        select file_name from item_image where item_id = #{itemId}
+        select delete_check, item_image_id, file_name from item_image where item_id = #{itemId}
     </select>
 
     <select id="findAll" resultType="itemImage">

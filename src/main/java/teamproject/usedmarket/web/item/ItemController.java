@@ -19,6 +19,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -31,7 +32,6 @@ public class ItemController {
 
     private final ItemService itemService;
     private final ImageService imageService;
-
 
 
     @GetMapping
@@ -88,6 +88,9 @@ public class ItemController {
         Item item = itemService.findById(itemId).get();
         List<ItemImage> itemImages = imageService.findByItemId(itemId);
 
+
+
+
         //셀러 아이디와 로그인 아이디가 동일할 때만 접근 가능! 일단 아이템 등록할 때 셀러 멤버 아이디 바인딩 해야 함
         Long currentMemberId = (Long) session.getAttribute("memberId");
         Long sellerMemberId = item.getSellerMemberId();
@@ -107,17 +110,16 @@ public class ItemController {
     @PostMapping("/{itemId}/edit")
     public String edit(@PathVariable Long itemId, @ModelAttribute ItemUpdateDto updateParam,
                        @RequestParam("imageFiles") List<MultipartFile> file,
-                       @RequestParam("open") Boolean open) throws IOException {
+                       @RequestParam("deleteCheck") boolean deleteCheck) throws IOException {
+        List<ItemImage> itemImages = imageService.findByItemId(itemId);
+        for (ItemImage itemImage : itemImages) {
+            log.info("dele = {}",itemImage.isDeleteCheck());
+        }
 
         updateParam.setUpdateDatetime(new Date());
         itemService.update(itemId, updateParam, null);
-        imageService.delete(itemId);
+//        imageService.delete(itemId);
         imageService.save(itemId,file);
-        log.info("open={}",open);
-        List<ItemImage> itemImages = imageService.findByItemId(itemId);
-        for (ItemImage itemImage : itemImages) {
-            log.info("itemImage deleteCheck = {}",itemImage.isOpen());
-        }
         return "redirect:/items/{itemId}";
     }
 

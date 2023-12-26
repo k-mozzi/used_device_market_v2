@@ -24,5 +24,5 @@ public interface ImageMapper {
     Optional<Item> findById(Long id);
     List<ItemImage> findByItemId(@Param("itemId") Long itemId);
 
-    void delete(@Param("itemImageId") Long itemImageId);
+    void delete(@Param("itemImageId") int itemImageId);
 }
