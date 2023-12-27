@@ -53,6 +53,7 @@ public class ImageServiceV1 implements ImageService {
 
                     } else {
                         itemImage.setRepImageCheck(false);
+
                         if (imageRepository.findByItemId(itemId).isEmpty()) {
                             itemImage.setRepImageCheck(true);
                         }
@@ -95,6 +96,7 @@ public class ImageServiceV1 implements ImageService {
         ItemImage findImageToDelete = imageRepository.findById(itemImageId);
 
 
+
         String fileName = findImageToDelete.getFileName();
         String filePath = DIRECTORY_PATH + fileName;
         File file = new File(filePath);
@@ -114,8 +116,6 @@ public class ImageServiceV1 implements ImageService {
 
         imageRepository.delete(itemImageId);
 
-
-
         ItemImage repImage = null;
         List<ItemImage> itemImages = findByItemId(findImageToDelete.getItemId());
         for (ItemImage itemImage : itemImages) {
@@ -129,6 +129,9 @@ public class ImageServiceV1 implements ImageService {
             updateDto.setRepImageCheck(true);
             imageRepository.update(itemImages.get(0).getItemImageId(),updateDto);
         }
+
+
+
 
     }
 
