@@ -25,12 +25,12 @@ public class ImageServiceV1 implements ImageService {
 
 
 
-    public static final String FILE_PATH = "/Users/kimgang/Documents/SpringProject/imageFile";
+//    public static final String FILE_PATH = "/Users/kimgang/Documents/SpringProject/imageFile";
     private final ImageRepository imageRepository;
 
-//    String FILE_PATH = "C:\\Users\\82109\\Desktop\\spring_img";
-//    String DIRECTORY_PATH = "c:/Users/82109/Desktop/spring_img/";
-    String DIRECTORY_PATH = "/Users/kimgang/Documents/SpringProject/imageFile";
+    String FILE_PATH = "C:\\Users\\82109\\Desktop\\spring_img";
+    String DIRECTORY_PATH = "c:/Users/82109/Desktop/spring_img/";
+//    String DIRECTORY_PATH = "/Users/kimgang/Documents/SpringProject/imageFile";
     @Override
     public List<ItemImage> findByItemId(Long itemid) {
         List<ItemImage> findImages = imageRepository.findByItemId(itemid);
@@ -94,9 +94,13 @@ public class ImageServiceV1 implements ImageService {
             Long itemId = findImageToDelete.getItemId();
             List<ItemImage> itemImages = imageRepository.findByItemId(itemId);
 
-            for (ItemImage itemImage : itemImages) {
-                itemImage.setRepImageCheck(true);
-
+            if (!itemImages.isEmpty() && itemImages.size() >= 2) {
+                int lastIndex = itemImages.size() - 1;
+                if (itemImages.get(lastIndex) != findImageToDelete) {
+                    itemImages.get(lastIndex).setRepImageCheck(true);
+                }else {
+                    itemImages.get(lastIndex-1).setRepImageCheck(true);
+                }
             }
         }
 
