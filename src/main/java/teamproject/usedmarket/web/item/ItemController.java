@@ -74,14 +74,14 @@ public class ItemController {
     }
 
     @PostMapping("/add")
-    public String addItem(@ModelAttribute Item item, @RequestParam("imageFiles") List<MultipartFile> file, HttpSession session) throws IOException {
+    public String addItem(@ModelAttribute Item item, @RequestParam("imageFiles") List<MultipartFile> file,
+                          HttpSession session, RedirectAttributes redirectAttributes) throws IOException {
         item.setCreateDatetime(new Date());
-        Item saveditem = itemService.save(item, session);
-        log.info("id value = {}", saveditem.getItemId());
-        imageService.save(saveditem.getItemId(), file);
+        Item savedItem = itemService.save(item, session);
+        redirectAttributes.addAttribute("itemId", savedItem.getItemId());
+        imageService.save(savedItem.getItemId(), file);
 
-
-        return "redirect:/items";
+        return "redirect:/items/{itemId}";
     }
 
     @GetMapping("/{itemId}/edit")
