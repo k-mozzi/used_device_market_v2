@@ -53,7 +53,7 @@ public class ItemController {
         Long memberId = (Long) session.getAttribute("memberId");
         boolean isLiked = likeService.existsByMemberIdAndItemId(memberId, itemId);
         int totalLikedItem = likeService.totalLikedItem(itemId);
-
+        itemService.incrementViewsCount(itemId);
         model.addAttribute("item", item);
         model.addAttribute("selectedItemTypeId", item.getItemTypeId());
         model.addAttribute("itemTypes", ItemType.values());
@@ -65,7 +65,6 @@ public class ItemController {
         model.addAttribute("currentItemId", itemId);
         model.addAttribute("isLiked", isLiked);
         model.addAttribute("totalLikedItem", totalLikedItem);
-        itemService.incrementViewsCount(itemId);
         return "item/item";
     }
 
