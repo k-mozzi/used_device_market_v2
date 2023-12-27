@@ -18,4 +18,6 @@ public interface LikeMapper {
 
     List<Item> findLikedItemByMemberId(Long memberId);
 
+    int totalLikedItem(Long itemId);
+
 }

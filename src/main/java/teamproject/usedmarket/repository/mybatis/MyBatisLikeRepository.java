@@ -35,4 +35,10 @@ public class MyBatisLikeRepository implements LikeRepository {
     public List<Item> findLikedItemByMemberId(Long memberId) {
         return likeMapper.findLikedItemByMemberId(memberId);
     }
+
+    @Override
+    public int totalLikedItem(Long itemId) {
+        return likeMapper.totalLikedItem(itemId);
+    }
+
 }

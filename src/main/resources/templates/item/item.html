@@ -163,6 +163,9 @@
     <div>
         <div>조회수: <span th:text="${item.viewsCount}"></span></div>
     </div>
+    <div>
+        <div>찜수: <span th:text="${totalLikedItem}"></span></div>
+    </div>
     <!--  수정 이력이 있는 경우에만 수정일 출력  -->
     <div th:if="${item.updateDatetime != null}">
         <div>최종 수정 일자: <span th:text="${#dates.format(item.updateDatetime, 'yyyy-MM-dd HH:mm:ss')}"></span></div>

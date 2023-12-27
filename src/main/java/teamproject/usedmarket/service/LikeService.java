@@ -15,4 +15,6 @@ public interface LikeService {
 
     List<Item> findLikedItemByMemberId(Long memberId);
 
+    int totalLikedItem(Long itemId);
+
 }
