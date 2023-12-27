@@ -15,14 +15,12 @@ public interface ImageMapper {
 
     void save(ItemImage itemImage);
 
-    void update(@Param("itemId") Long itemId, @Param("updateParam") ItemUpdateDto updateParam);
 
-    void incrementViewsCount(Long itemId);
 
     List<ItemImage> findAll();
 
-    Optional<Item> findById(Long id);
+   ItemImage findById(int itemImageId);
     List<ItemImage> findByItemId(@Param("itemId") Long itemId);
 
-    void delete(Long itemId);
+    void delete(@Param("itemImageId") int itemImageId);
 }

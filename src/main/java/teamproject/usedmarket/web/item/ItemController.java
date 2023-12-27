@@ -19,6 +19,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -32,7 +33,6 @@ public class ItemController {
     private final ItemService itemService;
     private final ImageService imageService;
     private final LikeService likeService;
-
 
 
     @GetMapping
@@ -76,7 +76,7 @@ public class ItemController {
     @PostMapping("/add")
     public String addItem(@ModelAttribute Item item, @RequestParam("imageFiles") List<MultipartFile> file, HttpSession session) throws IOException {
         item.setCreateDatetime(new Date());
-        Item saveditem = itemService.save(item, null, session);
+        Item saveditem = itemService.save(item, session);
         log.info("id value = {}", saveditem.getItemId());
         imageService.save(saveditem.getItemId(), file);
 
@@ -88,6 +88,7 @@ public class ItemController {
     public String editForm(@PathVariable Long itemId, Model model, HttpSession session, RedirectAttributes redirectAttributes) {
         Item item = itemService.findById(itemId).get();
         List<ItemImage> itemImages = imageService.findByItemId(itemId);
+
 
         //셀러 아이디와 로그인 아이디가 동일할 때만 접근 가능! 일단 아이템 등록할 때 셀러 멤버 아이디 바인딩 해야 함
         Long currentMemberId = (Long) session.getAttribute("memberId");
@@ -106,9 +107,12 @@ public class ItemController {
     }
 
     @PostMapping("/{itemId}/edit")
-    public String edit(@PathVariable Long itemId, @ModelAttribute ItemUpdateDto updateParam, @RequestParam("imageFiles") List<MultipartFile> file) throws IOException {
+    public String edit(@PathVariable Long itemId, @ModelAttribute ItemUpdateDto updateParam,
+                       @RequestParam("imageFiles") List<MultipartFile> file) throws IOException {
+        List<ItemImage> itemImages = imageService.findByItemId(itemId);
+
         updateParam.setUpdateDatetime(new Date());
-        itemService.update(itemId, updateParam, null);
+        itemService.update(itemId, updateParam);
         imageService.save(itemId,file);
         return "redirect:/items/{itemId}";
     }
