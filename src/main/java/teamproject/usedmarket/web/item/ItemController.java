@@ -76,7 +76,7 @@ public class ItemController {
     @PostMapping("/add")
     public String addItem(@ModelAttribute Item item, @RequestParam("imageFiles") List<MultipartFile> file, HttpSession session) throws IOException {
         item.setCreateDatetime(new Date());
-        Item saveditem = itemService.save(item, null, session);
+        Item saveditem = itemService.save(item, session);
         log.info("id value = {}", saveditem.getItemId());
         imageService.save(saveditem.getItemId(), file);
 
@@ -87,7 +87,6 @@ public class ItemController {
     @GetMapping("/{itemId}/edit")
     public String editForm(@PathVariable Long itemId, Model model, HttpSession session, RedirectAttributes redirectAttributes) {
         Item item = itemService.findById(itemId).get();
-        ItemImage hello = new ItemImage();
         List<ItemImage> itemImages = imageService.findByItemId(itemId);
 
 
@@ -104,22 +103,16 @@ public class ItemController {
         model.addAttribute("itemTypes", ItemType.values());
         model.addAttribute("statuses", SaleStatus.values());
         model.addAttribute("itemImages", itemImages);
-        model.addAttribute("hello", hello);
         return "item/editForm";
     }
 
     @PostMapping("/{itemId}/edit")
     public String edit(@PathVariable Long itemId, @ModelAttribute ItemUpdateDto updateParam,
-                       @RequestParam("imageFiles") List<MultipartFile> file,
-                       @RequestParam("deleteCheck") boolean deleteCheck) throws IOException {
+                       @RequestParam("imageFiles") List<MultipartFile> file) throws IOException {
         List<ItemImage> itemImages = imageService.findByItemId(itemId);
-        for (ItemImage itemImage : itemImages) {
-            log.info("dele = {}",itemImage.isDeleteCheck());
-        }
 
         updateParam.setUpdateDatetime(new Date());
-        itemService.update(itemId, updateParam, null);
-//        imageService.delete(itemId);
+        itemService.update(itemId, updateParam);
         imageService.save(itemId,file);
         return "redirect:/items/{itemId}";
     }

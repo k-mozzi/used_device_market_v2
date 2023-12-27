@@ -34,19 +34,16 @@ public class MyBatisImageRepository implements ImageRepository {
     }
 
     @Override
+    public ItemImage findById(int itemImageId) {
+        return imageMapper.findById(itemImageId);
+    }
+
+    @Override
     public List<ItemImage> findAll() {
         return imageMapper.findAll();
     }
 
-    @Override
-    public void update(Long itemId, ItemUpdateDto updateParam) {
-        imageMapper.update(itemId, updateParam);
-        log.info("update item={}", updateParam.getUpdateDatetime());
-    }
-    @Override
-    public void incrementViewsCount(Long itemId) {
-        imageMapper.incrementViewsCount(itemId);
-    }
+
 
     @Override
     public void delete(int itemImageId) {

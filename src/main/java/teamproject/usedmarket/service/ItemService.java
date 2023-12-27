@@ -11,9 +11,9 @@ import java.util.Optional;
 
 public interface ItemService {
 
-    Item save(Item item, MultipartFile file, HttpSession session) throws IOException;
+    Item save(Item item, HttpSession session) throws IOException;
 
-    void update(Long itemId, ItemUpdateDto updateParam, MultipartFile file) throws IOException;
+    void update(Long itemId, ItemUpdateDto updateParam) throws IOException;
 
     Optional<Item> findById(Long id);
 

@@ -29,7 +29,7 @@ public class ImageServiceV1 implements ImageService {
     private final ImageRepository imageRepository;
 
     String FILE_PATH = "C:\\Users\\82109\\Desktop\\spring_img";
-
+    String DIRECTORY_PATH = "c:/Users/82109/Desktop/spring_img/";
     @Override
     public List<ItemImage> findByItemId(Long itemid) {
         List<ItemImage> findImages = imageRepository.findByItemId(itemid);
@@ -66,7 +66,7 @@ public class ImageServiceV1 implements ImageService {
                         multipartFile.transferTo(saveFile); //저장
 
                         itemImage.setFileName(fileName);
-                        itemImage.setFilePath("/files/"+fileName);
+                        itemImage.setFilePath(DIRECTORY_PATH+fileName);
                         imageRepository.save(itemImage);
                     }
                 }
@@ -75,14 +75,10 @@ public class ImageServiceV1 implements ImageService {
 
 
 
-    @Override
-    public void update(Long itemId, ItemUpdateDto updateParam, MultipartFile file) throws IOException {
-
-    }
 
     @Override
-    public Optional<ItemImage> findById(Long id) {
-        return Optional.empty();
+    public ItemImage findById(int itemImageId) {
+        return imageRepository.findById(itemImageId);
     }
 
     @Override
@@ -92,6 +88,25 @@ public class ImageServiceV1 implements ImageService {
 
     @Override
     public void delete(int itemImageId) {
+        ItemImage findImageToDelete = imageRepository.findById(itemImageId);
+        String fileName = findImageToDelete.getFileName();
+        String filePath = DIRECTORY_PATH + fileName;
+        File file = new File(filePath);
+
+        try {
+            // 파일을 삭제합니다.
+            if (file.delete()) {
+                log.info(filePath + "가 성공적으로 삭제되었습니다.");
+            } else {
+                log.info(filePath + "를 삭제할 수 없습니다.");
+            }
+        } catch (SecurityException e) {
+            log.info(filePath + "에 대한 삭제 권한이 없습니다.");
+        } catch (Exception e) {
+            log.info("오류가 발생했습니다: " + e.getMessage());
+        }
+
+
         imageRepository.delete(itemImageId);
     }
 
