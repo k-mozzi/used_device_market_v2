@@ -59,6 +59,7 @@
                     if (response === 'success') {
                         console.log('관심 상품 등록 성공');
                         updateInterestButton(); // 버튼 업데이트
+                        updateInterestCount(itemId);
                     } else {
                         console.error('관심 상품 등록 실패');
                     }
@@ -81,9 +82,24 @@
                     if (response === 'success') {
                         console.log('관심 상품 삭제 성공');
                         updateInterestButton(); // 버튼 업데이트
+                        updateInterestCount(itemId);
                     } else {
                         console.error('관심 상품 삭제 실패');
                     }
+                },
+                error: function () {
+                    console.error('서버 오류');
+                }
+            });
+        }
+
+        // 찜 수 업데이트를 위한 함수 추가
+        function updateInterestCount(itemId) {
+            $.ajax({
+                type: 'GET',
+                url: '/items/' + itemId + '/totalLikedItem',
+                success: function (count) {
+                    $('#totalLikedItem').text(count);
                 },
                 error: function () {
                     console.error('서버 오류');
@@ -100,6 +116,8 @@
             } else {
                 removeInterest(); // 관심 상품 삭제 기능 호출
             }
+            // 찜 수 업데이트
+            updateInterestCount(currentItemId);
         }
     </script>
 
@@ -164,7 +182,7 @@
         <div>조회수: <span th:text="${item.viewsCount}"></span></div>
     </div>
     <div>
-        <div>찜수: <span th:text="${totalLikedItem}"></span></div>
+        <div>찜수: <span id="totalLikedItem" th:text="${totalLikedItem} ? ${totalLikedItem} : 0"></span></div>
     </div>
     <!--  수정 이력이 있는 경우에만 수정일 출력  -->
     <div th:if="${item.updateDatetime != null}">
