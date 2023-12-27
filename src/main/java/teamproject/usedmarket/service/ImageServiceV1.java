@@ -89,6 +89,20 @@ public class ImageServiceV1 implements ImageService {
     @Override
     public void delete(int itemImageId) {
         ItemImage findImageToDelete = imageRepository.findById(itemImageId);
+        if (findImageToDelete.isRepImageCheck() == true) {
+            Long itemId = findImageToDelete.getItemId();
+            List<ItemImage> itemImages = imageRepository.findByItemId(itemId);
+
+            for (ItemImage itemImage : itemImages) {
+                itemImage.setRepImageCheck(true);
+
+            }
+        }
+
+
+        Long itemId = findImageToDelete.getItemId();
+
+
         String fileName = findImageToDelete.getFileName();
         String filePath = DIRECTORY_PATH + fileName;
         File file = new File(filePath);
