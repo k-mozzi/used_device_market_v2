@@ -100,7 +100,7 @@ public class ImageServiceV1 implements ImageService {
         }
 
 
-        Long itemId = findImageToDelete.getItemId();
+
 
 
         String fileName = findImageToDelete.getFileName();
