@@ -2,8 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <link th:href="@{/css/bootstrap.min.css}"
-          href="css/bootstrap.min.css" rel="stylesheet">
+    <link th:href="@{/css/bootstrap.min.css}" href="css/bootstrap.min.css" rel="stylesheet">
     <style>
         .container {
             max-width: 560px;
@@ -15,6 +14,8 @@
         /*<![CDATA[*/
         var currentMemberId = [[${currentMemberId}]];
         var currentItemId = [[${currentItemId}]];
+        var sellerMemberId = [[${item.sellerMemberId}]];
+        var isOwnItem = currentMemberId === sellerMemberId;
         /*]]>*/
     </script>
     <script>
@@ -113,13 +114,18 @@
         function toggleInterest() {
             var interestButton = $('#interestButton');
 
-            if (interestButton.text() === '관심 상품 등록') {
-                addInterest(); // 관심 상품 등록 기능 호출
+            if (isOwnItem) {
+                // 판매자가 자신의 상품에 대해 찜 기능을 사용할 수 없도록 막음
+                console.log('자신의 상품에는 찜 기능을 사용할 수 없습니다.');
             } else {
-                removeInterest(); // 관심 상품 삭제 기능 호출
+                if (interestButton.text() === '관심 상품 등록') {
+                    addInterest(); // 관심 상품 등록 기능 호출
+                } else {
+                    removeInterest(); // 관심 상품 삭제 기능 호출
+                }
+                // 찜 수 업데이트
+                updateInterestCount(currentItemId);
             }
-            // 찜 수 업데이트
-            updateInterestCount(currentItemId);
         }
     </script>
 
@@ -192,11 +198,12 @@
     </div>
     <div>
         <!-- '관심 상품 등록/삭제' 버튼 -->
-        <button id="interestButton" class="w-100 btn" th:class="${isLiked} ? 'btn-warning btn-lg' : 'btn-success btn-lg'" th:onclick="|toggleInterest('@{/items/addInterest}', '@{/items/removeInterest}')|">
+        <button id="interestButton" class="w-100 btn"
+                th:class="${isLiked} ? 'btn-warning btn-lg' : 'btn-success btn-lg'"
+                th:onclick="|toggleInterest('@{/items/addInterest}', '@{/items/removeInterest}')|">
             <span th:text="${isLiked} ? '관심 상품 삭제' : '관심 상품 등록'"></span>
         </button>
     </div>
-
     <hr class="my-4">
 
     <div class="row">
