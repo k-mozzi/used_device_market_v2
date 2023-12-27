@@ -14,12 +14,12 @@ public interface ImageRepository {
 
     public List<ItemImage> findByItemId(Long itemId);
 
+    public ItemImage findById(int itemImageId);
+
 
     public List<ItemImage> findAll();
 
-    public void update(Long itemId, ItemUpdateDto updateParam);
 
-    void incrementViewsCount(Long itemId);
 
-    public void delete(Long itemId);
+    public void delete(int itemImageId);
 }

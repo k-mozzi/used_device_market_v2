@@ -13,11 +13,12 @@ public interface ImageService {
     List<ItemImage> findByItemId(Long itemid);
     void save(Long itemId, List<MultipartFile> imageFiles) throws IOException;
 
-    void update(Long itemId, ItemUpdateDto updateParam, MultipartFile file) throws IOException;
 
-    Optional<ItemImage> findById(Long id);
+    ItemImage findById(int itemImageId);
 
     List<ItemImage> findImages();
 
-//    void delete(Long itemId);
+    void delete(int itemImageId);
+
+
 }
