@@ -21,6 +21,8 @@
         // 페이지 로드 시 초기 버튼 상태 설정
         $(document).ready(function () {
             updateInterestButton();
+            // 페이지 로딩 시 찜 수 초기화
+            updateInterestCount(currentItemId);
         });
 
         // Ajax를 사용하여 현재 관심 상품 상태를 가져오고 버튼을 업데이트하는 함수
@@ -99,7 +101,7 @@
                 type: 'GET',
                 url: '/items/' + itemId + '/totalLikedItem',
                 success: function (count) {
-                    $('#totalLikedItem').text(count);
+                    $('#totalLikedItem').text(count || 0);
                 },
                 error: function () {
                     console.error('서버 오류');
