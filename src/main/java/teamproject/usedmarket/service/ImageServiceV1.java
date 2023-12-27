@@ -11,11 +11,14 @@ import teamproject.usedmarket.domain.item.ItemImage;
 import teamproject.usedmarket.repository.ImageRepository;
 import teamproject.usedmarket.repository.ItemUpdateDto;
 import teamproject.usedmarket.web.item.StoreFileName;
+import teamproject.usedmarket.web.itemimage.ImageUpdateDto;
 
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Slf4j
@@ -90,22 +93,6 @@ public class ImageServiceV1 implements ImageService {
     @Override
     public void delete(int itemImageId) {
         ItemImage findImageToDelete = imageRepository.findById(itemImageId);
-        if (findImageToDelete.isRepImageCheck() == true) {
-            Long itemId = findImageToDelete.getItemId();
-            List<ItemImage> itemImages = imageRepository.findByItemId(itemId);
-
-            if (!itemImages.isEmpty() && itemImages.size() >= 2) {
-                int lastIndex = itemImages.size() - 1;
-                if (itemImages.get(lastIndex) != findImageToDelete) {
-                    itemImages.get(lastIndex).setRepImageCheck(true);
-                }else {
-                    itemImages.get(lastIndex-1).setRepImageCheck(true);
-                }
-            }
-        }
-
-
-
 
 
         String fileName = findImageToDelete.getFileName();
@@ -125,8 +112,29 @@ public class ImageServiceV1 implements ImageService {
             log.info("오류가 발생했습니다: " + e.getMessage());
         }
 
-
         imageRepository.delete(itemImageId);
+
+
+
+        ItemImage repImage = null;
+        List<ItemImage> itemImages = findByItemId(findImageToDelete.getItemId());
+        for (ItemImage itemImage : itemImages) {
+            if (itemImage.isRepImageCheck() == true) {
+                repImage = itemImage;
+            }
+        }
+        if (repImage == null) {
+            ImageUpdateDto updateDto = new ImageUpdateDto();
+            updateDto.setUpdateDatetime(new Date());
+            updateDto.setRepImageCheck(true);
+            imageRepository.update(itemImages.get(0).getItemImageId(),updateDto);
+        }
+
+    }
+
+    @Override
+    public void update(int itemImageId, ImageUpdateDto updateDto) throws IOException {
+        imageRepository.update(itemImageId, updateDto);
     }
 
 

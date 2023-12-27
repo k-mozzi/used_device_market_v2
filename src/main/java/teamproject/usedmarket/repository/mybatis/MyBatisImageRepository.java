@@ -9,6 +9,7 @@ import teamproject.usedmarket.domain.item.ItemImage;
 import teamproject.usedmarket.repository.ImageRepository;
 import teamproject.usedmarket.repository.ItemRepository;
 import teamproject.usedmarket.repository.ItemUpdateDto;
+import teamproject.usedmarket.web.itemimage.ImageUpdateDto;
 
 import java.util.List;
 import java.util.Optional;
@@ -43,6 +44,10 @@ public class MyBatisImageRepository implements ImageRepository {
         return imageMapper.findAll();
     }
 
+    @Override
+    public void update(int itemImageId, ImageUpdateDto updateDto) {
+        imageMapper.update(itemImageId, updateDto);
+    }
 
 
     @Override

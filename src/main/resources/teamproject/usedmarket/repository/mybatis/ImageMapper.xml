@@ -9,7 +9,12 @@
         values (#{itemId}, #{fileName}, #{filePath}, #{orderingNumber}, #{createDatetime, jdbcType=TIMESTAMP}, #{repImageCheck})
     </insert>
 
-
+    <update id="update">
+        update item_image
+        set rep_image_check=#{updateDto.repImageCheck},
+        update_datetime=#{updateDto.updateDatetime, jdbcType=TIMESTAMP}
+        where item_image_id = #{itemImageId}
+    </update>
 
     <select id="findById" resultType="itemImage">
         select * from item_image
