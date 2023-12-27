@@ -34,4 +34,10 @@ public class LikeServiceV1 implements LikeService {
         return likeRepository.findLikedItemByMemberId(memberId);
     }
 
+    @Override
+    public int totalLikedItem(Long itemId) {
+        return likeRepository.totalLikedItem(itemId);
+    }
+
+
 }

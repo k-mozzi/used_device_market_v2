@@ -52,6 +52,7 @@ public class ItemController {
         String foundMemberName = itemService.findMemberNameBySellerMemberId(sellerMemberId, itemId);
         Long memberId = (Long) session.getAttribute("memberId");
         boolean isLiked = likeService.existsByMemberIdAndItemId(memberId, itemId);
+        itemService.incrementViewsCount(itemId);
         model.addAttribute("item", item);
         model.addAttribute("selectedItemTypeId", item.getItemTypeId());
         model.addAttribute("itemTypes", ItemType.values());
@@ -62,7 +63,6 @@ public class ItemController {
         model.addAttribute("currentMemberId", memberId);
         model.addAttribute("currentItemId", itemId);
         model.addAttribute("isLiked", isLiked);
-        itemService.incrementViewsCount(itemId);
         return "item/item";
     }
 
@@ -166,6 +166,16 @@ public class ItemController {
         Long memberId = (Long) session.getAttribute("memberId");
         boolean exists = likeService.existsByMemberIdAndItemId(memberId, itemId);
         return ResponseEntity.ok(exists ? "exists" : "not_exists");
+    }
+
+    /**
+     * 관심상품으로 등록한 회읜의 수
+     */
+    @GetMapping("/{itemId}/totalLikedItem")
+    public ResponseEntity<Integer> totalLikedItem(@PathVariable Long itemId) {
+        // 아이템의 찜 수 조회 로직 수행
+        int totalLikedItem = likeService.totalLikedItem(itemId);
+        return ResponseEntity.ok(totalLikedItem);
     }
 
 }

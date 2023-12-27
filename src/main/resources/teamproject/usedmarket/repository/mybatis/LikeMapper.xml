@@ -27,5 +27,11 @@
         WHERE il.member_id = #{memberId}
     </select>
 
+    <select id="totalLikedItem" resultType="java.lang.Integer">
+        SELECT COUNT(*) AS totalLikedItem
+        FROM item_like
+        WHERE item_id = #{itemId}
+    </select>
+
 
 </mapper>

@@ -15,4 +15,6 @@ public interface LikeRepository {
 
     List<Item> findLikedItemByMemberId(Long memberId);
 
+    int totalLikedItem(Long itemId);
+
 }
