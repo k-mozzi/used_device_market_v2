@@ -2,8 +2,10 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header"/>
 <body>
-<h2>Entity List</h2>
-
+<div th:replace="fragments/bodyHeader :: bodyHeader"/>
+<div th:if="${not #strings.isEmpty(error)}" class="alert alert-danger" role="alert">
+    <p th:text="${error}"></p>
+</div>
 <div>
 <table border="1" class="table table-striped">
     <thead>
@@ -34,7 +36,15 @@
         <!-- Add other columns based on your YourEntity class -->
     </tr>
     </tbody>
+
 </table>
+    <div class="col" >
+        <button class="w-100 btn btn-secondary btn-lg"
+                onclick="location.href='loginHome.html'"
+                th:onclick="|location.href='@{/}'|"
+                type="button">홈으로
+        </button>
+    </div>
 </div>
 
 <div th:if="${totalPages > 1}">

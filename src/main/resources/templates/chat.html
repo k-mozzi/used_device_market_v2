@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat Page</title>
+    <!-- 필요한 CSS 및 스타일시트를 추가하세요 -->
+</head>
+<body>
+
+<div id="chat-box">
+    <ul>
+        <!-- 채팅 메시지를 표시하는 부분 -->
+        <li th:each="message : ${messages}">
+            <span th:text="${message.sender + ': ' + message.content}"></span>
+        </li>
+    </ul>
+</div>
+
+<form id="chat-form" onsubmit="sendMessage(); return false;">
+    <input type="text" id="message-input" placeholder="Type your message..." required />
+    <button type="submit">Send</button>
+</form>
+
+<!-- 필요한 JavaScript 및 웹소켓 관련 스크립트를 추가하세요 -->
+<script src="https://cdn.jsdelivr.net/sockjs/1.1/sockjs.min.js"></script>
+<script src="https://cdn.jsdelivr.net/stomp.js/2.3.3/stomp.min.js"></script>
+<script th:inline="javascript">
+    var stompClient = null;
+
+    function connect() {
+        var socket = new SockJS('/websocket');
+        stompClient = Stomp.over(socket);
+        stompClient.connect({}, function (frame) {
+            console.log('Connected: ' + frame);
+            stompClient.subscribe('/topic/messages', function (message) {
+                showMessage(JSON.parse(message.body));
+            });
+        });
+    }
+
+    function disconnect() {
+        if (stompClient !== null) {
+            stompClient.disconnect();
+        }
+        console.log("Disconnected");
+    }
+
+    function sendMessage() {
+        var contentInput = document.getElementById('message-input');
+        var message = {
+            content: contentInput.value,
+            sender: 'User' // 사용자 이름 또는 ID 등
+        };
+        stompClient.send("/app/chat", {}, JSON.stringify(message));
+        contentInput.value = '';
+    }
+
+    function showMessage(message) {
+        var chatBox = document.getElementById('chat-box');
+        var ul = chatBox.querySelector('ul');
+        var li = document.createElement('li');
+        li.textContent = message.sender + ': ' + message.content;
+        ul.appendChild(li);
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        connect();
+    });
+
+    document.addEventListener('beforeunload', function () {
+        disconnect();
+    });
+</script>
+</body>
+</html>
