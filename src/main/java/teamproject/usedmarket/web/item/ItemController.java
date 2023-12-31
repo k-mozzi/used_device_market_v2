@@ -36,11 +36,20 @@ public class ItemController {
 
 
     @GetMapping
-    public String items(Model model) {
-        List<Item> items = itemService.findItems();
-        List<ItemImage> images = imageService.findImages();
+    public String items(@RequestParam(defaultValue = "1") int page, Model model) {
+        int pageSize = 10; // 한 페이지에 보여줄 아이템 수
+        List<Item> items = itemService.findItemsWithPaging(page, pageSize);
         model.addAttribute("items", items);
+
+        // 페이징 처리를 위한 정보 전달
+        int totalCount = itemService.countItems();
+        int totalPages = (int) Math.ceil((double) totalCount / pageSize);
+        List<ItemImage> images = imageService.findImages();
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", totalPages);
         model.addAttribute("images", images);
+        log.info("totalPage={}", totalPages);
+
         return "item/items";
     }
 

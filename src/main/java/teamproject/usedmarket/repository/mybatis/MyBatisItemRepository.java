@@ -7,7 +7,9 @@ import teamproject.usedmarket.domain.item.Item;
 import teamproject.usedmarket.repository.ItemRepository;
 import teamproject.usedmarket.repository.ItemUpdateDto;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -54,6 +56,20 @@ public class MyBatisItemRepository implements ItemRepository {
     @Override
     public void delete(Long itemId) {
         itemMapper.delete(itemId);
+    }
+
+    @Override
+    public List<Item> findItemsWithPaging(int page, int pageSize) {
+        int startRow = (page - 1) * pageSize;
+        Map<String, Object> params = new HashMap<>();
+        params.put("startRow", startRow);
+        params.put("pageSize", pageSize);
+        return itemMapper.findItemsWithPaging(params);
+    }
+
+    @Override
+    public int countItems() {
+        return itemMapper.countItems();
     }
 
 }

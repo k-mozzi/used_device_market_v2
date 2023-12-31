@@ -17,6 +17,7 @@ import teamproject.usedmarket.domain.member.Member;
 import teamproject.usedmarket.repository.MemberRepository;
 
 import javax.sql.DataSource;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -52,6 +53,20 @@ public class MyBatisMemberRepository implements MemberRepository {
     @Override
     public List<Item> findSellItemByMemberId(Long memberId) {
         return memberMapper.findSellItemByMemberId(memberId);
+    }
+
+    @Override
+    public List<Item> findMembersWithPaging(int page, int pageSize) {
+        int startRow = (page - 1) * pageSize;
+        Map<String, Object> params = new HashMap<>();
+        params.put("startRow", startRow);
+        params.put("pageSize", pageSize);
+        return memberMapper.findMembersWithPaging(params);
+    }
+
+    @Override
+    public int countItems() {
+        return memberMapper.countItems();
     }
 
 

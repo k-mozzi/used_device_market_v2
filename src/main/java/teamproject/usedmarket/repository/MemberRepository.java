@@ -18,4 +18,8 @@ public interface MemberRepository {
 
     List<Item> findSellItemByMemberId(Long memberId);
 
+    public List<Item> findMembersWithPaging(int page, int pageSize);
+
+    public int countItems();
+
 }
