@@ -5,6 +5,7 @@ import teamproject.usedmarket.domain.item.Item;
 import teamproject.usedmarket.repository.ItemUpdateDto;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Mapper
@@ -23,5 +24,9 @@ public interface ItemMapper {
     String findMemberNameBySellerMemberId(@Param("sellerMemberId") Long sellerMemberId,@Param("itemId") Long itemId);
 
     void delete(Long itemId);
+
+    List<Item> findItemsWithPaging(Map<String, Object> params);
+
+    int countItems();
 
 }

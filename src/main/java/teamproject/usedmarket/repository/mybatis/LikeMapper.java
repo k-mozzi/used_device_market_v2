@@ -6,6 +6,7 @@ import teamproject.usedmarket.domain.item.Item;
 import teamproject.usedmarket.domain.item.ItemLike;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface LikeMapper {
@@ -19,5 +20,9 @@ public interface LikeMapper {
     List<Item> findLikedItemByMemberId(Long memberId);
 
     int totalLikedItem(Long itemId);
+
+//    List<Item> findLikedItemsWithPaging(Long memberId, Map<String, Object> params);
+//
+//    int countItems(Long memberId);
 
 }

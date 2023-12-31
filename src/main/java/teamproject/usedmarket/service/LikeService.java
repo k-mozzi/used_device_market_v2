@@ -17,4 +17,8 @@ public interface LikeService {
 
     int totalLikedItem(Long itemId);
 
+//    List<Item> findLikedItemsWithPaging(Long memberId, int page, int pageSize);
+//
+//    int countItems(Long memberId);
+
 }

@@ -7,7 +7,9 @@ import teamproject.usedmarket.domain.item.Item;
 import teamproject.usedmarket.domain.item.ItemLike;
 import teamproject.usedmarket.repository.LikeRepository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Repository
@@ -40,5 +42,19 @@ public class MyBatisLikeRepository implements LikeRepository {
     public int totalLikedItem(Long itemId) {
         return likeMapper.totalLikedItem(itemId);
     }
+
+//    @Override
+//    public List<Item> findLikedItemsWithPaging(Long memberId, int page, int pageSize) {
+//        int startRow = (page - 1) * pageSize;
+//        Map<String, Object> params = new HashMap<>();
+//        params.put("startRow", startRow);
+//        params.put("pageSize", pageSize);
+//        return likeMapper.findLikedItemsWithPaging(memberId, params);
+//    }
+//
+//    @Override
+//    public int countItems(Long memberId) {
+//        return likeMapper.countItems(memberId);
+//    }
 
 }

@@ -21,4 +21,8 @@ public interface ItemRepository {
     void incrementViewsCount(Long itemId);
 
     public void delete(Long itemId);
+
+    public List<Item> findItemsWithPaging(int page, int pageSize);
+
+    public int countItems();
 }

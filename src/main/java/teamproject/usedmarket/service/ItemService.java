@@ -25,4 +25,8 @@ public interface ItemService {
 
     void delete(Long itemId);
 
+    List<Item> findItemsWithPaging(int page, int pageSize);
+
+    int countItems();
+
 }
