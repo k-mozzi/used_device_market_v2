@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="teamproject.usedmarket.repository.mybatis.PagingMapper">
+
+
+
+
+<select id="findAll" resultType="item">
+    select * from item order by item_id desc
+</select>
+
+    <select id="getEntitiesWithPaging" resultType="Item">
+        SELECT * FROM item
+        LIMIT #{offset}, #{limit}
+    </select>
+
+    <select id="countTotalEntities" resultType="int">
+        SELECT COUNT(*) FROM item
+    </select>
+
+
+
+
+</mapper>
