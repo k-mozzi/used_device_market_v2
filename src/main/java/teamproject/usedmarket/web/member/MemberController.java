@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import teamproject.usedmarket.SessionConst;
 import teamproject.usedmarket.domain.item.Item;
 import teamproject.usedmarket.domain.item.ItemImage;
@@ -60,9 +61,20 @@ public class MemberController {
     }
 
     @GetMapping
-    public String members(Model model) {
-        List<Member> members = loginService.findMembers();
+    public String members(@RequestParam(defaultValue = "1") int page, Model model) {
+        int pageSize = 10; // 한 페이지에 보여줄 아이템 수
+        List<Item> members = memberRepository.findMembersWithPaging(page, pageSize);
         model.addAttribute("members", members);
+
+        // 페이징 처리를 위한 정보 전달
+        int totalCount = memberRepository.countItems();
+        int totalPages = (int) Math.ceil((double) totalCount / pageSize);
+        List<ItemImage> images = imageService.findImages();
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("images", images);
+        log.info("totalPage={}", totalPages);
+
         return "members/members";
     }
 
@@ -94,6 +106,27 @@ public class MemberController {
         model.addAttribute("images", images);
         return "members/myPage/memberLike";
     }
+
+//    @GetMapping("/myPage/{memberId}/like")
+//    public String memberLike(@RequestParam(defaultValue = "1") int page, @PathVariable(name = "memberId") long memberId, Model model, RedirectAttributes redirectAttributes) {
+//
+//        int pageSize = 10;
+//        List<Item> likedItems = likeService.findLikedItemsWithPaging(memberId, page, pageSize);
+//        List<ItemImage> images = imageService.findImages();
+//        model.addAttribute("likedItems", likedItems);
+//        model.addAttribute("images", images);
+//
+//        // 페이징 처리를 위한 정보 전달
+//        int totalCount = likeService.countItems(memberId);
+//        int totalPages = (int) Math.ceil((double) totalCount / pageSize);
+//        model.addAttribute("currentPage", page);
+//        model.addAttribute("totalPages", totalPages);
+//        log.info("totalPage={}", totalPages);
+//
+//        redirectAttributes.addAttribute("memberId", memberId);
+//
+//        return "redirect:/members/myPage/memberLike";
+//    }
 
     @GetMapping("/myPage/{memberId}/sell")
     public String memberSell(@PathVariable long memberId, Model model) {

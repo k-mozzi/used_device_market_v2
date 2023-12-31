@@ -74,5 +74,15 @@ public class ItemServiceV1 implements ItemService {
         itemRepository.delete(itemId);
     }
 
+    @Override
+    public List<Item> findItemsWithPaging(int page, int pageSize) {
+        return itemRepository.findItemsWithPaging(page, pageSize);
+    }
+
+    @Override
+    public int countItems() {
+        return itemRepository.countItems();
+    }
+
 
 }

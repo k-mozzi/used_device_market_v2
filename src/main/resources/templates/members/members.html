@@ -35,6 +35,29 @@
             </tbody>
         </table>
     </div>
+    <!-- 페이징 -->
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <!-- 이전 페이지 -->
+            <li th:class="${currentPage == 1 ? 'page-member disabled' : 'page-member'}">
+                <a class="page-link" th:if="${currentPage != 1}" th:href="@{/members(page=${currentPage - 1})}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+
+            <!-- 페이지 번호 -->
+            <li th:each="pageNumber : ${#numbers.sequence(1, totalPages)}" th:class="${pageNumber == currentPage ? 'page-member active' : 'page-member'}">
+                <a class="page-link" th:href="@{/members(page=${pageNumber})}" th:text="${pageNumber}"></a>
+            </li>
+
+            <!-- 다음 페이지 -->
+            <li th:class="${currentPage == totalPages ? 'page-member disabled' : 'page-member'}">
+                <a class="page-link" th:if="${currentPage != totalPages}" th:href="@{/members(page=${currentPage + 1})}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
     <div class="col">
         <button class="w-100 btn btn-secondary btn-lg"
                 onclick="location.href='loginHome.html'"
