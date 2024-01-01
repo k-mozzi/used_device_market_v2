@@ -4,7 +4,10 @@
 <body>
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader"/>
-    <div>
+    <div th:if="${#lists.isEmpty(soldItems)}">
+        <p><b>등록된 상품이 없습니다.</b></p>
+    </div>
+    <div th:if="${not #lists.isEmpty(soldItems)}">
         <table class="table table-striped">
             <thead>
             <tr>
@@ -37,12 +40,12 @@
             </tr>
             </tbody>
         </table>
-        <div class="col">
-            <button class="w-100 btn btn-secondary btn-lg"
-                    th:onclick="|location.href='@{/members/myPage}'|"
-                    type="button">MyPage
-            </button>
-        </div>
+    </div>
+    <div class="col">
+        <button class="w-100 btn btn-secondary btn-lg"
+                th:onclick="|location.href='@{/members/myPage}'|"
+                type="button">MyPage
+        </button>
     </div>
     <div th:replace="fragments/footer :: footer"/>
 </div> <!-- /container -->
