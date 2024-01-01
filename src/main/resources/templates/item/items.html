@@ -7,7 +7,10 @@
     <div th:if="${not #strings.isEmpty(error)}" class="alert alert-danger" role="alert">
         <p th:text="${error}"></p>
     </div>
-    <div>
+    <div th:if="${#lists.isEmpty(items)}">
+        <p><b>등록된 상품이 없습니다.</b></p>
+    </div>
+    <div th:if="${not #lists.isEmpty(items)}">
         <table class="table table-striped">
             <thead>
             <tr>
@@ -60,15 +63,14 @@
                 </li>
             </ul>
         </nav>
-
-        <!-- 홈으로 가는 버튼 -->
-        <div class="col">
-            <button class="w-100 btn btn-secondary btn-lg"
-                    onclick="location.href='loginHome.html'"
-                    th:onclick="|location.href='@{/}'|"
-                    type="button">홈으로
-            </button>
-        </div>
+    </div>
+    <!-- 홈으로 가는 버튼 -->
+    <div class="col">
+        <button class="w-100 btn btn-secondary btn-lg"
+                onclick="location.href='loginHome.html'"
+                th:onclick="|location.href='@{/}'|"
+                type="button">홈으로
+        </button>
     </div>
     <div th:replace="fragments/footer :: footer"/>
 </div> <!-- /container -->
