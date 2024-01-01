@@ -26,7 +26,12 @@ public interface ItemService {
     void delete(Long itemId);
 
     List<Item> findItemsWithPaging(int page, int pageSize);
-
     int countItems();
+
+    List<Item> findItemsSortedByRegistrationDate(int page, int pageSize);
+
+    List<Item> findItemsSortedByViewsCount(int page, int pageSize);
+
+    List<Item> findItemsSortedByLikesCount(int page, int pageSize);
 
 }

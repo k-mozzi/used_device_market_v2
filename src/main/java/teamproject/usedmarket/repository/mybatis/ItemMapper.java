@@ -29,4 +29,11 @@ public interface ItemMapper {
 
     int countItems();
 
+    List<Item> findItemsSortedByRegistrationDate(Map<String, Object> params);
+
+    List<Item> findItemsSortedByViewsCount(Map<String, Object> params);
+
+    List<Item> findItemsSortedByLikesCount(Map<String, Object> params);
+
+
 }

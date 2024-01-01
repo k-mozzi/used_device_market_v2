@@ -11,6 +11,17 @@
         <p><b>등록된 상품이 없습니다.</b></p>
     </div>
     <div th:if="${not #lists.isEmpty(items)}">
+        <!-- 정렬 선택 폼 -->
+        <form th:action="@{/items}" method="get" class="form-inline mb-3">
+            <label class="mr-2">정렬 방식:</label>
+            <select class="form-control" name="sort">
+                <option value="registrationDate" th:selected="${sort == 'registrationDate'}">최신순</option>
+                <option value="viewsCount" th:selected="${sort == 'viewsCount'}">조회수순</option>
+                <option value="likesCount" th:selected="${sort == 'likesCount'}">좋아요순</option>
+            </select>
+            <button type="submit" class="btn btn-primary ml-2">정렬 적용</button>
+        </form>
+
         <table class="table table-striped">
             <thead>
             <tr>
@@ -45,19 +56,19 @@
             <ul class="pagination justify-content-center">
                 <!-- 이전 페이지 -->
                 <li th:class="${currentPage == 1 ? 'page-item disabled' : 'page-item'}">
-                    <a class="page-link" th:if="${currentPage != 1}" th:href="@{/items(page=${currentPage - 1})}" aria-label="Previous">
+                    <a class="page-link" th:if="${currentPage != 1}" th:href="@{/items(page=${currentPage - 1}, sort=${sort})}" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
 
                 <!-- 페이지 번호 -->
                 <li th:each="pageNumber : ${#numbers.sequence(1, totalPages)}" th:class="${pageNumber == currentPage ? 'page-item active' : 'page-item'}">
-                    <a class="page-link" th:href="@{/items(page=${pageNumber})}" th:text="${pageNumber}"></a>
+                    <a class="page-link" th:href="@{/items(page=${pageNumber}, sort=${sort})}" th:text="${pageNumber}"></a>
                 </li>
 
                 <!-- 다음 페이지 -->
                 <li th:class="${currentPage == totalPages ? 'page-item disabled' : 'page-item'}">
-                    <a class="page-link" th:if="${currentPage != totalPages}" th:href="@{/items(page=${currentPage + 1})}" aria-label="Next">
+                    <a class="page-link" th:if="${currentPage != totalPages}" th:href="@{/items(page=${currentPage + 1}, sort=${sort})}" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                     </a>
                 </li>

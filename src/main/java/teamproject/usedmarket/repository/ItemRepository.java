@@ -25,4 +25,11 @@ public interface ItemRepository {
     public List<Item> findItemsWithPaging(int page, int pageSize);
 
     public int countItems();
+
+    public List<Item> findItemsSortedByRegistrationDate(int page, int pageSize);
+
+    public List<Item> findItemsSortedByViewsCount(int page, int pageSize);
+
+    public List<Item> findItemsSortedByLikesCount(int page, int pageSize);
+
 }

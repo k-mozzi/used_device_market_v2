@@ -23,20 +23,20 @@
     </select>
 
     <select id="findSellItemByMemberId" resultType="item">
-        SELECT i.*
-        FROM item i
-        WHERE i.seller_member_id = #{memberId}
+        select i.*
+        from item i
+        where i.seller_member_id = #{memberId}
     </select>
 
     <!-- 페이징을 고려한 아이템 목록 조회 -->
     <select id="findMembersWithPaging" parameterType="map" resultType="member">
-        SELECT * FROM member
-        ORDER BY create_datetime DESC LIMIT #{startRow}, #{pageSize}
+        select * from member
+        order by create_datetime desc limit #{startRow}, #{pageSize}
     </select>
 
     <!-- 전체 아이템 수 조회 -->
     <select id="countItems" resultType="int">
-        SELECT COUNT(*) FROM member
+        select count(*) from member
     </select>
 
 

@@ -72,4 +72,31 @@ public class MyBatisItemRepository implements ItemRepository {
         return itemMapper.countItems();
     }
 
+    @Override
+    public List<Item> findItemsSortedByRegistrationDate(int page, int pageSize) {
+        int startRow = (page - 1) * pageSize;
+        Map<String, Object> params = new HashMap<>();
+        params.put("startRow", startRow);
+        params.put("pageSize", pageSize);
+        return itemMapper.findItemsSortedByRegistrationDate(params);
+    }
+
+    @Override
+    public List<Item> findItemsSortedByViewsCount(int page, int pageSize) {
+        int startRow = (page - 1) * pageSize;
+        Map<String, Object> params = new HashMap<>();
+        params.put("startRow", startRow);
+        params.put("pageSize", pageSize);
+        return itemMapper.findItemsSortedByViewsCount(params);
+    }
+
+    @Override
+    public List<Item> findItemsSortedByLikesCount(int page, int pageSize) {
+        int startRow = (page - 1) * pageSize;
+        Map<String, Object> params = new HashMap<>();
+        params.put("startRow", startRow);
+        params.put("pageSize", pageSize);
+        return itemMapper.findItemsSortedByLikesCount(params);
+    }
+
 }
