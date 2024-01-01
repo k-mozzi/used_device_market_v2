@@ -51,9 +51,20 @@ public class MyBatisMemberRepository implements MemberRepository {
     }
 
     @Override
-    public List<Item> findSellItemByMemberId(Long memberId) {
-        return memberMapper.findSellItemByMemberId(memberId);
+    public List<Item> findItemsSortedOnSale(Long memberId) {
+        return memberMapper.findItemsSortedOnSale(memberId);
     }
+
+    @Override
+    public List<Item> findItemsSortedSoldOut(Long memberId) {
+        return memberMapper.findItemsSortedSoldOut(memberId);
+    }
+
+    @Override
+    public List<Item> findItemsSorted(Long memberId) {
+        return memberMapper.findItemsSorted(memberId);
+    }
+
 
     @Override
     public List<Item> findMembersWithPaging(int page, int pageSize) {

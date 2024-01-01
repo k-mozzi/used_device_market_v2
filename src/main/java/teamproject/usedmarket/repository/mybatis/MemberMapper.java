@@ -19,7 +19,11 @@ public interface MemberMapper {
 
     List<Member> findAll();
 
-    List<Item> findSellItemByMemberId(Long memberId);
+    List<Item> findItemsSortedOnSale(Long memberId);
+
+    List<Item> findItemsSortedSoldOut(Long memberId);
+
+    List<Item> findItemsSorted(Long memberId);
 
     List<Item> findMembersWithPaging(Map<String, Object> params);
 
