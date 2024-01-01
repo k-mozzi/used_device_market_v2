@@ -22,10 +22,26 @@
         select * from member
     </select>
 
-    <select id="findSellItemByMemberId" resultType="item">
-        select i.*
-        from item i
-        where i.seller_member_id = #{memberId}
+    <!-- 정렬에 따른 아이템 조회 -->
+    <select id="findItemsSortedOnSale" parameterType="map" resultType="item">
+        SELECT *
+        FROM item
+        WHERE seller_member_id = #{memberId} AND sale_status = 1
+        ORDER BY create_datetime DESC
+    </select>
+
+    <select id="findItemsSortedSoldOut" parameterType="map" resultType="item">
+        SELECT *
+        FROM item
+        WHERE seller_member_id = #{memberId} AND sale_status = 2
+        ORDER BY create_datetime DESC
+    </select>
+
+    <select id="findItemsSorted" parameterType="map" resultType="item">
+        SELECT *
+        FROM item
+        WHERE seller_member_id = #{memberId}
+        ORDER BY create_datetime DESC
     </select>
 
     <!-- 페이징을 고려한 아이템 목록 조회 -->

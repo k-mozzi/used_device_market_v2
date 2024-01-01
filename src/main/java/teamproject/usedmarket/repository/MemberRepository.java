@@ -16,10 +16,14 @@ public interface MemberRepository {
 
     List<Member> findAll();
 
-    List<Item> findSellItemByMemberId(Long memberId);
+    List<Item> findItemsSortedOnSale(Long memberId);
 
-    public List<Item> findMembersWithPaging(int page, int pageSize);
+    List<Item> findItemsSortedSoldOut(Long memberId);
 
-    public int countItems();
+    List<Item> findItemsSorted(Long memberId);
+
+    List<Item> findMembersWithPaging(int page, int pageSize);
+
+    int countItems();
 
 }
