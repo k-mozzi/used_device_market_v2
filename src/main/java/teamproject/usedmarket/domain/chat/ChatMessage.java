@@ -1,17 +1,20 @@
 package teamproject.usedmarket.domain.chat;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
-@Data
+@Getter
+@Setter
 public class ChatMessage {
-
-    private Long id;
-    private String content;
-    private String sender;
-    private LocalDateTime createdAt;
-
-    // 생성자, 게터, 세터 등 필요한 메소드들을 추가합니다.
-
+    // 메시지 타입 : 입장, 채팅, 나감
+    public enum MessageType {
+        ENTER, TALK,QUIT
+    }
+    private MessageType type; // 메시지 타입
+    private String roomId; // 방번호
+    private String sender; // 메시지 보낸사람
+    private String message; // 메시지
 }
