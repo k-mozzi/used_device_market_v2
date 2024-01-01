@@ -4,33 +4,33 @@
 <mapper namespace="teamproject.usedmarket.repository.mybatis.LikeMapper">
 
     <insert id="addInterest" useGeneratedKeys="true" keyProperty="itemLikeId">
-        INSERT INTO item_like (member_id, item_id)
-        VALUES (#{memberId}, #{itemId})
+        insert into item_like (member_id, item_id)
+        values (#{memberId}, #{itemId})
     </insert>
 
     <delete id="removeInterest">
-        DELETE FROM item_like WHERE member_id = #{memberId} AND item_id = #{itemId}
+        delete from item_like where member_id = #{memberId} and item_id = #{itemId}
     </delete>
 
     <!-- 해당 회원이 특정 상품에 대한 관심 여부를 확인하는 쿼리 -->
     <select id="existsByMemberIdAndItemId" resultType="boolean" parameterType="map">
-        SELECT COUNT(*) > 0
-        FROM item_like
-        WHERE member_id = #{memberId}
-        AND item_id = #{itemId}
+        select count(*) > 0
+        from item_like
+        where member_id = #{memberId}
+        and item_id = #{itemId}
     </select>
 
     <select id="findLikedItemByMemberId" resultType="item">
-        SELECT i.*
-        FROM item_like il
-        JOIN item i ON il.item_id = i.item_id
-        WHERE il.member_id = #{memberId}
+        select i.*
+        from item_like il
+        join item i on il.item_id = i.item_id
+        where il.member_id = #{memberId}
     </select>
 
     <select id="totalLikedItem" resultType="java.lang.Integer">
-        SELECT COUNT(*) AS totalLikedItem
-        FROM item_like
-        WHERE item_id = #{itemId}
+        select count(*) as totalLikedItem
+        from item_like
+        where item_id = #{itemId}
     </select>
 
 <!--    &lt;!&ndash; 페이징을 고려한 아이템 목록 조회 &ndash;&gt;-->

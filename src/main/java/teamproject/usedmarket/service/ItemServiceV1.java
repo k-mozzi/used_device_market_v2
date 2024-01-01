@@ -65,6 +65,16 @@ public class ItemServiceV1 implements ItemService {
     }
 
     @Override
+    public List<Item> findItemsWithPaging(int page, int pageSize) {
+        return itemRepository.findItemsWithPaging(page, pageSize);
+    }
+
+    @Override
+    public int countItems() {
+        return itemRepository.countItems();
+    }
+
+    @Override
     public List<Item> findItems() {
         return itemRepository.findAll();
     }
@@ -75,14 +85,18 @@ public class ItemServiceV1 implements ItemService {
     }
 
     @Override
-    public List<Item> findItemsWithPaging(int page, int pageSize) {
-        return itemRepository.findItemsWithPaging(page, pageSize);
+    public List<Item> findItemsSortedByRegistrationDate(int page, int pageSize) {
+        return itemRepository.findItemsSortedByRegistrationDate(page, pageSize);
     }
 
     @Override
-    public int countItems() {
-        return itemRepository.countItems();
+    public List<Item> findItemsSortedByViewsCount(int page, int pageSize) {
+        return itemRepository.findItemsSortedByViewsCount(page, pageSize);
     }
 
+    @Override
+    public List<Item> findItemsSortedByLikesCount(int page, int pageSize) {
+        return itemRepository.findItemsSortedByLikesCount(page, pageSize);
+    }
 
 }

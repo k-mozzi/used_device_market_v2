@@ -34,24 +34,43 @@ public class ItemController {
     private final ImageService imageService;
     private final LikeService likeService;
 
-
     @GetMapping
-    public String items(@RequestParam(defaultValue = "1") int page, Model model) {
+    public String items(@RequestParam(defaultValue = "1") int page,
+                        @RequestParam(defaultValue = "registrationDate") String sort,
+                        Model model) {
+
         int pageSize = 10; // 한 페이지에 보여줄 아이템 수
-        List<Item> items = itemService.findItemsWithPaging(page, pageSize);
-        model.addAttribute("items", items);
+        List<Item> items;
+
+        // 정렬 방식에 따라 아이템을 가져옴
+        switch (sort) {
+            case "registrationDate":
+                items = itemService.findItemsSortedByRegistrationDate(page, pageSize);
+                break;
+            case "viewsCount":
+                items = itemService.findItemsSortedByViewsCount(page, pageSize);
+                break;
+            case "likesCount":
+                items = itemService.findItemsSortedByLikesCount(page, pageSize);
+                break;
+            default:
+                items = itemService.findItemsWithPaging(page, pageSize);
+                break;
+        }
 
         // 페이징 처리를 위한 정보 전달
         int totalCount = itemService.countItems();
         int totalPages = (int) Math.ceil((double) totalCount / pageSize);
         List<ItemImage> images = imageService.findImages();
+        model.addAttribute("items", items);
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("images", images);
-        log.info("totalPage={}", totalPages);
+        model.addAttribute("sort", sort); // 현재 정렬 방식 전달
 
         return "item/items";
     }
+
 
     @GetMapping("/{itemId}")
     public String item(@PathVariable long itemId, Model model, HttpSession session) {
@@ -122,7 +141,7 @@ public class ItemController {
 
         updateParam.setUpdateDatetime(new Date());
         itemService.update(itemId, updateParam);
-        imageService.save(itemId,file);
+        imageService.save(itemId, file);
         return "redirect:/items/{itemId}";
     }
 
