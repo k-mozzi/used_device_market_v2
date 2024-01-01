@@ -80,26 +80,29 @@
 
     <!-- 정렬에 따른 아이템 조회 -->
     <select id="findItemsSortedByRegistrationDate" parameterType="map" resultType="item">
-        select *
-        from item
-        order by create_datetime desc
-        limit #{startRow}, #{pageSize}
+        SELECT *
+        FROM item
+        WHERE sale_status != 2
+        ORDER BY create_datetime DESC
+        LIMIT #{startRow, jdbcType=INTEGER}, #{pageSize, jdbcType=INTEGER}
     </select>
 
     <select id="findItemsSortedByViewsCount" parameterType="map" resultType="item">
-        select *
-        from item
-        order by views_count desc
-        limit #{startRow}, #{pageSize}
+        SELECT *
+        FROM item
+        WHERE sale_status != 2
+        ORDER BY COALESCE (views_count, 0) DESC
+        LIMIT #{startRow, jdbcType=INTEGER}, #{pageSize, jdbcType=INTEGER}
     </select>
 
     <select id="findItemsSortedByLikesCount" parameterType="map" resultType="item">
-        select i.*
-        from item i
-        left join item_like l on i.item_id = l.item_id
-        group by i.item_id
-        order by coalesce(count(l.item_id), 0) desc
-        limit #{startRow, jdbcType=INTEGER}, #{pageSize, jdbcType=INTEGER}
+        SELECT i.*
+        FROM item i
+        LEFT JOIN item_like l ON i.item_id = l.item_id
+        WHERE i.sale_status != 2
+        GROUP BY i.item_id
+        ORDER BY COALESCE(COUNT(l.item_id), 0) DESC
+        LIMIT #{startRow, jdbcType=INTEGER}, #{pageSize, jdbcType=INTEGER}
     </select>
 
 </mapper>

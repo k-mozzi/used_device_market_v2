@@ -8,6 +8,15 @@
         <p><b>등록된 상품이 없습니다.</b></p>
     </div>
     <div th:if="${not #lists.isEmpty(soldItems)}">
+        <!-- 정렬 선택 폼 -->
+        <form th:action="@{/members/myPage/{memberId}/sell(memberId=${memberId})}" method="get" class="form-inline mb-3">
+            <label class="mr-2">정렬 방식:</label>
+            <select class="form-control" name="sort">
+                <option value="onSale" th:selected="${sort == 'onSale'}">판매중</option>
+                <option value="soldOut" th:selected="${sort == 'soldOut'}">판매완료</option>
+            </select>
+            <button type="submit" class="btn btn-primary ml-2">정렬 적용</button>
+        </form>
         <table class="table table-striped">
             <thead>
             <tr>

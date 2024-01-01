@@ -19,7 +19,9 @@ import teamproject.usedmarket.service.LoginService;
 import teamproject.usedmarket.domain.member.Member;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Controller
@@ -129,13 +131,30 @@ public class MemberController {
 //    }
 
     @GetMapping("/myPage/{memberId}/sell")
-    public String memberSell(@PathVariable long memberId, Model model) {
+    public String memberSell(@PathVariable long memberId, @RequestParam(defaultValue = "onSale") String sort, Model model) {
 
-        List<Item> soldItems = memberRepository.findSellItemByMemberId(memberId);
+        List<Item> soldItems;
+
+        // 정렬 방식에 따라 아이템을 가져옴
+        switch (sort) {
+            case "onSale":
+                soldItems = memberRepository.findItemsSortedOnSale(memberId);
+                break;
+            case "soldOut":
+                soldItems = memberRepository.findItemsSortedSoldOut(memberId);
+                break;
+            default:
+                soldItems = memberRepository.findItemsSorted(memberId);
+                break;
+        }
+
         List<ItemImage> images = imageService.findImages();
         model.addAttribute("soldItems", soldItems);
         model.addAttribute("images", images);
+        model.addAttribute("sort", sort); // 현재 정렬 방식 전달
         return "members/myPage/memberSell";
     }
 
 }
+
+
