@@ -5,7 +5,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import teamproject.usedmarket.domain.chat.ChatRoom;
+import teamproject.usedmarket.domain.item.Item;
 import teamproject.usedmarket.repository.ChatRoomRepository;
+import teamproject.usedmarket.service.ItemService;
+import teamproject.usedmarket.service.ItemServiceV1;
 
 import java.util.List;
 
@@ -22,18 +25,21 @@ public class ChatRoomController {
     public String rooms(Model model) {
         return "/chat/roomList";
     }
+
     // 모든 채팅방 목록 반환
     @GetMapping("/rooms")
     @ResponseBody
     public List<ChatRoom> room() {
         return chatRoomRepository.findAllRoom();
     }
+
     // 채팅방 생성
     @PostMapping("/room")
     @ResponseBody
     public ChatRoom createRoom(@RequestParam String name) {
         return chatRoomRepository.createChatRoom(name);
     }
+
     // 채팅방 입장 화면   단순히 화면으로 이동
     @GetMapping("/room/enter/{roomId}")
     public String roomDetail(Model model, @PathVariable String roomId) {

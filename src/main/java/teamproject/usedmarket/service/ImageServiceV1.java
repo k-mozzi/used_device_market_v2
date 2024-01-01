@@ -3,17 +3,12 @@ package teamproject.usedmarket.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriUtils;
-import teamproject.usedmarket.domain.item.Item;
 import teamproject.usedmarket.domain.item.ItemImage;
 import teamproject.usedmarket.repository.ImageRepository;
-import teamproject.usedmarket.repository.ItemUpdateDto;
-import teamproject.usedmarket.web.item.StoreFileName;
 import teamproject.usedmarket.web.itemimage.ImageUpdateDto;
 
-import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;

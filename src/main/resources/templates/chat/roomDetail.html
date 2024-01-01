@@ -56,7 +56,7 @@
             message: '',
             messages: []
         },
-        created() {
+        created {
             this.roomId = localStorage.getItem('wschat.roomId');
              //나중엔 굳이 local로 안해도 될 듯.. DB에 저장해서  통신후에 방 이름찾아도 되고. sender도 security같은 걸로..
             this.sender = localStorage.getItem('wschat.sender');

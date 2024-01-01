@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import teamproject.usedmarket.domain.item.*;
+import teamproject.usedmarket.repository.ChatRoomRepository;
 import teamproject.usedmarket.repository.ItemUpdateDto;
 import teamproject.usedmarket.service.ImageService;
 import teamproject.usedmarket.service.ItemService;
@@ -29,7 +30,7 @@ import java.util.List;
 @RequestMapping("/items")
 @RequiredArgsConstructor
 public class ItemController {
-
+    private final ChatRoomRepository chatRoomRepository;
     private final ItemService itemService;
     private final ImageService imageService;
     private final LikeService likeService;
