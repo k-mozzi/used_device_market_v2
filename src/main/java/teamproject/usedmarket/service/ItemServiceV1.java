@@ -65,16 +65,6 @@ public class ItemServiceV1 implements ItemService {
     }
 
     @Override
-    public List<Item> findItemsWithPaging(int page, int pageSize, String itemType) {
-        return itemRepository.findItemsWithPaging(page, pageSize, itemType);
-    }
-
-    @Override
-    public int countItems() {
-        return itemRepository.countItems();
-    }
-
-    @Override
     public List<Item> findItems() {
         return itemRepository.findAll();
     }
@@ -85,18 +75,29 @@ public class ItemServiceV1 implements ItemService {
     }
 
     @Override
-    public List<Item> findItemsSortedByRegistrationDate(int page, int pageSize, String itemType) {
-        return itemRepository.findItemsSortedByRegistrationDate(page, pageSize, itemType);
+    public List<Item> findItemsWithPaging(int page, int pageSize, String itemType, String regionId) {
+        return itemRepository.findItemsWithPaging(page, pageSize, itemType, regionId);
     }
 
     @Override
-    public List<Item> findItemsSortedByViewsCount(int page, int pageSize, String itemType) {
-        return itemRepository.findItemsSortedByViewsCount(page, pageSize, itemType);
+    public int countItems() {
+        return itemRepository.countItems();
+    }
+
+
+    @Override
+    public List<Item> findItemsSortedByRegistrationDate(int page, int pageSize, String itemType, String regionId) {
+        return itemRepository.findItemsSortedByRegistrationDate(page, pageSize, itemType, regionId);
     }
 
     @Override
-    public List<Item> findItemsSortedByLikesCount(int page, int pageSize, String itemType) {
-        return itemRepository.findItemsSortedByLikesCount(page, pageSize, itemType);
+    public List<Item> findItemsSortedByViewsCount(int page, int pageSize, String itemType, String regionId) {
+        return itemRepository.findItemsSortedByViewsCount(page, pageSize, itemType, regionId);
+    }
+
+    @Override
+    public List<Item> findItemsSortedByLikesCount(int page, int pageSize, String itemType, String regionId) {
+        return itemRepository.findItemsSortedByLikesCount(page, pageSize, itemType, regionId);
     }
 
 

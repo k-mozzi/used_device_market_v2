@@ -23,14 +23,14 @@ public interface ItemRepository {
 
     public void delete(Long itemId);
 
-    public List<Item> findItemsWithPaging(int page, int pageSize, String itemType);
+    public List<Item> findItemsWithPaging(int page, int pageSize, String itemType, String regionId);
 
     public int countItems();
 
-    public List<Item> findItemsSortedByRegistrationDate(int page, int pageSize, String itemType);
+    public List<Item> findItemsSortedByRegistrationDate(int page, int pageSize, String itemType, String regionId);
 
-    public List<Item> findItemsSortedByViewsCount(int page, int pageSize, String itemType);
+    public List<Item> findItemsSortedByViewsCount(int page, int pageSize, String itemType, String regionId);
 
-    public List<Item> findItemsSortedByLikesCount(int page, int pageSize, String itemType);
+    public List<Item> findItemsSortedByLikesCount(int page, int pageSize, String itemType, String regionId);
 
 }

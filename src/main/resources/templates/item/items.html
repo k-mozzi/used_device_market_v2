@@ -22,6 +22,19 @@
             <option value="2" th:selected="${itemType == '2'}">태블릿</option>
             <option value="3" th:selected="${itemType == '3'}">스마트폰</option>
         </select>
+        <label class="ml-2 mr-2">지역:</label>
+        <select class="form-control" name="regionId">
+            <option value="">전체</option>
+            <option value="1" th:selected="${regionId == '1'}">서울</option>
+            <option value="2" th:selected="${regionId == '2'}">인천</option>
+            <option value="3" th:selected="${regionId == '3'}">세종</option>
+            <option value="4" th:selected="${regionId == '4'}">대전</option>
+            <option value="5" th:selected="${regionId == '5'}">대구</option>
+            <option value="6" th:selected="${regionId == '6'}">광주</option>
+            <option value="7" th:selected="${regionId == '7'}">울산</option>
+            <option value="8" th:selected="${regionId == '8'}">부산</option>
+            <option value="9" th:selected="${regionId == '9'}">제주</option>
+        </select>
         <button type="submit" class="btn btn-primary ml-2">정렬 적용</button>
     </form>
     <div th:if="${#lists.isEmpty(items)}">
