@@ -29,19 +29,6 @@
         select * from item_image order by item_image_id desc
     </select>
 
-    <!--    <select id="findAll" resultType="Item">-->
-    <!--        select id, item_name, price, quantity-->
-    <!--        from item-->
-    <!--        <where>-->
-    <!--            <if test="itemName != null and itemName != ''">-->
-    <!--                and item_name like concat('%',#{itemName},'%')-->
-    <!--            </if>-->
-    <!--            <if test="maxPrice != null">-->
-    <!--                and price &lt;= #{maxPrice}-->
-    <!--            </if>-->
-    <!--        </where>-->
-    <!--    </select>-->
-
     <delete id="delete">
         delete from item_image
         where item_image_id = #{itemImageId}

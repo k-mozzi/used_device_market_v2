@@ -7,6 +7,9 @@
     <div th:if="${not #strings.isEmpty(error)}" class="alert alert-danger" role="alert">
         <p th:text="${error}"></p>
     </div>
+    <div class="mb-3">
+        <a href="/items/add" class="btn btn-primary">상품 등록</a>
+    </div>
     <!-- 검색 폼 -->
     <form th:action="@{/items}" method="get" class="form-inline mb-3">
         <label for="searchText" class="mr-2">검색어:</label>
