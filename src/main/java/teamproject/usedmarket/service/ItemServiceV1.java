@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -24,7 +25,6 @@ public class ItemServiceV1 implements ItemService {
 
 
     private final ItemRepository itemRepository;
-
 
 
     @Override
@@ -41,7 +41,7 @@ public class ItemServiceV1 implements ItemService {
     @Override
     public void update(Long itemId, ItemUpdateDto updateParam) throws IOException {
 
-            itemRepository.update(itemId, updateParam);
+        itemRepository.update(itemId, updateParam);
 
     }
 
@@ -65,8 +65,8 @@ public class ItemServiceV1 implements ItemService {
     }
 
     @Override
-    public List<Item> findItemsWithPaging(int page, int pageSize) {
-        return itemRepository.findItemsWithPaging(page, pageSize);
+    public List<Item> findItemsWithPaging(int page, int pageSize, String itemType) {
+        return itemRepository.findItemsWithPaging(page, pageSize, itemType);
     }
 
     @Override
@@ -85,18 +85,19 @@ public class ItemServiceV1 implements ItemService {
     }
 
     @Override
-    public List<Item> findItemsSortedByRegistrationDate(int page, int pageSize) {
-        return itemRepository.findItemsSortedByRegistrationDate(page, pageSize);
+    public List<Item> findItemsSortedByRegistrationDate(int page, int pageSize, String itemType) {
+        return itemRepository.findItemsSortedByRegistrationDate(page, pageSize, itemType);
     }
 
     @Override
-    public List<Item> findItemsSortedByViewsCount(int page, int pageSize) {
-        return itemRepository.findItemsSortedByViewsCount(page, pageSize);
+    public List<Item> findItemsSortedByViewsCount(int page, int pageSize, String itemType) {
+        return itemRepository.findItemsSortedByViewsCount(page, pageSize, itemType);
     }
 
     @Override
-    public List<Item> findItemsSortedByLikesCount(int page, int pageSize) {
-        return itemRepository.findItemsSortedByLikesCount(page, pageSize);
+    public List<Item> findItemsSortedByLikesCount(int page, int pageSize, String itemType) {
+        return itemRepository.findItemsSortedByLikesCount(page, pageSize, itemType);
     }
+
 
 }

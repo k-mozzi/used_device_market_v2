@@ -59,11 +59,12 @@ public class MyBatisItemRepository implements ItemRepository {
     }
 
     @Override
-    public List<Item> findItemsWithPaging(int page, int pageSize) {
+    public List<Item> findItemsWithPaging(int page, int pageSize, String itemType) {
         int startRow = (page - 1) * pageSize;
         Map<String, Object> params = new HashMap<>();
         params.put("startRow", startRow);
         params.put("pageSize", pageSize);
+        params.put("itemType", itemType);
         return itemMapper.findItemsWithPaging(params);
     }
 
@@ -73,29 +74,32 @@ public class MyBatisItemRepository implements ItemRepository {
     }
 
     @Override
-    public List<Item> findItemsSortedByRegistrationDate(int page, int pageSize) {
+    public List<Item> findItemsSortedByRegistrationDate(int page, int pageSize, String itemType) {
         int startRow = (page - 1) * pageSize;
         Map<String, Object> params = new HashMap<>();
         params.put("startRow", startRow);
         params.put("pageSize", pageSize);
+        params.put("itemType", itemType);
         return itemMapper.findItemsSortedByRegistrationDate(params);
     }
 
     @Override
-    public List<Item> findItemsSortedByViewsCount(int page, int pageSize) {
+    public List<Item> findItemsSortedByViewsCount(int page, int pageSize, String itemType) {
         int startRow = (page - 1) * pageSize;
         Map<String, Object> params = new HashMap<>();
         params.put("startRow", startRow);
         params.put("pageSize", pageSize);
+        params.put("itemType", itemType);
         return itemMapper.findItemsSortedByViewsCount(params);
     }
 
     @Override
-    public List<Item> findItemsSortedByLikesCount(int page, int pageSize) {
+    public List<Item> findItemsSortedByLikesCount(int page, int pageSize, String itemType) {
         int startRow = (page - 1) * pageSize;
         Map<String, Object> params = new HashMap<>();
         params.put("startRow", startRow);
         params.put("pageSize", pageSize);
+        params.put("itemType", itemType);
         return itemMapper.findItemsSortedByLikesCount(params);
     }
 
