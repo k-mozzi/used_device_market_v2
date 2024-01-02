@@ -1,4 +1,5 @@
 package teamproject.usedmarket.repository.mybatis;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import teamproject.usedmarket.domain.item.Item;
@@ -21,15 +22,18 @@ public interface ItemMapper {
 
     Optional<Item> findById(Long id);
 
-    String findMemberNameBySellerMemberId(@Param("sellerMemberId") Long sellerMemberId,@Param("itemId") Long itemId);
+    String findMemberNameBySellerMemberId(@Param("sellerMemberId") Long sellerMemberId, @Param("itemId") Long itemId);
 
     void delete(Long itemId);
 
     int countItems();
 
     List<Item> findItemsWithPaging(Map<String, Object> params);
+
     List<Item> findItemsSortedByRegistrationDate(Map<String, Object> params);
+
     List<Item> findItemsSortedByViewsCount(Map<String, Object> params);
+
     List<Item> findItemsSortedByLikesCount(Map<String, Object> params);
 
 
