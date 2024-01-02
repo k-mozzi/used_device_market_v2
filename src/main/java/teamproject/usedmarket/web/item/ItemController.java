@@ -33,6 +33,7 @@ public class ItemController {
     public String items(@RequestParam(defaultValue = "1") int page,
                         @RequestParam(defaultValue = "registrationDate") String sort,
                         @RequestParam(required = false) String itemType, // 아이템 유형을 위한 새 매개변수
+                        @RequestParam(required = false) String regionId, // 지역을 위한 새 매개변수
                         Model model) {
 
         int pageSize = 10; // 페이지당 아이템 수
@@ -41,16 +42,16 @@ public class ItemController {
         // 정렬 방식과 아이템 유형에 따라 아이템을 가져옴
         switch (sort) {
             case "registrationDate":
-                items = itemService.findItemsSortedByRegistrationDate(page, pageSize, itemType);
+                items = itemService.findItemsSortedByRegistrationDate(page, pageSize, itemType, regionId);
                 break;
             case "viewsCount":
-                items = itemService.findItemsSortedByViewsCount(page, pageSize, itemType);
+                items = itemService.findItemsSortedByViewsCount(page, pageSize, itemType, regionId);
                 break;
             case "likesCount":
-                items = itemService.findItemsSortedByLikesCount(page, pageSize, itemType);
+                items = itemService.findItemsSortedByLikesCount(page, pageSize, itemType, regionId);
                 break;
             default:
-                items = itemService.findItemsWithPaging(page, pageSize, itemType);
+                items = itemService.findItemsWithPaging(page, pageSize, itemType, regionId);
                 break;
         }
 
@@ -64,6 +65,7 @@ public class ItemController {
         model.addAttribute("images", images);
         model.addAttribute("sort", sort); // 현재 정렬 방식 전달
         model.addAttribute("itemType", itemType); // 현재 정렬 방식 전달
+        model.addAttribute("regionId", regionId); // 현재 정렬 방식 전달
 
         return "item/items";
     }

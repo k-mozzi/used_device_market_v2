@@ -73,6 +73,9 @@
         <if test="itemType != null and itemType != ''">
             AND item_type_id = #{itemType}
         </if>
+        <if test="regionId != null and regionId != ''">
+            AND seller_member_id IN (SELECT member_id FROM member WHERE region_id = #{regionId})
+        </if>
         order by create_datetime desc limit #{startRow, jdbcType=INTEGER}, #{pageSize, jdbcType=INTEGER}
     </select>
 
@@ -90,6 +93,9 @@
         <if test="itemType != null and itemType != ''">
             AND item_type_id = #{itemType}
         </if>
+        <if test="regionId != null and regionId != ''">
+            AND seller_member_id IN (SELECT member_id FROM member WHERE region_id = #{regionId})
+        </if>
         ORDER BY create_datetime DESC
         LIMIT #{startRow, jdbcType=INTEGER}, #{pageSize, jdbcType=INTEGER}
     </select>
@@ -101,7 +107,10 @@
         <if test="itemType != null and itemType != ''">
             AND item_type_id = #{itemType}
         </if>
-        ORDER BY COALESCE (views_count, 0) DESC
+        <if test="regionId != null and regionId != ''">
+            AND seller_member_id IN (SELECT member_id FROM member WHERE region_id = #{regionId})
+        </if>
+        ORDER BY COALESCE(views_count, 0) DESC
         LIMIT #{startRow, jdbcType=INTEGER}, #{pageSize, jdbcType=INTEGER}
     </select>
 
@@ -112,6 +121,9 @@
         WHERE i.sale_status != 2
         <if test="itemType != null and itemType != ''">
             AND i.item_type_id = #{itemType}
+        </if>
+        <if test="regionId != null and regionId != ''">
+            AND i.seller_member_id IN (SELECT member_id FROM member WHERE region_id = #{regionId})
         </if>
         GROUP BY i.item_id
         ORDER BY COALESCE(COUNT(l.item_id), 0) DESC
