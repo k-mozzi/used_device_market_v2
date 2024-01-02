@@ -25,14 +25,11 @@ public interface ItemMapper {
 
     void delete(Long itemId);
 
-    List<Item> findItemsWithPaging(Map<String, Object> params);
-
     int countItems();
 
+    List<Item> findItemsWithPaging(Map<String, Object> params);
     List<Item> findItemsSortedByRegistrationDate(Map<String, Object> params);
-
     List<Item> findItemsSortedByViewsCount(Map<String, Object> params);
-
     List<Item> findItemsSortedByLikesCount(Map<String, Object> params);
 
 

@@ -25,13 +25,14 @@ public interface ItemService {
 
     void delete(Long itemId);
 
-    List<Item> findItemsWithPaging(int page, int pageSize);
+    List<Item> findItemsWithPaging(int page, int pageSize, String itemType);
+
     int countItems();
 
-    List<Item> findItemsSortedByRegistrationDate(int page, int pageSize);
+    List<Item> findItemsSortedByRegistrationDate(int page, int pageSize, String itemType);
 
-    List<Item> findItemsSortedByViewsCount(int page, int pageSize);
+    List<Item> findItemsSortedByViewsCount(int page, int pageSize, String itemType);
 
-    List<Item> findItemsSortedByLikesCount(int page, int pageSize);
+    List<Item> findItemsSortedByLikesCount(int page, int pageSize, String itemType);
 
 }
