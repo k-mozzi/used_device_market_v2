@@ -2,7 +2,6 @@ package teamproject.usedmarket.web.item;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import teamproject.usedmarket.domain.item.*;
-import teamproject.usedmarket.repository.ChatRoomRepository;
 import teamproject.usedmarket.repository.ItemUpdateDto;
 import teamproject.usedmarket.service.ImageService;
 import teamproject.usedmarket.service.ItemService;
@@ -18,9 +16,6 @@ import teamproject.usedmarket.service.LikeService;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -30,7 +25,6 @@ import java.util.List;
 @RequestMapping("/items")
 @RequiredArgsConstructor
 public class ItemController {
-    private final ChatRoomRepository chatRoomRepository;
     private final ItemService itemService;
     private final ImageService imageService;
     private final LikeService likeService;

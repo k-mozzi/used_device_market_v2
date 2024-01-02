@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import teamproject.usedmarket.domain.chat.ChatMessage;
 import teamproject.usedmarket.service.ChatService;
 
@@ -17,6 +18,11 @@ public class ChatWebSocketHandler {
 
     private final ChatService chatService;
     private final ObjectMapper objectMapper;
+
+    @GetMapping("/chat")
+    public String hihi() {
+        return "/chat/chat";
+    }
 
 
     @MessageMapping("/chat.sendMessage")

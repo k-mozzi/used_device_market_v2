@@ -3,21 +3,14 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="teamproject.usedmarket.repository.mybatis.ChatMapper">
 
-    <resultMap id="ChatMessageResultMap" type="ChatMessage">
-        <id column="id" property="id" />
-        <result column="sender" property="sender" />
-        <result column="content" property="content" />
-        <result column="timestamp" property="timestamp" />
-    </resultMap>
-
-    <select id="findAllMessages" resultMap="ChatMessageResultMap">
-        SELECT * FROM chat_message
-    </select>
-
-    <insert id="saveMessage" parameterType="ChatMessage">
+    <insert id="saveMessage" useGeneratedKeys="true" keyProperty="id" parameterType="ChatMessage">
         INSERT INTO chat_message (sender, content, timestamp)
         VALUES (#{sender}, #{content}, #{timestamp})
     </insert>
+
+    <select id="findAllMessages" resultType="ChatMessage">
+        SELECT * FROM chat_message
+    </select>
 
 
 </mapper>
