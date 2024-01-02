@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Popup</title>
+
+    <!-- WebJars jQuery -->
+    <script src="/webjars/jquery/3.6.0/jquery.min.js"></script>
+    <!-- WebJars SockJS-Client -->
+    <script src="/webjars/sockjs-client/1.1.2/sockjs.min.js"></script>
+    <!-- WebJars Stomp.js -->
+    <script src="/webjars/stomp-websocket/2.3.3-1/stomp.min.js"></script>
+</head>
+<body>
+<div id="chatMessages"></div>
+<input type="text" id="messageInput" placeholder="Type your message">
+<button onclick="sendMessage()">Send</button>
+
+<script>
+    var stompClient = null;
+    var chatId = null; // 채팅 ID
+
+    $(document).ready(function() {
+        // 팝업 페이지에서도 메시지 수신
+        var socket = new SockJS('/ws-chat');
+        stompClient = Stomp.over(socket);
+
+        stompClient.connect({}, function (frame) {
+            if (frame) {
+                console.log('Connected: ' + frame);
+
+                // chatId 구독
+                stompClient.subscribe('/topic/chatId', function (chatIdMessage) {
+                    chatId = chatIdMessage.body;
+
+                    // 채팅 ID로 WebSocket 연결
+                    connectToChat(chatId);
+                });
+            } else {
+                console.error('Connection failed!');
+            }
+        });
+    });
+
+    function connectToChat(chatId) {
+        // chatId가 제공되면 해당 채팅에 연결
+        if (chatId) {
+            // 채팅 구독
+            stompClient.subscribe('/topic/' + chatId, function (chatMessage) {
+                showMessage(JSON.parse(chatMessage.body));
+            });
+        }
+    }
+
+    function showMessage(message) {
+        $('#chatMessages').append('<p>' + message.content + '</p>');
+    }
+
+    function sendMessage() {
+        var messageInput = $('#messageInput').val();
+        if (messageInput.trim() !== '') {
+            // 메시지 전송
+            stompClient.send("/app/chat.sendMessage", { "chatId": chatId }, JSON.stringify({
+                content: messageInput
+            }));
+            $('#messageInput').val(''); // 메시지 전송 후 입력 필드 초기화
+        }
+    }
+</script>
+</body>
+</html>
