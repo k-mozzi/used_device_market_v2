@@ -69,7 +69,11 @@
     <select id="findItemsWithPaging" parameterType="map" resultType="item">
         select *
         from item
-        order by create_datetime desc limit #{startRow}, #{pageSize}
+        WHERE sale_status != 2
+        <if test="itemType != null and itemType != ''">
+            AND item_type_id = #{itemType}
+        </if>
+        order by create_datetime desc limit #{startRow, jdbcType=INTEGER}, #{pageSize, jdbcType=INTEGER}
     </select>
 
     <!-- 전체 아이템 수 조회 -->
@@ -83,6 +87,9 @@
         SELECT *
         FROM item
         WHERE sale_status != 2
+        <if test="itemType != null and itemType != ''">
+            AND item_type_id = #{itemType}
+        </if>
         ORDER BY create_datetime DESC
         LIMIT #{startRow, jdbcType=INTEGER}, #{pageSize, jdbcType=INTEGER}
     </select>
@@ -91,6 +98,9 @@
         SELECT *
         FROM item
         WHERE sale_status != 2
+        <if test="itemType != null and itemType != ''">
+            AND item_type_id = #{itemType}
+        </if>
         ORDER BY COALESCE (views_count, 0) DESC
         LIMIT #{startRow, jdbcType=INTEGER}, #{pageSize, jdbcType=INTEGER}
     </select>
@@ -100,6 +110,9 @@
         FROM item i
         LEFT JOIN item_like l ON i.item_id = l.item_id
         WHERE i.sale_status != 2
+        <if test="itemType != null and itemType != ''">
+            AND i.item_type_id = #{itemType}
+        </if>
         GROUP BY i.item_id
         ORDER BY COALESCE(COUNT(l.item_id), 0) DESC
         LIMIT #{startRow, jdbcType=INTEGER}, #{pageSize, jdbcType=INTEGER}
