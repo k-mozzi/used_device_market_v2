@@ -18,8 +18,6 @@ public interface ItemMapper {
 
     void incrementViewsCount(Long itemId);
 
-    List<Item> findAll();
-
     Optional<Item> findById(Long id);
 
     String findMemberNameBySellerMemberId(@Param("sellerMemberId") Long sellerMemberId, @Param("itemId") Long itemId);
@@ -35,6 +33,9 @@ public interface ItemMapper {
     List<Item> findItemsSortedByViewsCount(Map<String, Object> params);
 
     List<Item> findItemsSortedByLikesCount(Map<String, Object> params);
+
+    List<Item> findItemsWithPagingAndSearch(Map<String, Object> params);
+
 
 
 }

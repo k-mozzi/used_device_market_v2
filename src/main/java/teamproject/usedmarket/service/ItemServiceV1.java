@@ -65,11 +65,6 @@ public class ItemServiceV1 implements ItemService {
     }
 
     @Override
-    public List<Item> findItems() {
-        return itemRepository.findAll();
-    }
-
-    @Override
     public void delete(Long itemId) {
         itemRepository.delete(itemId);
     }
@@ -99,6 +94,12 @@ public class ItemServiceV1 implements ItemService {
     public List<Item> findItemsSortedByLikesCount(int page, int pageSize, String itemType, String regionId) {
         return itemRepository.findItemsSortedByLikesCount(page, pageSize, itemType, regionId);
     }
+
+    @Override
+    public List<Item> findItemsWithPagingAndSearch(int page, int pageSize, String searchText) {
+        return itemRepository.findItemsWithPagingAndSearch(page, pageSize, searchText);
+    }
+
 
 
 }
