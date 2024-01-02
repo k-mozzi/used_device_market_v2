@@ -40,11 +40,6 @@ public class MyBatisItemRepository implements ItemRepository {
     }
 
     @Override
-    public List<Item> findAll() {
-        return itemMapper.findAll();
-    }
-
-    @Override
     public void update(Long itemId, ItemUpdateDto updateParam) {
         itemMapper.update(itemId, updateParam);
         log.info("update item={}", updateParam.getUpdateDatetime());
@@ -107,6 +102,17 @@ public class MyBatisItemRepository implements ItemRepository {
         params.put("itemType", itemType);
         params.put("regionId", regionId);
         return itemMapper.findItemsSortedByLikesCount(params);
+    }
+
+    @Override
+    public List<Item> findItemsWithPagingAndSearch(int page, int pageSize, String searchText) {
+        // MyBatis에 전달할 맵 생성
+        Map<String, Object> params = new HashMap<>();
+        params.put("startRow", (page - 1) * pageSize);
+        params.put("pageSize", pageSize);
+        params.put("searchText", searchText);
+
+        return itemMapper.findItemsWithPagingAndSearch(params);
     }
 
 }

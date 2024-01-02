@@ -29,30 +29,77 @@ public class ItemController {
     private final ImageService imageService;
     private final LikeService likeService;
 
+//    @GetMapping
+//    public String items(@RequestParam(defaultValue = "1") int page,
+//                        @RequestParam(defaultValue = "registrationDate") String sort,
+//                        @RequestParam(required = false) String itemType, // 아이템 유형을 위한 새 매개변수
+//                        @RequestParam(required = false) String regionId, // 지역을 위한 새 매개변수
+//                        Model model) {
+//
+//        int pageSize = 10; // 페이지당 아이템 수
+//        List<Item> items;
+//
+//        // 정렬 방식과 아이템 유형에 따라 아이템을 가져옴
+//        switch (sort) {
+//            case "registrationDate":
+//                items = itemService.findItemsSortedByRegistrationDate(page, pageSize, itemType, regionId);
+//                break;
+//            case "viewsCount":
+//                items = itemService.findItemsSortedByViewsCount(page, pageSize, itemType, regionId);
+//                break;
+//            case "likesCount":
+//                items = itemService.findItemsSortedByLikesCount(page, pageSize, itemType, regionId);
+//                break;
+//            default:
+//                items = itemService.findItemsWithPaging(page, pageSize, itemType, regionId);
+//                break;
+//        }
+//
+//        // 페이징 처리를 위한 정보 전달
+//        int totalCount = itemService.countItems();
+//        int totalPages = (int) Math.ceil((double) totalCount / pageSize);
+//        List<ItemImage> images = imageService.findImages();
+//        model.addAttribute("items", items);
+//        model.addAttribute("currentPage", page);
+//        model.addAttribute("totalPages", totalPages);
+//        model.addAttribute("images", images);
+//        model.addAttribute("sort", sort); // 현재 정렬 방식 전달
+//        model.addAttribute("itemType", itemType); // 현재 정렬 방식 전달
+//        model.addAttribute("regionId", regionId); // 현재 정렬 방식 전달
+//
+//        return "item/items";
+//    }
+
     @GetMapping
     public String items(@RequestParam(defaultValue = "1") int page,
                         @RequestParam(defaultValue = "registrationDate") String sort,
-                        @RequestParam(required = false) String itemType, // 아이템 유형을 위한 새 매개변수
-                        @RequestParam(required = false) String regionId, // 지역을 위한 새 매개변수
+                        @RequestParam(required = false) String itemType,
+                        @RequestParam(required = false) String regionId,
+                        @RequestParam(required = false) String searchText,
                         Model model) {
 
         int pageSize = 10; // 페이지당 아이템 수
         List<Item> items;
 
-        // 정렬 방식과 아이템 유형에 따라 아이템을 가져옴
-        switch (sort) {
-            case "registrationDate":
-                items = itemService.findItemsSortedByRegistrationDate(page, pageSize, itemType, regionId);
-                break;
-            case "viewsCount":
-                items = itemService.findItemsSortedByViewsCount(page, pageSize, itemType, regionId);
-                break;
-            case "likesCount":
-                items = itemService.findItemsSortedByLikesCount(page, pageSize, itemType, regionId);
-                break;
-            default:
-                items = itemService.findItemsWithPaging(page, pageSize, itemType, regionId);
-                break;
+        // 검색어에 따른 아이템 조회
+        if (searchText != null && !searchText.isEmpty()) {
+            items = itemService.findItemsWithPagingAndSearch(page, pageSize, searchText);
+        } else {
+            // 정렬 방식에 따른 아이템 조회
+            switch (sort) {
+                case "registrationDate":
+                    items = itemService.findItemsSortedByRegistrationDate(page, pageSize, itemType, regionId);
+                    break;
+                case "viewsCount":
+                    items = itemService.findItemsSortedByViewsCount(page, pageSize, itemType, regionId);
+                    break;
+                case "likesCount":
+                    items = itemService.findItemsSortedByLikesCount(page, pageSize, itemType, regionId);
+                    break;
+                default:
+                    items = itemService.findItemsWithPaging(page, pageSize, itemType, regionId);
+                    break;
+            }
         }
 
         // 페이징 처리를 위한 정보 전달
@@ -63,9 +110,10 @@ public class ItemController {
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("images", images);
-        model.addAttribute("sort", sort); // 현재 정렬 방식 전달
-        model.addAttribute("itemType", itemType); // 현재 정렬 방식 전달
-        model.addAttribute("regionId", regionId); // 현재 정렬 방식 전달
+        model.addAttribute("sort", sort);
+        model.addAttribute("itemType", itemType);
+        model.addAttribute("regionId", regionId);
+        model.addAttribute("searchText", searchText);
 
         return "item/items";
     }

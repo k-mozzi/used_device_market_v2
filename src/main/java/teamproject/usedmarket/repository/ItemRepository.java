@@ -15,8 +15,6 @@ public interface ItemRepository {
 
     public String findMemberNameBySellerMemberId(Long sellerMemberId, Long itemId);
 
-    public List<Item> findAll();
-
     public void update(Long itemId, ItemUpdateDto updateParam);
 
     public void incrementViewsCount(Long itemId);
@@ -32,5 +30,7 @@ public interface ItemRepository {
     public List<Item> findItemsSortedByViewsCount(int page, int pageSize, String itemType, String regionId);
 
     public List<Item> findItemsSortedByLikesCount(int page, int pageSize, String itemType, String regionId);
+
+    public List<Item> findItemsWithPagingAndSearch(int page, int pageSize, String searchText);
 
 }
