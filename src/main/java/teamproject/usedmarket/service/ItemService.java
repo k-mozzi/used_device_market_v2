@@ -21,8 +21,6 @@ public interface ItemService {
 
     void incrementViewsCount(Long itemId);
 
-    List<Item> findItems();
-
     void delete(Long itemId);
 
     List<Item> findItemsWithPaging(int page, int pageSize, String itemType, String regionId);
@@ -34,5 +32,7 @@ public interface ItemService {
     List<Item> findItemsSortedByViewsCount(int page, int pageSize, String itemType, String regionId);
 
     List<Item> findItemsSortedByLikesCount(int page, int pageSize, String itemType, String regionId);
+
+    List<Item> findItemsWithPagingAndSearch(int page, int pageSize, String searchText);
 
 }
