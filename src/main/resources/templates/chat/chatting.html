@@ -1,0 +1,72 @@
+<!-- src/main/resources/templates/chat.html -->
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat Application</title>
+</head>
+<body>
+
+<div id="chatMessages">
+    <ul>
+        <!-- Display messages using Thymeleaf -->
+        <li th:each="message : ${messages}" th:text="${message.sender + ': ' + message.content}"></li>
+    </ul>
+</div>
+
+<form id="chatForm">
+    <input type="text" id="sender" placeholder="Your Name" required>
+    <input type="text" id="message" placeholder="Type a message" required>
+    <button type="button" onclick="sendMessage()">Send</button>
+</form>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1.5.1/dist/sockjs.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/dist/stomp.min.js"></script>
+<script th:inline="javascript">
+
+    var stompClient = null;
+
+    function connect() {
+        var socket = new SockJS('/ws-chat');
+        stompClient = Stomp.over(socket);
+
+        stompClient.connect({}, function (frame) {
+            console.log('Connected: ' + frame);
+
+            stompClient.subscribe('/topic/public', function (chatMessage) {
+                showMessage(JSON.parse(chatMessage.body));
+            });
+        });
+    }
+
+    function disconnect() {
+        if (stompClient !== null) {
+            stompClient.disconnect();
+        }
+        console.log("Disconnected");
+    }
+
+    function sendMessage() {
+        var sender = $("#sender").val();
+        var message = $("#message").val();
+
+        stompClient.send("/app/chat.sendMessage", {}, JSON.stringify({
+            sender: sender,
+            content: message,
+            timestamp: null
+        }));
+    }
+
+    function showMessage(message) {
+        $("#chatMessages ul").append("<li>" + message.sender + ": " + message.content + "</li>");
+    }
+
+    $(function () {
+        connect();
+    });
+
+</script>
+</body>
+</html>

@@ -10,8 +10,6 @@ import java.util.UUID;
 @Getter
 public class ChatRoom {
     private String roomId;
-    private Long itemId;
-    private Long memberId;
     private String name;
 
     public static ChatRoom create(String name) {
