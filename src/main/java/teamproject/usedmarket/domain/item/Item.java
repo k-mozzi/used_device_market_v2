@@ -2,7 +2,11 @@ package teamproject.usedmarket.domain.item;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Range;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.List;
 
@@ -12,8 +16,14 @@ public class Item {
 
     private Long itemId;
     private int itemTypeId;
+    @NotBlank
+    @Size(min = 1, max = 30)
     private String title;
+    @NotBlank
+    @Size(min = 1, max = 1024)
     private String content;
+    @NotNull
+    @Range(min = 1, max = 5000000)
     private Integer price;
     private int saleStatus;
     private Long sellerMemberId;

@@ -53,7 +53,7 @@ public class MemberController {
             member.setCreateDatetime(new Date());
 
             loginService.join(member);
-            return "home";
+            return "redirect:/";
         } catch (IllegalStateException e) {
             bindingResult.reject("join fail", e.getMessage());
             log.error("중복 아이디 예외 발생: {}", e.getMessage());
@@ -108,27 +108,6 @@ public class MemberController {
         model.addAttribute("images", images);
         return "members/myPage/memberLike";
     }
-
-//    @GetMapping("/myPage/{memberId}/like")
-//    public String memberLike(@RequestParam(defaultValue = "1") int page, @PathVariable(name = "memberId") long memberId, Model model, RedirectAttributes redirectAttributes) {
-//
-//        int pageSize = 10;
-//        List<Item> likedItems = likeService.findLikedItemsWithPaging(memberId, page, pageSize);
-//        List<ItemImage> images = imageService.findImages();
-//        model.addAttribute("likedItems", likedItems);
-//        model.addAttribute("images", images);
-//
-//        // 페이징 처리를 위한 정보 전달
-//        int totalCount = likeService.countItems(memberId);
-//        int totalPages = (int) Math.ceil((double) totalCount / pageSize);
-//        model.addAttribute("currentPage", page);
-//        model.addAttribute("totalPages", totalPages);
-//        log.info("totalPage={}", totalPages);
-//
-//        redirectAttributes.addAttribute("memberId", memberId);
-//
-//        return "redirect:/members/myPage/memberLike";
-//    }
 
     @GetMapping("/myPage/{memberId}/sell")
     public String memberSell(@PathVariable long memberId, @RequestParam(defaultValue = "onSale") String sort, Model model) {
