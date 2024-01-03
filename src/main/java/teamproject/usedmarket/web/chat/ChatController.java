@@ -34,10 +34,10 @@ public class ChatController {
     @GetMapping("/chat/chatPopup")
     public String chatPopup(@RequestParam("itemId") Long itemId, Model model) {
         // itemId를 사용하여 해당 아이템의 채팅 내용을 가져오는 서비스 메소드 호출
-        List<ChatMessage> chatMessages = chatService.getChatMessagesByItemId(itemId);
-
-        // 가져온 채팅 내용을 모델에 추가
-        model.addAttribute("chatMessages", chatMessages);
+//        List<ChatMessage> chatMessages = chatService.getChatMessagesByItemId(itemId);
+//
+//        // 가져온 채팅 내용을 모델에 추가
+//        model.addAttribute("chatMessages", chatMessages);
 
         // chatPopup.html로 이동
         return "chat/chatPopup";
