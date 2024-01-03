@@ -3,28 +3,47 @@ package teamproject.usedmarket.web.chat;
 import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import teamproject.usedmarket.domain.chat.ChatMessage;
+import teamproject.usedmarket.domain.item.Item;
+import teamproject.usedmarket.domain.member.Member;
+import teamproject.usedmarket.repository.MemberRepository;
 import teamproject.usedmarket.service.ChatService;
+import teamproject.usedmarket.service.ItemService;
 
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
 public class ChatController {
 
     private final SimpMessagingTemplate messagingTemplate;
-
+    private final ItemService itemService;
+    private final MemberRepository memberRepository;
 
     @GetMapping("/chat/chatPopup")
-    public String chatPopup() {
-        return "chat/chatPopup";
+    public String chatPopup(@RequestParam Long itemId, Model model) {
+        // 아이템 정보 및 대화 상대방 정보 가져오는 로직
+        Item item = itemService.findById(itemId).get();
+        Long sellerMemberId = item.getSellerMemberId();
+        Member member = memberRepository.findByMemberId(sellerMemberId).get();
+        String sellerName = member.getMemberName();
+
+        // 대화 상대방 정보를 Thymeleaf 모델에 추가
+        model.addAttribute("sellerName", sellerName); // 적절한 정보로 대체
+
+        return "chatPopup";
     }
+
     @MessageMapping("/chat.openChat")
     public void openChat(@Payload OpenChatRequest request, Principal principal) {
 
@@ -42,21 +61,17 @@ public class ChatController {
 
 
     @MessageMapping("/chat.sendMessage")
-    public void sendMessage(@Payload ChatMessage chatMessage, Principal principal) {
-
-
+    @SendTo("/topic/public")
+    public ChatMessage sendMessage(@Payload ChatMessage chatMessage) {
+        return chatMessage;
     }
 
     @MessageMapping("/chat.addUser")
-    public void addUser(@Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor) {
-        // 사용자 추가 로직
-
-        // 적절한 처리...
-
-        // 사용자 추가 로직
-        // 여기서 로그인한 사용자 정보를 Member 엔티티로부터 가져와 사용할 수 있음
-        // 예: Member member = memberService.getLoggedInMember();
-
+    @SendTo("/topic/public")
+    public ChatMessage addUser(@Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor) {
+        // 사용자 정보를 WebSocket 세션에 추가
+        headerAccessor.getSessionAttributes().put("username", chatMessage.getSender());
+        return chatMessage;
     }
 
 

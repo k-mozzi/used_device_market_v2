@@ -208,7 +208,8 @@
         </button>
         </div>
         <div class="col">
-            <button id="openChatBtn" th:attr="data-seller=${foundMemberName}">Open Chat</button>
+            <a th:href="${chatUrl}" target="_blank">대화하기</a>
+<!--            <button id="openChatBtn" th:attr="data-seller=${foundMemberName}">Open Chat</button>-->
 <!--        <button class="w-100 btn btn btn-outline-warning btn-lg"-->
 <!--                onclick="location.href='editForm.html'"-->
 <!--                th:onclick="|location.href='@{/chat/roomList}'|"-->

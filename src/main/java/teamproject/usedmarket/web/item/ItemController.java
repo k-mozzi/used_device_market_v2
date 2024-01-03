@@ -130,6 +130,9 @@ public class ItemController {
         Long memberId = (Long) session.getAttribute("memberId");
         boolean isLiked = likeService.existsByMemberIdAndItemId(memberId, itemId);
         itemService.incrementViewsCount(itemId);
+        // 대화하기 버튼을 눌렀을 때의 URL을 생성하여 전달
+        String chatUrl = "/chat/chatPopup?itemId=" + itemId;
+        model.addAttribute("chatUrl", chatUrl);
         model.addAttribute("item", item);
         model.addAttribute("selectedItemTypeId", item.getItemTypeId());
         model.addAttribute("itemTypes", ItemType.values());
