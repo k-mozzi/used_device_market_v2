@@ -13,15 +13,15 @@ public class Member {
     private Long memberId;
 
     @NotBlank
-    @Size(min = 4, max = 10)
+    @Size(min = 4, max = 15)
     private String loginId;
 
     @NotBlank
-    @Size(min = 3, max = 7)
+    @Size(min = 2, max = 10)
     private String memberName;
 
     @NotNull
-    @Size(min = 6, max = 12)
+    @Size(min = 6, max = 15)
     private String password;
 
     private int regionId;
