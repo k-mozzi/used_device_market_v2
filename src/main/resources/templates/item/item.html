@@ -18,6 +18,8 @@
         var currentItemId = [[${currentItemId}]];
         var sellerMemberId = [[${item.sellerMemberId}]];
         var isOwnItem = currentMemberId === sellerMemberId;
+        var latitude = [[${latitude}]];
+        var longitude = [[${longitude}]];
         /*]]>*/
     </script>
     <script>
@@ -26,6 +28,10 @@
             updateInterestButton();
             // 페이지 로딩 시 찜 수 초기화
             updateInterestCount(currentItemId);
+            // 추가: 서버에서 받아온 위도와 경도로 마커 생성
+            var markerPosition = new kakao.maps.LatLng(latitude, longitude);
+            marker.setPosition(markerPosition);
+            map.setCenter(markerPosition);
         });
 
         // Ajax를 사용하여 현재 관심 상품 상태를 가져오고 버튼을 업데이트하는 함수
@@ -188,6 +194,38 @@
                     th:selected="${status.saleStatusId == selectedSaleStatus}"/>
         </select>
     </div>
+
+
+    <span>거래 장소</span>
+    <div id="map" style="width:100%;height:350px;"></div>
+    <div id="clickLatlng"></div>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ef1254b7c0e4ca0bba75f337f56fe2aa"></script>
+    <script>
+        var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+            mapOption = {
+                center: new kakao.maps.LatLng(36.35041273683429, 127.38483422584034), // 지도의 중심좌표
+                level: 3 // 지도의 확대 레벨
+            };
+
+        var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+        // 지도에 확대 축소 컨트롤을 생성한다
+        var zoomControl = new kakao.maps.ZoomControl();
+
+        // 지도의 우측에 확대 축소 컨트롤을 추가한다
+        map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+
+        // 지도를 클릭한 위치에 표출할 마커입니다
+        var marker = new kakao.maps.Marker({
+            // 지도 중심좌표에 마커를 생성합니다
+            position: map.getCenter(),
+            draggable: false
+        });
+        // 지도에 마커를 표시합니다
+        marker.setMap(map);
+    </script>
+
+
     <div>
         <div>조회수: <span th:text="${item.viewsCount}"></span></div>
     </div>

@@ -31,47 +31,6 @@ public class ItemController {
     private final ImageService imageService;
     private final LikeService likeService;
 
-//    @GetMapping
-//    public String items(@RequestParam(defaultValue = "1") int page,
-//                        @RequestParam(defaultValue = "registrationDate") String sort,
-//                        @RequestParam(required = false) String itemType, // 아이템 유형을 위한 새 매개변수
-//                        @RequestParam(required = false) String regionId, // 지역을 위한 새 매개변수
-//                        Model model) {
-//
-//        int pageSize = 10; // 페이지당 아이템 수
-//        List<Item> items;
-//
-//        // 정렬 방식과 아이템 유형에 따라 아이템을 가져옴
-//        switch (sort) {
-//            case "registrationDate":
-//                items = itemService.findItemsSortedByRegistrationDate(page, pageSize, itemType, regionId);
-//                break;
-//            case "viewsCount":
-//                items = itemService.findItemsSortedByViewsCount(page, pageSize, itemType, regionId);
-//                break;
-//            case "likesCount":
-//                items = itemService.findItemsSortedByLikesCount(page, pageSize, itemType, regionId);
-//                break;
-//            default:
-//                items = itemService.findItemsWithPaging(page, pageSize, itemType, regionId);
-//                break;
-//        }
-//
-//        // 페이징 처리를 위한 정보 전달
-//        int totalCount = itemService.countItems();
-//        int totalPages = (int) Math.ceil((double) totalCount / pageSize);
-//        List<ItemImage> images = imageService.findImages();
-//        model.addAttribute("items", items);
-//        model.addAttribute("currentPage", page);
-//        model.addAttribute("totalPages", totalPages);
-//        model.addAttribute("images", images);
-//        model.addAttribute("sort", sort); // 현재 정렬 방식 전달
-//        model.addAttribute("itemType", itemType); // 현재 정렬 방식 전달
-//        model.addAttribute("regionId", regionId); // 현재 정렬 방식 전달
-//
-//        return "item/items";
-//    }
-
     @GetMapping
     public String items(@RequestParam(defaultValue = "1") int page,
                         @RequestParam(defaultValue = "registrationDate") String sort,
@@ -143,6 +102,10 @@ public class ItemController {
         model.addAttribute("currentMemberId", memberId);
         model.addAttribute("currentItemId", itemId);
         model.addAttribute("isLiked", isLiked);
+        // 추가: 마커의 위도와 경도를 모델에 추가
+        model.addAttribute("latitude", item.getLatitude());
+        model.addAttribute("longitude", item.getLongitude());
+
         return "item/item";
     }
 
@@ -166,6 +129,11 @@ public class ItemController {
         }
 
         item.setCreateDatetime(new Date());
+        // 위도와 경도 설정
+        item.setLatitude(item.getLatitude());
+        item.setLongitude(item.getLongitude());
+        log.info("getLatitude={}", item.getLatitude());
+        log.info("getLatitude={}", item.getLongitude());
         Item savedItem = itemService.save(item, session);
         redirectAttributes.addAttribute("itemId", savedItem.getItemId());
         imageService.save(savedItem.getItemId(), file);

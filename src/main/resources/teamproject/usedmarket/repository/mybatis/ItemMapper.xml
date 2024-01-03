@@ -4,9 +4,9 @@
 <mapper namespace="teamproject.usedmarket.repository.mybatis.ItemMapper">
     <insert id="save" useGeneratedKeys="true" keyProperty="itemId">
         insert into item (item_type_id, title, price, content, sale_status, seller_member_id, views_count,
-                          create_datetime)
+                          create_datetime, latitude, longitude)
         values (#{itemTypeId}, #{title}, #{price}, #{content}, #{saleStatus}, #{sellerMemberId}, #{viewsCount},
-                #{createDatetime, jdbcType=TIMESTAMP})
+                #{createDatetime, jdbcType=TIMESTAMP}, #{latitude}, #{longitude})
     </insert>
 
     <update id="update">
