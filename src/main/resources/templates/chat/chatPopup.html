@@ -1,81 +1,38 @@
-<!-- chatPopup.html -->
-
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <link th:href="@{/css/bootstrap.min.css}" href="css/bootstrap.min.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat Popup</title>
-    <link rel="stylesheet" href="/css/chat.css"> <!-- 스타일시트 경로 수정 필요 -->
 </head>
 <body>
-<!-- 대화 상대방 정보 표시 부분 -->
-<p>대화 상대방: <span id="sellerName"></span></p>
 
-<!-- 채팅 내용 표시 영역 -->
+<!-- 채팅 내용을 표시할 영역 -->
 <ul id="chatMessages"></ul>
 
 <!-- 메시지 입력 폼 -->
 <form id="chatForm">
-    <input type="text" id="messageInput" placeholder="Type your message..." />
+    <input type="text" id="messageInput"/>
     <button type="button" onclick="sendMessage()">Send</button>
 </form>
 
-<script>
-    const sellerNameElement = document.getElementById("sellerName");
-    const chatMessagesElement = document.getElementById("chatMessages");
-    const messageInputElement = document.getElementById("messageInput");
+<script th:inline="javascript">
+    var socket = new WebSocket("ws://" + window.location.host + "/ws-chat");
 
-    // 대화 상대방 이름 설정 (sellerName 변수는 서버에서 전달해야 함)
-    const sellerName = "판매자1"; // 적절한 정보로 대체
-    sellerNameElement.textContent = sellerName;
-
-    // WebSocket 설정
-    const socket = new WebSocket("ws://localhost:8080/ws-chat"); // WebSocket URL 수정 필요
-
-    // 연결이 열렸을 때
-    socket.addEventListener("open", (event) => {
-        console.log("WebSocket 연결이 열렸습니다.");
+    socket.addEventListener('message', function (event) {
+        var message = JSON.parse(event.data);
+        // 메시지를 화면에 표시하는 코드 추가 (예: #chatMessages에 추가)
     });
 
-    // 메시지 수신 시
-    socket.addEventListener("message", (event) => {
-        const message = JSON.parse(event.data);
-        displayMessage(message.content);
-    });
-
-    // 연결이 닫혔을 때
-    socket.addEventListener("close", (event) => {
-        console.log("WebSocket 연결이 닫혔습니다.");
-    });
-
-    // 메시지 전송
     function sendMessage() {
-        const messageContent = messageInputElement.value;
-        if (messageContent.trim() !== "") {
-            const message = {
-                content: messageContent
-            };
-            socket.send(JSON.stringify(message));
-            messageInputElement.value = "";
-            displayMessage(messageContent, true); // 내가 보낸 메시지는 바로 표시
-        }
-    }
+        var messageInput = document.getElementById('messageInput');
+        var message = messageInput.value;
 
-    // 채팅 메시지 화면에 표시
-    function displayMessage(content, isMyMessage = false) {
-        const li = document.createElement("li");
-        li.textContent = isMyMessage ? `나: ${content}` : `${sellerName}: ${content}`;
-        chatMessagesElement.appendChild(li);
+        socket.send(JSON.stringify({content: message}));
+
+        messageInput.value = '';
     }
 </script>
-
-<!-- WebSocket을 사용하기 위한 라이브러리 로드 -->
-<script src="/webjars/sockjs-client/1.1.2/sockjs.min.js"></script>
-<script src="/webjars/stomp-websocket/2.3.3-1/stomp.min.js"></script>
-
-<!-- chat.js 파일은 필요 없음 -->
 
 </body>
 </html>

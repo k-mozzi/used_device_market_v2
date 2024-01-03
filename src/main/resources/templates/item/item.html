@@ -246,27 +246,10 @@
         </button>
         </div>
         <div class="col">
-            <a th:href="${chatUrl}" target="_blank">대화하기</a>
-<!--            <button id="openChatBtn" th:attr="data-seller=${foundMemberName}">Open Chat</button>-->
-<!--        <button class="w-100 btn btn btn-outline-warning btn-lg"-->
-<!--                onclick="location.href='editForm.html'"-->
-<!--                th:onclick="|location.href='@{/chat/roomList}'|"-->
-<!--                type="button">채팅 하기-->
-<!--        </button>-->
+            <button class="open-chat-btn" th:attr="data-item-id=${item.itemId}">대화하기</button>
         </div>
     </div>
 
-    <!-- 채팅 창 -->
-    <div id="chatModal" style="display: none;">
-        <!-- 채팅 내용 표시 영역 -->
-        <ul id="chatMessages"></ul>
-
-        <!-- 메시지 입력 폼 -->
-        <form id="chatForm">
-            <input type="text" id="messageInput" />
-            <button type="submit">Send</button>
-        </form>
-    </div>
 
     <hr class="my-4">
 
@@ -302,72 +285,21 @@
 <script src="/webjars/stomp-websocket/2.3.3-1/stomp.min.js"></script>
 
 <script th:inline="javascript">
-    var stompClient = null;
-
-        $(document).ready(function() {
-            // "Open Chat" 버튼 클릭 시
-            $("#openChatBtn").click(function() {
-                // Thymeleaf를 통해 설정한 seller 값 가져오기
-                var seller = $(this).data('seller');
-
-                // WebSocket 연결이 없을 경우에만 연결 시도
-                if (!stompClient || !stompClient.connected) {
-                    connectToChat(seller);
-                } else {
-                    console.error("WebSocket is already connected.");
-                }
-
-                // 팝업 창 열기
-                openChatPopup();
-            });
-
-            function connectToChat(seller) {
-                var socket = new SockJS('/ws-chat');
-                stompClient = Stomp.over(socket);
-
-                stompClient.connect({}, function (frame) {
-                    if (frame) {
-                        console.log('Connected: ' + frame);
-
-                        // 판매자 정보를 전송하여 채팅 ID 수신
-                        stompClient.send("/app/chat.openChat", {}, JSON.stringify({
-                            seller: seller
-                        }));
-
-                        // /user/queue/chatId 엔드포인트로 채팅 ID 수신을 구독
-                        stompClient.subscribe("/user/queue/chatId", handleChatId);
-                    } else {
-                        console.error('Connection failed!');
-                    }
-                });
-            }
-
-            // 팝업 창 열기 함수
-            function openChatPopup() {
-                // 원하는 URL로 수정 (chatPopup.html의 경로)
-                var popupUrl = '/chat/chatPopup';
-
-                // 팝업 창 열기
-                window.open(popupUrl, '_blank');
-            }
-
-            function handleChatId(chatIdMessage) {
-                var chatId = chatIdMessage.body;
-
-                // 팝업 창에서 채팅 ID로 WebSocket 연결
-                if (chatId) {
-                    connectToChat(chatId);
-                }
-            }
-
-            function handleChatId(chatIdMessage) {
-    var chatId = chatIdMessage.body;
-
-    // 팝업 창에서 채팅 ID로 WebSocket 연결
-    if (chatId) {
-        connectToChat(chatId);
-    }
-}
+    // 대화하기 버튼 클릭 시 이벤트 처리
+    document.querySelectorAll('.open-chat-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            // 대화창 열기 함수 호출
+            openChatPopup(this.getAttribute('data-item-id'));
         });
+    });
+
+    // 대화창 열기 함수
+    function openChatPopup(itemId) {
+        // 아이템 고유 아이디를 가지고 대화창을 열기 위한 URL 생성
+        var chatPopupUrl = "/chat/chatPopup.html?itemId=" + itemId;
+
+        // 새 창 열기
+        window.open(chatPopupUrl, "Chat Popup", "width=600, height=400");
+    }
 </script>
 </html>

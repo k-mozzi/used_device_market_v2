@@ -29,19 +29,18 @@ public class ChatController {
     private final SimpMessagingTemplate messagingTemplate;
     private final ItemService itemService;
     private final MemberRepository memberRepository;
+    private final ChatService chatService;
 
     @GetMapping("/chat/chatPopup")
-    public String chatPopup(@RequestParam Long itemId, Model model) {
-        // 아이템 정보 및 대화 상대방 정보 가져오는 로직
-        Item item = itemService.findById(itemId).get();
-        Long sellerMemberId = item.getSellerMemberId();
-        Member member = memberRepository.findByMemberId(sellerMemberId).get();
-        String sellerName = member.getMemberName();
+    public String chatPopup(@RequestParam("itemId") Long itemId, Model model) {
+        // itemId를 사용하여 해당 아이템의 채팅 내용을 가져오는 서비스 메소드 호출
+        List<ChatMessage> chatMessages = chatService.getChatMessagesByItemId(itemId);
 
-        // 대화 상대방 정보를 Thymeleaf 모델에 추가
-        model.addAttribute("sellerName", sellerName); // 적절한 정보로 대체
+        // 가져온 채팅 내용을 모델에 추가
+        model.addAttribute("chatMessages", chatMessages);
 
-        return "chatPopup";
+        // chatPopup.html로 이동
+        return "chat/chatPopup";
     }
 
     @MessageMapping("/chat.openChat")
