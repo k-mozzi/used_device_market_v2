@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import teamproject.usedmarket.domain.item.*;
+import teamproject.usedmarket.domain.member.Member;
 import teamproject.usedmarket.repository.ItemUpdateDto;
+import teamproject.usedmarket.repository.MemberRepository;
 import teamproject.usedmarket.service.ImageService;
 import teamproject.usedmarket.service.ItemService;
 import teamproject.usedmarket.service.LikeService;
@@ -24,6 +26,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 
 @Slf4j
@@ -35,6 +38,7 @@ public class ItemController {
     private final ItemService itemService;
     private final ImageService imageService;
     private final LikeService likeService;
+    private final MemberRepository memberRepository;
 
     @GetMapping
     public String items(@RequestParam(defaultValue = "1") int page,
@@ -112,7 +116,13 @@ public class ItemController {
     }
 
     @GetMapping("/add")
-    public String addForm(@ModelAttribute Item item, Model model) {
+    public String addForm(@ModelAttribute Item item, HttpSession session, Model model) {
+
+        Long memberId = (Long) session.getAttribute("memberId");
+        Member foundMember = memberRepository.findByMemberId(memberId).get();
+        int regionId = foundMember.getRegionId();
+
+        model.addAttribute("regionId", regionId);
         model.addAttribute("item", new Item());
         model.addAttribute("itemTypes", ItemType.values());
         model.addAttribute("statuses", SaleStatus.values());
