@@ -34,6 +34,8 @@ public class MemberController {
     private final ImageService imageService;
     private final MemberRepository memberRepository;
 
+
+
     @GetMapping("/add")
     public String addForm(@ModelAttribute("member") Member member, Model model) {
         model.addAttribute("regions", Region.values());
