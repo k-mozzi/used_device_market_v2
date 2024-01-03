@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header">
     <meta charset="utf-8">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 
 <body>
@@ -57,18 +58,49 @@
             </select>
         </div>
 
-
         <div id="map" style="width:100%;height:350px;"></div>
         <p><em>거래 장소를 선택해주세요!</em></p>
         <div id="clickLatlng"></div>
 
         <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ef1254b7c0e4ca0bba75f337f56fe2aa"></script>
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+            var regionId = [[${regionId}]];
+            /*]]>*/
+        </script>
+
         <script>
             var mapContainer = document.getElementById('map'), // 지도를 표시할 div
                 mapOption = {
-                    center: new kakao.maps.LatLng(36.35041273683429, 127.38483422584034), // 지도의 중심좌표
                     level: 3 // 지도의 확대 레벨
                 };
+
+            mapOption.center = getDefaultMarkerPosition(regionId); // 지도의 중심좌표
+
+            function getDefaultMarkerPosition(regionId) {
+                switch (regionId) {
+                    case 1: // 서울
+                        return new kakao.maps.LatLng(37.5663, 126.9779);
+                    case 2: // 인천
+                        return new kakao.maps.LatLng(37.457805, 126.702222);
+                    case 3: // 세종
+                        return new kakao.maps.LatLng(36.5040736, 127.2494855);
+                    case 4: // 대전
+                        return new kakao.maps.LatLng(36.324273, 127.423561);
+                    case 5: // 대구
+                        return new kakao.maps.LatLng(35.8714, 128.6014);
+                    case 6: // 광주
+                        return new kakao.maps.LatLng(35.150781, 126.890084);
+                    case 7: // 울산
+                        return new kakao.maps.LatLng(35.538256, 129.311359);
+                    case 8: // 부산
+                        return new kakao.maps.LatLng(35.179470, 129.075044);
+                    case 9: // 제주
+                        return new kakao.maps.LatLng(33.4994, 126.5312);
+                    default:
+                        return new kakao.maps.LatLng(36.35041273683429, 127.38483422584034); // 기본 값
+                }
+            }
 
             var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 
@@ -86,6 +118,11 @@
             // 지도에 마커를 표시합니다
             marker.setMap(map);
 
+            // 페이지 로딩 시 기본 마커 위치를 아이템 객체에 설정
+            var defaultMarkerPosition = marker.getPosition();
+            document.getElementById('latitude').value = defaultMarkerPosition.getLat();
+            document.getElementById('longitude').value = defaultMarkerPosition.getLng();
+
             // 지도에 클릭 이벤트를 등록합니다
             // 지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
             kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
@@ -101,7 +138,6 @@
                 document.getElementById('longitude').value = latlng.getLng();
             });
         </script>
-
 
         <input type="submit"/>
     </form>
