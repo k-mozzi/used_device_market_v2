@@ -7,6 +7,7 @@ import org.hibernate.validator.constraints.Range;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -36,12 +37,12 @@ public class Item {
     private String filename;
     private String filepath;
 
-
-
+    private BigDecimal latitude; // 위도
+    private BigDecimal longitude; // 경도
 
     public Item(int itemTypeId, String title, String content, Integer price, int saleStatus,
                 Long sellerMemberId, Long buyerMemberId, int viewsCount, String repImagePath,
-                Date createDatetime, Date updateDatetime) {
+                Date createDatetime, Date updateDatetime, BigDecimal latitude, BigDecimal longitude) {
         this.itemTypeId = itemTypeId;
         this.title = title;
         this.content = content;
@@ -53,8 +54,7 @@ public class Item {
         this.repImagePath = repImagePath;
         this.createDatetime = createDatetime;
         this.updateDatetime = updateDatetime;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
-
-
-
 }
