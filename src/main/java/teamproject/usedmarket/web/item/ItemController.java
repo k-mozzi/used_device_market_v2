@@ -5,6 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -143,14 +145,23 @@ public class ItemController {
 
     @GetMapping("/add")
     public String addForm(@ModelAttribute Item item, Model model) {
+        model.addAttribute("item", new Item());
         model.addAttribute("itemTypes", ItemType.values());
         model.addAttribute("statuses", SaleStatus.values());
         return "item/addForm";
     }
 
     @PostMapping("/add")
-    public String addItem(@ModelAttribute Item item, @RequestParam("imageFiles") List<MultipartFile> file,
-                          HttpSession session, RedirectAttributes redirectAttributes) throws IOException {
+    public String addItem(@Validated @ModelAttribute Item item, BindingResult bindingResult, @RequestParam("imageFiles") List<MultipartFile> file,
+                          HttpSession session, RedirectAttributes redirectAttributes, Model model) throws IOException {
+
+        if (bindingResult.hasErrors()) {
+            log.info("errors = {}", bindingResult);
+            model.addAttribute("itemTypes", ItemType.values());
+            model.addAttribute("statuses", SaleStatus.values());
+            return "item/addForm";
+        }
+
         item.setCreateDatetime(new Date());
         Item savedItem = itemService.save(item, session);
         redirectAttributes.addAttribute("itemId", savedItem.getItemId());
