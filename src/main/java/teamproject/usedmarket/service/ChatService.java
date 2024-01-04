@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 import teamproject.usedmarket.domain.chat.Chat;
-import teamproject.usedmarket.repository.mybatis.ChatMapper;
 
 import java.util.List;
 
