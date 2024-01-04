@@ -246,7 +246,9 @@
         </button>
         </div>
         <div class="col">
-            <button class="open-chat-btn" th:attr="data-item-id=${item.itemId}">대화하기</button>
+            <!-- 대화하기 버튼 -->
+
+            <a th:data-seller="${seller}" th:data-buyer="${buyer}" class="chat_chat">대화하기</a>
         </div>
     </div>
 
@@ -285,21 +287,32 @@
 <script src="/webjars/stomp-websocket/2.3.3-1/stomp.min.js"></script>
 
 <script th:inline="javascript">
-    // 대화하기 버튼 클릭 시 이벤트 처리
-    document.querySelectorAll('.open-chat-btn').forEach(button => {
-        button.addEventListener('click', function() {
-            // 대화창 열기 함수 호출
-            openChatPopup(this.getAttribute('data-item-id'));
+    // 대화하기 버튼 클릭 시 실행되는 함수
+    function openChatPopup() {
+        // 판매자와 구매자 정보를 가져와서 서버로 전송
+        var sellerId  = $(this).data("seller");
+        var buyerId  = $(this).data("buyer");
+
+        // 서버로 정보를 전송
+        $.ajax({
+            type: 'POST',
+            url: '/chat/openChatPopup',
+            data: { sellerId: sellerId, buyerId: buyerId },
+            success: function (data) {
+                // 서버에서 처리한 결과에 따라 동작
+                if (data.success) {
+                    // 채팅 창이 열렸을 때의 동작
+                    window.location.href = '/chat/chatPopup.html';
+                } else {
+                    // 실패 시의 동작
+                    alert('채팅 창을 열 수 없습니다.');
+                }
+            },
+            error: function () {
+                // 오류 발생 시의 동작
+                alert('오류가 발생했습니다.');
+            }
         });
-    });
-
-    // 대화창 열기 함수
-    function openChatPopup(itemId) {
-        // 아이템 고유 아이디를 가지고 대화창을 열기 위한 URL 생성
-        var chatPopupUrl = "/chat/chatPopup.html?itemId=" + itemId;
-
-        // 새 창 열기
-        window.open(chatPopupUrl, "Chat Popup", "width=600, height=400");
     }
 </script>
 </html>

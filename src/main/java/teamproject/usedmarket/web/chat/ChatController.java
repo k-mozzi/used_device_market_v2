@@ -8,69 +8,68 @@ import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import teamproject.usedmarket.domain.chat.ChatMessage;
+import org.springframework.web.bind.annotation.*;
 import teamproject.usedmarket.domain.item.Item;
 import teamproject.usedmarket.domain.member.Member;
 import teamproject.usedmarket.repository.MemberRepository;
-import teamproject.usedmarket.service.ChatService;
 import teamproject.usedmarket.service.ItemService;
 
-import java.security.Principal;
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 @Controller
+@RequestMapping("/chat")
 @RequiredArgsConstructor
 public class ChatController {
-
     private final SimpMessagingTemplate messagingTemplate;
-    private final ItemService itemService;
     private final MemberRepository memberRepository;
-    private final ChatService chatService;
+    private final ItemService itemService;
 
-    @GetMapping("/chat/chatPopup")
-    public String chatPopup(@RequestParam("itemId") Long itemId, Model model) {
-        // itemId를 사용하여 해당 아이템의 채팅 내용을 가져오는 서비스 메소드 호출
-//        List<ChatMessage> chatMessages = chatService.getChatMessagesByItemId(itemId);
+//    @GetMapping("/item")
+//    public String showChatPopup(@RequestParam("itemId") Long itemId, Model model, HttpSession session) {
 //
-//        // 가져온 채팅 내용을 모델에 추가
-//        model.addAttribute("chatMessages", chatMessages);
+//
+//
+//
+//        // 현재 로그인한 사용자 정보 가져오기
+//        Member buyer = (Member) session.getAttribute("loginMember");
+//
+//        // 아이템의 판매자 정보 가져오기 (아래 메서드는 예시일뿐 실제로는 itemService를 통해 아이템 정보를 가져와야 함)
+//        Item item = itemService.findById(itemId).get();
+//        Long sellerMemberId = item.getSellerMemberId();
+//        Member seller = memberRepository.findByMemberId(sellerMemberId).get();
+//
+//        // 대화 상대 정보 모델에 추가
+//        model.addAttribute("buyer", buyer);
+//        model.addAttribute("seller", seller);
+//
+//        return "chatPopup";
+//    }
 
-        // chatPopup.html로 이동
+//    @GetMapping("/chat/{roomId}")
+//    public String chat(Model model, @PathVariable String roomId, HttpSession session) {
+//        // 세션에서 현재 사용자 정보 가져오기
+//        Member member = (Member) session.getAttribute("user");
+//        model.addAttribute("user", member);
+//
+//        // 채팅방 정보 가져오기
+////        Room room = chatService.getRoom(roomId);
+////        model.addAttribute("room", room);
+//
+//        return "chat";
+//    }
+
+
+    @PostMapping("/openChatPopup")
+    public String openChatPopup(@RequestParam("sellerId") String sellerId,
+                                             @RequestParam("buyerId") String buyerId,
+                                Model model) {
+        // 여기에서 sellerId와 buyerId를 이용하여 채팅 창을 열거나 다른 작업을 수행
+        model.addAttribute("sellerId", sellerId);
+        model.addAttribute("buyerId", buyerId);
+
         return "chat/chatPopup";
-    }
-
-    @MessageMapping("/chat.openChat")
-    public void openChat(@Payload OpenChatRequest request, Principal principal) {
-
-        String seller = request.getSeller(); // 채팅 상대방 (판매자)
-
-        // 채팅 ID 생성 (이 부분은 실제로는 더 안전한 방식으로 생성되어야 함)
-
-
-        // 사용자와 채팅 ID 매핑 저장
-
-        // 클라이언트에 채팅 ID 전송
-
-
-    }
-
-
-    @MessageMapping("/chat.sendMessage")
-    @SendTo("/topic/public")
-    public ChatMessage sendMessage(@Payload ChatMessage chatMessage) {
-        return chatMessage;
-    }
-
-    @MessageMapping("/chat.addUser")
-    @SendTo("/topic/public")
-    public ChatMessage addUser(@Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor) {
-        // 사용자 정보를 WebSocket 세션에 추가
-        headerAccessor.getSessionAttributes().put("username", chatMessage.getSender());
-        return chatMessage;
     }
 
 
