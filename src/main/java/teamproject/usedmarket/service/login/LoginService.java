@@ -1,4 +1,4 @@
-package teamproject.usedmarket.service;
+package teamproject.usedmarket.service.login;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

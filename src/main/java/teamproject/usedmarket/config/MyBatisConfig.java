@@ -9,8 +9,8 @@ import teamproject.usedmarket.repository.mybatis.ItemMapper;
 import teamproject.usedmarket.repository.mybatis.MemberMapper;
 import teamproject.usedmarket.repository.mybatis.MyBatisItemRepository;
 import teamproject.usedmarket.repository.mybatis.MyBatisMemberRepository;
-import teamproject.usedmarket.service.ItemService;
-import teamproject.usedmarket.service.ItemServiceV1;
+import teamproject.usedmarket.service.item.ItemService;
+import teamproject.usedmarket.service.item.ItemServiceV1;
 
 @Configuration
 @RequiredArgsConstructor

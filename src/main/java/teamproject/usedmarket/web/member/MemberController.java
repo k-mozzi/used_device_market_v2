@@ -7,21 +7,18 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import teamproject.usedmarket.SessionConst;
 import teamproject.usedmarket.domain.item.Item;
 import teamproject.usedmarket.domain.item.ItemImage;
 import teamproject.usedmarket.domain.member.Region;
 import teamproject.usedmarket.repository.MemberRepository;
-import teamproject.usedmarket.service.ImageService;
-import teamproject.usedmarket.service.LikeService;
-import teamproject.usedmarket.service.LoginService;
+import teamproject.usedmarket.service.image.ImageService;
+import teamproject.usedmarket.service.like.LikeService;
+import teamproject.usedmarket.service.login.LoginService;
 import teamproject.usedmarket.domain.member.Member;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Slf4j
 @Controller

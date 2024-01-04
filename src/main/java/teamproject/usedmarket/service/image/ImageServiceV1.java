@@ -1,4 +1,4 @@
-package teamproject.usedmarket.service;
+package teamproject.usedmarket.service.image;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriUtils;
 import teamproject.usedmarket.domain.item.ItemImage;
 import teamproject.usedmarket.repository.ImageRepository;
+import teamproject.usedmarket.service.image.ImageService;
 import teamproject.usedmarket.web.itemimage.ImageUpdateDto;
 
 import java.io.File;
@@ -23,12 +24,12 @@ public class ImageServiceV1 implements ImageService {
 
 
 
-//    public static final String FILE_PATH = "/Users/kimgang/Documents/SpringProject/imageFile";
+    public static final String FILE_PATH = "/Users/kimgang/Documents/SpringProject/imageFile";
     private final ImageRepository imageRepository;
 
-    String FILE_PATH = "C:\\Users\\82109\\Desktop\\spring_img";
-    String DIRECTORY_PATH = "c:/Users/82109/Desktop/spring_img/";
-//    String DIRECTORY_PATH = "/Users/kimgang/Documents/SpringProject/imageFile";
+//    String FILE_PATH = "C:\\Users\\82109\\Desktop\\spring_img";
+//    String DIRECTORY_PATH = "c:/Users/82109/Desktop/spring_img/";
+    String DIRECTORY_PATH = "/Users/kimgang/Documents/SpringProject/imageFile";
     @Override
     public List<ItemImage> findByItemId(Long itemid) {
         List<ItemImage> findImages = imageRepository.findByItemId(itemid);
