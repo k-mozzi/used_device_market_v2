@@ -16,7 +16,9 @@
             price=#{updateParam.price},
             item_type_id=#{updateParam.itemTypeId},
             sale_status=#{updateParam.saleStatus},
-            update_datetime=#{updateParam.updateDatetime, jdbcType=TIMESTAMP}
+            update_datetime=#{updateParam.updateDatetime, jdbcType=TIMESTAMP},
+            latitude=#{updateParam.latitude},
+            longitude=#{updateParam.longitude}
         where item_id = #{itemId}
     </update>
 

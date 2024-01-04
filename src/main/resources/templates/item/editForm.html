@@ -3,43 +3,48 @@
 <head th:replace="fragments/header :: header">
     <meta charset="utf-8">
     <!-- jQuery CDN -->
-    <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"
+            integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
 
 </head>
 <body>
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader"/>
     <form th:object="${item}" enctype="multipart/form-data" method="post">
+        <!-- 위도 경도 히든 필드 -->
+        <input type="hidden" th:field="*{latitude}" id="latitude" />
+        <input type="hidden" th:field="*{longitude}" id="longitude" />
         <!-- id -->
-        <input type="hidden" th:field="*{itemId}" />
+        <input type="hidden" th:field="*{itemId}"/>
         <div class="form-group">
             <label th:for="title">제목</label>
             <input type="text" th:field="*{title}" class="form-control"
-                   placeholder="제목을 입력하세요" />
+                   placeholder="제목을 입력하세요"/>
         </div>
 
-            <li>첨부파일<input type="file" multiple="multiple" name="imageFiles"></li>
+        <li>첨부파일<input type="file" multiple="multiple" name="imageFiles"></li>
 
-            <!-- 업로드된 사진 목록 -->
+        <!-- 업로드된 사진 목록 -->
 
         <th:block class="coll" th:each="itemImage, index : ${itemImages}">
 
-                <div class="ccol" th:field="${itemImage.itemImageId}" th:id="'item-' + ${index.index}" >
-                    <img class="delete-image" th:alt="${'Image ' + (index.index + 1)}" th:data-index="${index.index}"
-                         th:data-field="${itemImage.itemImageId}" th:if="${itemImage.fileName}" th:src="@{|/files/${itemImage.fileName}|}" width="250" height="200"/>
-                    <p>[이미지 클릭시 삭제]</p>
-                </div>
+            <div class="ccol" th:field="${itemImage.itemImageId}" th:id="'item-' + ${index.index}">
+                <img class="delete-image" th:alt="${'Image ' + (index.index + 1)}" th:data-index="${index.index}"
+                     th:data-field="${itemImage.itemImageId}" th:if="${itemImage.fileName}"
+                     th:src="@{|/files/${itemImage.fileName}|}" width="250" height="200"/>
+                <p>[이미지 클릭시 삭제]</p>
+            </div>
         </th:block>
 
         <div class="form-group">
             <label th:for="content">상세설명</label>
             <input type="text" th:field="*{content}" class="form-control"
-                   placeholder="상세설명을 입력하세요" />
+                   placeholder="상세설명을 입력하세요"/>
         </div>
         <div class="form-group">
             <label th:for="price">가격</label>
             <input type="number" th:field="*{price}" class="form-control"
-                   placeholder="가격을 입력하세요" />
+                   placeholder="가격을 입력하세요"/>
         </div>
         <div>
             <div>아이템 타입</div>
@@ -55,70 +60,90 @@
                         th:selected="${status.saleStatusId == selectedSaleStatus}"/>
             </select>
         </div>
+        <span>거래장소</span>
+        <div id="map" style="width:100%;height:350px;"></div>
+        <div id="clickLatlng"></div>
+        <script type="text/javascript"
+                src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ef1254b7c0e4ca0bba75f337f56fe2aa"></script>
+        <script>
+            // 수정: 서버에서 받아온 위도와 경도로 마커 생성
+            var markerPosition = new kakao.maps.LatLng([[${latitude}]], [[${longitude}]]);
+            var marker = new kakao.maps.Marker({
+                position: markerPosition
+            });
+            // 수정: 지도 생성
+            var mapContainer = document.getElementById('map');
+            var map = new kakao.maps.Map(mapContainer, {
+                center: markerPosition,
+                level: 3
+            });
+
+            // 지도에 확대 축소 컨트롤을 생성한다
+            var zoomControl = new kakao.maps.ZoomControl();
+
+            // 지도의 우측에 확대 축소 컨트롤을 추가한다
+            map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+
+            // 지도를 클릭한 위치에 표출할 마커입니다
+            var marker = new kakao.maps.Marker({
+                // 지도 중심좌표에 마커를 생성합니다
+                position: map.getCenter()
+            });
+
+            // 수정: 마커 지도에 표시
+            marker.setMap(map);
+
+            // 지도에 클릭 이벤트를 등록합니다
+            // 지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
+            kakao.maps.event.addListener(map, 'click', function (mouseEvent) {
+
+                // 클릭한 위도, 경도 정보를 가져옵니다
+                var latlng = mouseEvent.latLng;
+
+                // 마커 위치를 클릭한 위치로 옮깁니다
+                marker.setPosition(latlng);
+
+                // 위도와 경도 값을 갱신
+                document.getElementById('latitude').value = latlng.getLat();
+                document.getElementById('longitude').value = latlng.getLng();
+            });
+        </script>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
-    <div th:replace="fragments/footer :: footer" />
+    <div th:replace="fragments/footer :: footer"/>
 </div> <!-- /container -->
 </body>
 <script th:inline="javascript">
+    $(document).ready(function () {
+        // 이미지를 클릭했을 때
+        $(".delete-image").click(function () {
+            var index = $(this).data("index");
 
+            var itemImageId = $(this).data("field");
+            // 클라이언트 측에서 이미지 삭제
+            var itemId = 'item-' + index;
+            $("#" + itemId).remove();
 
+            // 서버에 삭제 요청 보내기
+            deleteImageOnServer(itemImageId);
+        });
 
-
-    /*<![CDATA[*/
-
-
-
-
-
-          $(document).ready(function() {
-                 // 이미지를 클릭했을 때
-                $(".delete-image").click(function() {
-                    var index = $(this).data("index");
-
-                    var itemImageId = $(this).data("field");
-                    // 클라이언트 측에서 이미지 삭제
-                    var itemId = 'item-' + index;
-                    $("#" + itemId).remove();
-
-                    // 서버에 삭제 요청 보내기
-		            deleteImageOnServer(itemImageId);
-                });
-
-
-                // 서버에 이미지 삭제 요청 보내는 함수
-                function deleteImageOnServer(itemImageId) {
-                    $.ajax({
-                        type: "POST",
-                        url: "/deleteImage/" + itemImageId,
-                        data: {
-                         itemImageId:itemImageId},
-                        success: function(response) {
-                            console.log("서버에서 이미지 삭제 완료:", response);
-                        },
-                        error: function(error) {
-                            console.error("서버와의 통신 중 오류 발생:", error);
-                        }
-                    });
+        // 서버에 이미지 삭제 요청 보내는 함수
+        function deleteImageOnServer(itemImageId) {
+            $.ajax({
+                type: "POST",
+                url: "/deleteImage/" + itemImageId,
+                data: {
+                    itemImageId: itemImageId
+                },
+                success: function (response) {
+                    console.log("서버에서 이미지 삭제 완료:", response);
+                },
+                error: function (error) {
+                    console.error("서버와의 통신 중 오류 발생:", error);
                 }
             });
-
-
-            /*]]>*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        }
+    });
 </script>
 </html>
