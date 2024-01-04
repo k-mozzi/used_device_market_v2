@@ -1,4 +1,4 @@
-package teamproject.usedmarket.service;
+package teamproject.usedmarket.service.item;
 
 import org.springframework.web.multipart.MultipartFile;
 import teamproject.usedmarket.domain.item.Item;

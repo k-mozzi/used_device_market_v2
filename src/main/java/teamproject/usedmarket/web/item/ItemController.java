@@ -14,15 +14,14 @@ import teamproject.usedmarket.domain.item.*;
 import teamproject.usedmarket.domain.member.Member;
 import teamproject.usedmarket.repository.ItemUpdateDto;
 import teamproject.usedmarket.repository.MemberRepository;
-import teamproject.usedmarket.service.ImageService;
-import teamproject.usedmarket.service.ItemService;
-import teamproject.usedmarket.service.LikeService;
+import teamproject.usedmarket.service.image.ImageService;
+import teamproject.usedmarket.service.item.ItemService;
+import teamproject.usedmarket.service.like.LikeService;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 
 @Slf4j
@@ -96,13 +95,13 @@ public class ItemController {
 
         // 현재 로그인한 사용자 정보 가져오기
         Member member = memberRepository.findByMemberId(memberId).get();
-
         String buyer = member.getMemberName();
         String seller = foundMemberName;
 
         // 대화 상대 정보 모델에 추가
         model.addAttribute("buyer", buyer);
         model.addAttribute("seller", seller);
+        
         model.addAttribute("item", item);
         model.addAttribute("selectedItemTypeId", item.getItemTypeId());
         model.addAttribute("itemTypes", ItemType.values());

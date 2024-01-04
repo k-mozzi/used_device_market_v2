@@ -1,10 +1,11 @@
-package teamproject.usedmarket.service;
+package teamproject.usedmarket.service.like;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import teamproject.usedmarket.domain.item.Item;
 import teamproject.usedmarket.domain.item.ItemLike;
 import teamproject.usedmarket.repository.LikeRepository;
+import teamproject.usedmarket.service.like.LikeService;
 
 import java.util.List;
 

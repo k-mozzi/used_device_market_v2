@@ -1,22 +1,17 @@
-package teamproject.usedmarket.service;
+package teamproject.usedmarket.service.item;
 
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.util.UriUtils;
 import teamproject.usedmarket.domain.item.Item;
 import teamproject.usedmarket.repository.ItemRepository;
 import teamproject.usedmarket.repository.ItemUpdateDto;
+import teamproject.usedmarket.service.item.ItemService;
 
 import javax.servlet.http.HttpSession;
-import java.io.File;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-import java.util.UUID;
 
 
 @Service

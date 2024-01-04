@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import teamproject.usedmarket.SessionConst;
-import teamproject.usedmarket.service.LoginService;
+import teamproject.usedmarket.service.login.LoginService;
 import teamproject.usedmarket.domain.member.Member;
 
 import javax.servlet.http.HttpServletRequest;

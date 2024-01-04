@@ -1,4 +1,4 @@
-package teamproject.usedmarket.service;
+package teamproject.usedmarket.service.like;
 
 import teamproject.usedmarket.domain.item.Item;
 import teamproject.usedmarket.domain.item.ItemLike;
