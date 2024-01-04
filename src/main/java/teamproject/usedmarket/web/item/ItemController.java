@@ -146,11 +146,6 @@ public class ItemController {
         }
 
         item.setCreateDatetime(new Date());
-        // 위도와 경도 설정
-        item.setLatitude(item.getLatitude());
-        item.setLongitude(item.getLongitude());
-        log.info("getLatitude={}", item.getLatitude());
-        log.info("getLatitude={}", item.getLongitude());
         Item savedItem = itemService.save(item, session);
         redirectAttributes.addAttribute("itemId", savedItem.getItemId());
         imageService.save(savedItem.getItemId(), file);
@@ -177,6 +172,9 @@ public class ItemController {
         model.addAttribute("itemTypes", ItemType.values());
         model.addAttribute("statuses", SaleStatus.values());
         model.addAttribute("itemImages", itemImages);
+        // 추가: 마커의 위도와 경도를 모델에 추가
+        model.addAttribute("latitude", item.getLatitude());
+        model.addAttribute("longitude", item.getLongitude());
         return "item/editForm";
     }
 
@@ -184,8 +182,10 @@ public class ItemController {
     public String edit(@PathVariable Long itemId, @ModelAttribute ItemUpdateDto updateParam,
                        @RequestParam("imageFiles") List<MultipartFile> file) throws IOException {
         List<ItemImage> itemImages = imageService.findByItemId(itemId);
-
+        Item item = itemService.findById(itemId).get();
         updateParam.setUpdateDatetime(new Date());
+        log.info("latitude={}", item.getLatitude());
+        log.info("longitude={}", item.getLongitude());
         itemService.update(itemId, updateParam);
         imageService.save(itemId, file);
         return "redirect:/items/{itemId}";
