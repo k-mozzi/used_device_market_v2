@@ -2,7 +2,6 @@ package teamproject.usedmarket.web.item;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,9 +20,6 @@ import teamproject.usedmarket.service.LikeService;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -34,7 +30,6 @@ import java.util.Optional;
 @RequestMapping("/items")
 @RequiredArgsConstructor
 public class ItemController {
-
     private final ItemService itemService;
     private final ImageService imageService;
     private final LikeService likeService;
@@ -98,6 +93,16 @@ public class ItemController {
         Long memberId = (Long) session.getAttribute("memberId");
         boolean isLiked = likeService.existsByMemberIdAndItemId(memberId, itemId);
         itemService.incrementViewsCount(itemId);
+
+        // 현재 로그인한 사용자 정보 가져오기
+        Member member = memberRepository.findByMemberId(memberId).get();
+
+        String buyer = member.getMemberName();
+        String seller = foundMemberName;
+
+        // 대화 상대 정보 모델에 추가
+        model.addAttribute("buyer", buyer);
+        model.addAttribute("seller", seller);
         model.addAttribute("item", item);
         model.addAttribute("selectedItemTypeId", item.getItemTypeId());
         model.addAttribute("itemTypes", ItemType.values());
