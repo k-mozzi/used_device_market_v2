@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>자식 창</title>
+</head>
+<body>
+<h1>자식 창1111111111</h1>
+
+<input type="text" id="changedPrice" th:value="${itemPrice}" disabled="disabled">
+<!-- 변경하기 버튼 클릭 시 데이터 변경하고 부모 창에 반영 -->
+<button onclick="changeDataAndClose()">변경하기</button>
+
+<!-- 부모 창의 데이터 변경 버튼 -->
+<button onclick="updateParentDataAndClose()">부모 창 데이터 변경</button>
+
+<script>
+    function changeDataAndClose() {
+        // 변경된 데이터를 가져오기
+        var changedData = {
+            price: $("#changedPrice").val()
+        };
+
+        // 부모 창으로 변경된 데이터 전달
+        window.opener.receiveDataFromChild(changedData);
+
+        // 자식 창 닫기
+        window.close();
+    }
+</script>
+</body>
+</html>

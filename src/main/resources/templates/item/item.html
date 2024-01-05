@@ -231,6 +231,10 @@
             <span th:text="${isLiked} ? '관심 상품 삭제' : '관심 상품 등록'"></span>
         </button>
         </div>
+        <div class="col">
+            <!-- '구매하기' 버튼 -->
+            <button id="openChild">구매 하기</button>
+        </div>
     </div>
 
     <hr class="my-4">
@@ -260,4 +264,34 @@
     </div>
 </div> <!-- /container -->
 </body>
+<script>
+    $(document).ready(function () {
+        // 대화하기 버튼 클릭 시
+        $("#openChild").click(function () {
+            // 현재 데이터를 가져와서 자식 창에 전달
+            var itemData = {
+                price: $("#price").val()
+            };
+
+            // 자식 창을 팝업으로 열기
+            var childWindow = window.open("/item/purchasePopup?itemPrice=" + itemData.price, "childWindow", "width=400,height=400");
+
+            // 자식 창에서 데이터 변경 시 부모 창에 반영하는 콜백 함수
+            window.receiveDataFromChild = function (changedData) {
+                // 부모 창에서 데이터 변경
+                itemData.price = changedData.price;
+
+                // 변경된 데이터를 화면에 업데이트
+                $("#itemPrice").val(itemData.price);
+            };
+
+            // 자식 창이 닫힐 때 콜백 함수 호출
+            childWindow.onbeforeunload = function () {
+                // 자식 창이 닫힐 때의 동작
+                console.log("Child window is closing.");
+            };
+        });
+    });
+</script>
+
 </html>
