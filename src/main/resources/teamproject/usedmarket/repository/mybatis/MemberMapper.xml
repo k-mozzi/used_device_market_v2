@@ -8,6 +8,14 @@
                 #{createDatetime, jdbcType=TIMESTAMP})
     </insert>
 
+    <update id="update">
+        update member
+        set member_name=#{updateParam.memberName},
+            password=#{updateParam.password},
+            region_id=#{updateParam.regionId}
+        where member_id = #{memberId}
+    </update>
+
     <select id="findByMemberId" resultType="Member">
         select * from member
         where member_id = #{member_id}

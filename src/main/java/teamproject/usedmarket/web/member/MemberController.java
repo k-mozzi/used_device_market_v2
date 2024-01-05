@@ -7,16 +7,24 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import teamproject.usedmarket.SessionConst;
 import teamproject.usedmarket.domain.item.Item;
 import teamproject.usedmarket.domain.item.ItemImage;
+import teamproject.usedmarket.domain.item.ItemType;
+import teamproject.usedmarket.domain.item.SaleStatus;
 import teamproject.usedmarket.domain.member.Region;
+import teamproject.usedmarket.repository.ItemUpdateDto;
 import teamproject.usedmarket.repository.MemberRepository;
+import teamproject.usedmarket.repository.MemberUpdateDto;
 import teamproject.usedmarket.service.image.ImageService;
 import teamproject.usedmarket.service.like.LikeService;
 import teamproject.usedmarket.service.login.LoginService;
 import teamproject.usedmarket.domain.member.Member;
 
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -59,6 +67,23 @@ public class MemberController {
             model.addAttribute("regions", Region.values());
             return "members/addMemberForm";
         }
+    }
+
+    @GetMapping("/{memberId}/edit")
+    public String editForm(@PathVariable Long memberId, Model model, HttpSession session, RedirectAttributes redirectAttributes) {
+        Member member = memberRepository.findByMemberId(memberId).get();
+
+        model.addAttribute("member", member);
+        model.addAttribute("regions", Region.values());
+        return "members/editMemberForm";
+    }
+
+    @PostMapping("/{memberId}/edit")
+    public String edit(@PathVariable Long memberId, @ModelAttribute MemberUpdateDto updateParam) {
+        Member member = memberRepository.findByMemberId(memberId).get();
+        memberRepository.update(memberId, updateParam);
+
+        return "redirect:/members/myPage/{memberId}";
     }
 
     @GetMapping

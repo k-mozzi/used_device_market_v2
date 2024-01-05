@@ -10,6 +10,8 @@ public interface MemberRepository {
 
     Member save(Member member);
 
+    void update(Long memberId, MemberUpdateDto updateParam);
+
     Optional<Member> findByMemberId(Long memberId);
 
     Optional<Member> findByLoginId(String loginId);
