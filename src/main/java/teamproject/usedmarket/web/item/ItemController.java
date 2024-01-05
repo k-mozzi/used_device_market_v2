@@ -99,6 +99,13 @@ public class ItemController {
         // 댓글 및 답글 목록 가져오기
         List<Comment> comments = commentService.getCommentsByItemId(itemId);
 
+        // 댓글에 대한 덧글(답글) 목록 가져오기
+        Map<Integer, List<Comment>> replyMap = new HashMap<>();
+        for (Comment comment : comments) {
+            List<Comment> replies = commentService.getRepliesByParentCommentId(comment.getCommentId());
+            replyMap.put(comment.getCommentId(), replies);
+        }
+
         // 현재 로그인한 사용자 정보 가져오기
         Member member = memberRepository.findByMemberId(memberId).get();
         String currentMemberName = member.getMemberName();
@@ -116,8 +123,9 @@ public class ItemController {
         // 추가: 마커의 위도와 경도를 모델에 추가
         model.addAttribute("latitude", item.getLatitude());
         model.addAttribute("longitude", item.getLongitude());
-        // 댓글 추
+        // 댓글 추가
         model.addAttribute("comments", comments);
+        model.addAttribute("replyMap", replyMap);
 
         return "item/item";
     }
@@ -126,10 +134,22 @@ public class ItemController {
     public String addComment(@PathVariable Long itemId, @RequestParam String content, HttpSession session, RedirectAttributes redirectAttributes) {
         Long memberId = (Long) session.getAttribute("memberId");
 
-        Comment newComment = new Comment(itemId, memberId, content);
+        Comment newComment = new Comment(itemId, memberId, content, new Date());
         commentService.insertComment(newComment);
 
         redirectAttributes.addAttribute("itemId", itemId);
+        return "redirect:/items/{itemId}";
+    }
+
+    @PostMapping("/{itemId}/addReply")
+    public String addReply(@PathVariable Long itemId, @RequestParam String content, @RequestParam int parentCommentId, HttpSession session, RedirectAttributes redirectAttributes) {
+        Long memberId = (Long) session.getAttribute("memberId");
+
+        Comment newReply = new Comment(itemId, memberId, content, new Date(), parentCommentId);
+        commentService.insertComment(newReply);
+
+        redirectAttributes.addAttribute("itemId", itemId);
+        log.info("답글은={}", newReply);
         return "redirect:/items/{itemId}";
     }
 
@@ -139,13 +159,19 @@ public class ItemController {
 
         Comment comment = commentService.getCommentById(commentId);
 
-        // 댓글 작성자와 현재 사용자가 다르면 권한이 없음
-        if (!comment.getMemberId().equals(memberId)) {
-            redirectAttributes.addFlashAttribute("error", "본인이 작성한 댓글만 삭제할 수 있습니다.");
-            return "redirect:/items/{itemId}";
-        }
-
         commentService.deleteComment(commentId);
+
+        redirectAttributes.addAttribute("itemId", itemId);
+        return "redirect:/items/{itemId}";
+    }
+
+    @PostMapping("/{itemId}/deleteReply/{replyId}")
+    public String deleteReply(@PathVariable Long itemId, @PathVariable int replyId, HttpSession session, RedirectAttributes redirectAttributes) {
+        Long memberId = (Long) session.getAttribute("memberId");
+
+        Comment reply = commentService.getCommentById(replyId);
+
+        commentService.deleteComment(replyId);
 
         redirectAttributes.addAttribute("itemId", itemId);
         return "redirect:/items/{itemId}";

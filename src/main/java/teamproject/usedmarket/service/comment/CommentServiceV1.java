@@ -3,7 +3,6 @@ package teamproject.usedmarket.service.comment;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import teamproject.usedmarket.domain.comment.Comment;
-import teamproject.usedmarket.domain.item.Item;
 import teamproject.usedmarket.repository.CommentRepository;
 import teamproject.usedmarket.repository.CommentUpdateDto;
 
@@ -27,14 +26,18 @@ public class CommentServiceV1 implements CommentService {
     }
 
     @Override
-    public List<Comment> getRepliesByCommentId(int parentCommentId) {
-        return commentRepository.getRepliesByCommentId(parentCommentId);
+    public List<Comment> getRepliesByParentCommentId(int parentCommentId) {
+        return commentRepository.getRepliesByParentCommentId(parentCommentId);
     }
 
     @Override
     public Comment insertComment(Comment comment) {
-        Comment savedComment = commentRepository.insertComment(comment);
-        return savedComment;
+        return commentRepository.insertComment(comment);
+    }
+
+    @Override
+    public Comment insertReply(Comment reply) {
+        return commentRepository.insertReply(reply);
     }
 
     @Override
@@ -46,4 +49,10 @@ public class CommentServiceV1 implements CommentService {
     public void deleteComment(int commentId) {
         commentRepository.deleteComment(commentId);
     }
+
+    @Override
+    public void deleteReply(int replyId) {
+        commentRepository.deleteComment(replyId);
+    }
+
 }

@@ -27,14 +27,20 @@ public class MyBatisCommentRepository implements CommentRepository {
     }
 
     @Override
-    public List<Comment> getRepliesByCommentId(int parentCommentId) {
-        return commentMapper.getRepliesByCommentId(parentCommentId);
+    public List<Comment> getRepliesByParentCommentId(int parentCommentId) {
+        return commentMapper.getRepliesByParentCommentId(parentCommentId);
     }
 
     @Override
     public Comment insertComment(Comment comment) {
         commentMapper.insertComment(comment);
         return comment;
+    }
+
+    @Override
+    public Comment insertReply(Comment reply) {
+        commentMapper.insertComment(reply);
+        return reply;
     }
 
     @Override
@@ -45,5 +51,10 @@ public class MyBatisCommentRepository implements CommentRepository {
     @Override
     public void deleteComment(int commentId) {
         commentMapper.deleteComment(commentId);
+    }
+
+    @Override
+    public void deleteReply(int replyId) {
+        commentMapper.deleteComment(replyId);
     }
 }

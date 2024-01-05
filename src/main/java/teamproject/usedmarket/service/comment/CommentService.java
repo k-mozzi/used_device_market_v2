@@ -12,12 +12,16 @@ public interface CommentService {
 
     List<Comment> getCommentsByItemId(Long itemId);
 
-    List<Comment> getRepliesByCommentId(int parentCommentId);
+    List<Comment> getRepliesByParentCommentId(int parentCommentId);
 
     Comment insertComment(Comment comment);
+
+    Comment insertReply(Comment reply);
 
     void updateComment(int commentId, CommentUpdateDto updateParam);
 
     void deleteComment(int commentId);
+
+    void deleteReply(int replyId);
 
 }
