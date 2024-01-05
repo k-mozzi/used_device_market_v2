@@ -70,7 +70,7 @@ public class MemberController {
     }
 
     @GetMapping("/{memberId}/edit")
-    public String editForm(@PathVariable Long memberId, Model model, HttpSession session, RedirectAttributes redirectAttributes) {
+    public String editForm(@PathVariable Long memberId, Model model) {
         Member member = memberRepository.findByMemberId(memberId).get();
 
         model.addAttribute("member", member);
@@ -79,9 +79,15 @@ public class MemberController {
     }
 
     @PostMapping("/{memberId}/edit")
-    public String edit(@PathVariable Long memberId, @ModelAttribute MemberUpdateDto updateParam) {
+    public String edit(@PathVariable Long memberId, @ModelAttribute MemberUpdateDto updateParam, HttpSession session) {
         Member member = memberRepository.findByMemberId(memberId).get();
         memberRepository.update(memberId, updateParam);
+
+        // 업데이트된 회원 정보를 다시 가져와 세션을 갱신
+        Member updatedMember = memberRepository.findByMemberId(memberId).get();
+        session.removeAttribute(SessionConst.LOGIN_MEMBER);
+        session.setAttribute(SessionConst.LOGIN_MEMBER, updatedMember);
+        session.setAttribute("memberId", updatedMember.getMemberId());
 
         return "redirect:/members/myPage/{memberId}";
     }
