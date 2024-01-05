@@ -1,8 +1,10 @@
 package teamproject.usedmarket.repository.mybatis;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import teamproject.usedmarket.domain.item.Item;
 import teamproject.usedmarket.domain.member.Member;
+import teamproject.usedmarket.repository.MemberUpdateDto;
 
 import java.util.List;
 import java.util.Map;
@@ -12,6 +14,8 @@ import java.util.Optional;
 public interface MemberMapper {
 
     void save(Member member);
+
+    void update(@Param("memberId") Long memberId, @Param("updateParam") MemberUpdateDto updateParam);
 
     Optional<Member> findByMemberId(Long memberId);
 

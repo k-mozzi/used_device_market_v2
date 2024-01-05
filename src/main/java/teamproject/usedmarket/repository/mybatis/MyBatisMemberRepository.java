@@ -14,7 +14,9 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import teamproject.usedmarket.domain.item.Item;
 import teamproject.usedmarket.domain.member.Member;
+import teamproject.usedmarket.repository.ItemUpdateDto;
 import teamproject.usedmarket.repository.MemberRepository;
+import teamproject.usedmarket.repository.MemberUpdateDto;
 
 import javax.sql.DataSource;
 import java.util.HashMap;
@@ -33,6 +35,11 @@ public class MyBatisMemberRepository implements MemberRepository {
     public Member save(Member member) {
         memberMapper.save(member);
         return member;
+    }
+
+    @Override
+    public void update(Long memberId, MemberUpdateDto updateParam) {
+        memberMapper.update(memberId, updateParam);
     }
 
     @Override

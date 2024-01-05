@@ -241,8 +241,6 @@ public class ItemController {
         List<ItemImage> itemImages = imageService.findByItemId(itemId);
         Item item = itemService.findById(itemId).get();
         updateParam.setUpdateDatetime(new Date());
-        log.info("latitude={}", item.getLatitude());
-        log.info("longitude={}", item.getLongitude());
         itemService.update(itemId, updateParam);
         imageService.save(itemId, file);
         return "redirect:/items/{itemId}";
