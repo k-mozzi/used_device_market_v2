@@ -13,6 +13,7 @@ public class ItemUpdateDto {
     private Integer price;
     private int itemTypeId;
     private int saleStatus;
+    Long buyerMemberId;
 //    private Long buyerMemberId;
 //    private int viewsCount;
     private Date updateDatetime;
@@ -23,6 +24,12 @@ public class ItemUpdateDto {
 
 
     public ItemUpdateDto() {
+    }
+
+    public ItemUpdateDto(int saleStatus,Long buyerMemberId, Date updateDatetime) {
+        this.saleStatus = saleStatus;
+        this.buyerMemberId = buyerMemberId;
+        this.updateDatetime = updateDatetime;
     }
 
     public ItemUpdateDto(String title, String content, Integer price, int itemTypeId, int saleStatus, Date updateDatetime) {

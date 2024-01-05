@@ -41,6 +41,11 @@ public class ItemServiceV1 implements ItemService {
     }
 
     @Override
+    public void updateStatus(Long itemId, ItemUpdateDto updateParam) throws IOException {
+        itemRepository.updateStatus(itemId, updateParam);
+    }
+
+    @Override
     public Optional<Item> findById(Long id) {
         return itemRepository.findByItemId(id);
     }

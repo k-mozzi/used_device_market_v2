@@ -16,6 +16,7 @@ public interface ItemRepository {
     public String findMemberNameBySellerMemberId(Long sellerMemberId, Long itemId);
 
     public void update(Long itemId, ItemUpdateDto updateParam);
+    public void updateStatus(Long itemId, ItemUpdateDto updateParam);
 
     public void incrementViewsCount(Long itemId);
 
