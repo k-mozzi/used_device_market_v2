@@ -14,12 +14,16 @@ public interface CommentMapper {
 
     List<Comment> getCommentsByItemId(Long itemId);
 
-    List<Comment> getRepliesByCommentId(int parentCommentId);
+    List<Comment> getRepliesByParentCommentId(int parentCommentId);
 
     void insertComment(Comment comment);
+
+    void insertReply(Comment reply);
 
     void updateComment(@Param("commentId") int commentId, @Param("updateParam") CommentUpdateDto updateParam);
 
     void deleteComment(int commentId);
+
+    void deleteReply(int replyId);
 
 }
