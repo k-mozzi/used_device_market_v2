@@ -15,6 +15,7 @@ public interface ItemMapper {
     void save(Item item);
 
     void update(@Param("itemId") Long itemId, @Param("updateParam") ItemUpdateDto updateParam);
+    void updateStatus(@Param("itemId") Long itemId, @Param("updateParam") ItemUpdateDto updateParam);
 
     void incrementViewsCount(Long itemId);
 

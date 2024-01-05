@@ -14,6 +14,7 @@ public interface ItemService {
     Item save(Item item, HttpSession session) throws IOException;
 
     void update(Long itemId, ItemUpdateDto updateParam) throws IOException;
+    void updateStatus(Long itemId, ItemUpdateDto updateParam) throws IOException;
 
     Optional<Item> findById(Long id);
 

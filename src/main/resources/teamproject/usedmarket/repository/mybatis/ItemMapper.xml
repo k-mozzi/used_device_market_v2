@@ -22,6 +22,15 @@
         where item_id = #{itemId}
     </update>
 
+<update id="updateStatus">
+        update item
+        set  sale_status=#{updateParam.saleStatus},
+    buyer_member_id=#{updateParam.buyerMemberId},
+            update_datetime=#{updateParam.updateDatetime, jdbcType=TIMESTAMP}
+
+        where item_id = #{itemId}
+    </update>
+
     <update id="incrementViewsCount">
         update item
         set views_count = views_count + 1
