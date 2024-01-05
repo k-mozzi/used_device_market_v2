@@ -143,7 +143,6 @@
     <div>
         <label for="itemId">상품 ID</label>
         <input type="text" id="itemId" name="itemId" class="form-control" value="1" th:value="${item.itemId}" disabled>
-        <input type="hidden" id="sellerId" name="sellerId" class="form-control" th:value="${item.sellerMemberId}" disabled>
     </div>
     <div>
         <label for="foundMemberName">판매자</label>
@@ -235,7 +234,7 @@
         </div>
         <div class="col">
             <!-- '구매하기' 버튼 -->
-            <button onclick="openPopup()">구매 하기</button>
+            <button th:if="${item.sellerMemberId != currentMemberId}" th:onclick="openPopup()">구매 하기</button>
         </div>
     </div>
 
@@ -327,18 +326,11 @@
 <script>
     function openPopup() {
 
-    var sellerId = 1;
-    var buyerId = 1;
-
-    if (sellerId == buyerId) {
-                alert("자신이 올린상품은 구매할수없습니다");
-            } else {
-
         // 현재 부모 창의 값 가져오기
         var parentValue = document.getElementById("itemId").value;
         // 팝업 창 열기
         var popup = window.open("/item/purchasePopup?parentValue=" + parentValue , "Popup", "width=400,height=400");
-        }
+
     }
 </script>
 </html>
