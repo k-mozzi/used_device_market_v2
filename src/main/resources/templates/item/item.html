@@ -266,7 +266,7 @@
     <!-- 댓글 입력창과 등록 버튼 -->
     <div class="mt-3">
         <form th:action="@{'/items/' + ${currentItemId} + '/addComment'}" method="post">
-            <label for="commentText">댓글 작성</label>
+            <label for="commentText">댓글 작성: 답글은 댓글 주인과 상품 주인만 등록/조회할 수 있습니다.</label>
             <input type="text" id="commentText" name="content" class="form-control">
             <button type="submit" class="btn btn-primary mt-2">댓글 등록</button>
         </form>
@@ -280,17 +280,48 @@
             <div th:each="comment : ${comments}">
                 <div>
                     <span th:text="${comment.memberId}"></span>: <span th:text="${comment.content}"></span>
+                    <!-- 댓글 생성일 표시 -->
+                    <div>생성일: <span th:text="${#dates.format(comment.createDatetime, 'yyyy-MM-dd HH:mm:ss')}"></span></div>
                     <!-- 댓글 작성자와 현재 사용자가 동일한 경우에만 삭제 버튼 표시 -->
-                    <form th:if="${comment.memberId == currentMemberId}"
+                    <form th:if="${comment.memberId == currentMemberId || currentMemberId == item.sellerMemberId}"
                           th:action="@{'/items/' + ${currentItemId} + '/deleteComment/' + ${comment.commentId}}"
                           method="post">
                         <button type="submit">삭제</button>
                     </form>
+
+                    <!-- 덧글(답글) 입력창과 등록 버튼 -->
+                    <div class="mt-2" th:if="${comment.memberId == currentMemberId || currentMemberId == item.sellerMemberId}">
+                        <form th:action="@{'/items/' + ${currentItemId} + '/addReply'}" method="post">
+                            <input type="hidden" name="parentCommentId" th:value="${comment.commentId}" />
+                            <label for="replyText">댓글에 답글 작성</label>
+                            <input type="text" id="replyText" name="content" class="form-control">
+                            <button type="submit" class="btn btn-primary mt-2">답글 등록</button>
+                        </form>
+                    </div>
+
+                    <!-- 내가 작성한거 보여야함. 판매자가 작성한거 보여야함. 다른사람은 못 봄 -->
+                    <!-- 덧글(답글) 목록 표시 -->
+                    <div id="replyList" class="ml-4">
+                        <div th:each="replyList : ${replyMap[comment.commentId]}">
+                            <div th:if="${comment.memberId == currentMemberId || currentMemberId == item.sellerMemberId}">
+                                <span th:text="${replyList.memberId}"></span>: <span th:text="${replyList.content}"></span>
+                                <!-- 댓글 생성일 표시 -->
+                                <div>생성일: <span th:text="${#dates.format(replyList.createDatetime, 'yyyy-MM-dd HH:mm:ss')}"></span></div>
+                                <!-- 덧글(답글) 작성자와 현재 사용자가 동일한 경우에만 삭제 버튼 표시 -->
+                                <form th:action="@{'/items/' + ${currentItemId} + '/deleteReply/' + ${replyList.commentId}}"
+                                      method="post">
+                                    <button type="submit">삭제</button>
+                                </form>
+                                <span>------------------------------</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                <br>
             </div>
         </div>
     </div>
-</div> <!-- /container -->
+</div>
 </body>
 <script>
     function openPopup() {

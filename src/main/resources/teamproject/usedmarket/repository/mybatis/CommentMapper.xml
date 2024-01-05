@@ -22,14 +22,19 @@
         SELECT * FROM comment WHERE item_id = #{itemId} AND parent_comment_id IS NULL
     </select>
 
-    <select id="getRepliesByCommentId" resultMap="CommentResultMap">
+    <select id="getRepliesByParentCommentId" resultMap="CommentResultMap">
         SELECT * FROM comment WHERE parent_comment_id = #{parentCommentId}
     </select>
 
-    <!-- Insert query -->
+    <!-- Insert queries -->
     <insert id="insertComment" useGeneratedKeys="true" keyProperty="commentId">
-        INSERT INTO comment (item_id, member_id, content, parent_comment_id)
-        VALUES (#{itemId}, #{memberId}, #{content}, #{parentCommentId})
+        INSERT INTO comment (item_id, member_id, content, parent_comment_id, create_datetime)
+        VALUES (#{itemId}, #{memberId}, #{content}, #{parentCommentId}, #{createDatetime, jdbcType=TIMESTAMP})
+    </insert>
+
+    <insert id="insertReply" useGeneratedKeys="true" keyProperty="commentId">
+        INSERT INTO comment (item_id, member_id, content, parent_comment_id, create_datetime)
+        VALUES (#{itemId}, #{memberId}, #{content}, #{parentCommentId}, #{createDatetime, jdbcType=TIMESTAMP})
     </insert>
 
     <!-- Update query -->
@@ -38,9 +43,13 @@
         WHERE comment_id = #{commentId}
     </update>
 
-    <!-- Delete query -->
+    <!-- Delete queries -->
     <delete id="deleteComment">
         DELETE FROM comment WHERE comment_id = #{commentId}
+    </delete>
+
+    <delete id="deleteReply">
+        DELETE FROM comment WHERE comment_id = #{replyId}
     </delete>
 
 </mapper>
