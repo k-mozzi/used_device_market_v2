@@ -187,7 +187,8 @@
     <span>거래장소</span>
     <div id="map" style="width:100%;height:350px;"></div>
     <div id="clickLatlng"></div>
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ef1254b7c0e4ca0bba75f337f56fe2aa"></script>
+    <script type="text/javascript"
+            src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ef1254b7c0e4ca0bba75f337f56fe2aa"></script>
     <script>
         var mapContainer = document.getElementById('map'), // 지도를 표시할 div
             mapOption = {
@@ -224,12 +225,12 @@
     </div>
     <div class="row">
         <div class="col">
-        <!-- '관심 상품 등록/삭제' 버튼 -->
-        <button id="interestButton" class="w-100 btn"
-                th:class="${isLiked} ? 'btn-warning btn-lg' : 'btn-success btn-lg'"
-                th:onclick="|toggleInterest('@{/items/addInterest}', '@{/items/removeInterest}')|">
-            <span th:text="${isLiked} ? '관심 상품 삭제' : '관심 상품 등록'"></span>
-        </button>
+            <!-- '관심 상품 등록/삭제' 버튼 -->
+            <button id="interestButton" class="w-100 btn"
+                    th:class="${isLiked} ? 'btn-warning btn-lg' : 'btn-success btn-lg'"
+                    th:onclick="|toggleInterest('@{/items/addInterest}', '@{/items/removeInterest}')|">
+                <span th:text="${isLiked} ? '관심 상품 삭제' : '관심 상품 등록'"></span>
+            </button>
         </div>
         <div class="col">
             <!-- '구매하기' 버튼 -->
@@ -260,6 +261,33 @@
                     th:onclick="|location.href='@{/items/{itemId}/delete(itemId=${item.itemId})}'|"
                     type="button">삭제
             </button>
+        </div>
+    </div>
+    <!-- 댓글 입력창과 등록 버튼 -->
+    <div class="mt-3">
+        <form th:action="@{'/items/' + ${currentItemId} + '/addComment'}" method="post">
+            <label for="commentText">댓글 작성</label>
+            <input type="text" id="commentText" name="content" class="form-control">
+            <button type="submit" class="btn btn-primary mt-2">댓글 등록</button>
+        </form>
+    </div>
+
+    <!-- 댓글 목록 표시 영역 -->
+    <div class="mt-4">
+        <h4>댓글 목록</h4>
+        <div id="commentList">
+            <!-- Thymeleaf 문법을 사용하여 댓글 목록 출력 -->
+            <div th:each="comment : ${comments}">
+                <div>
+                    <span th:text="${comment.memberId}"></span>: <span th:text="${comment.content}"></span>
+                    <!-- 댓글 작성자와 현재 사용자가 동일한 경우에만 삭제 버튼 표시 -->
+                    <form th:if="${comment.memberId == currentMemberId}"
+                          th:action="@{'/items/' + ${currentItemId} + '/deleteComment/' + ${comment.commentId}}"
+                          method="post">
+                        <button type="submit">삭제</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 </div> <!-- /container -->

@@ -10,10 +10,12 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import teamproject.usedmarket.domain.comment.Comment;
 import teamproject.usedmarket.domain.item.*;
 import teamproject.usedmarket.domain.member.Member;
 import teamproject.usedmarket.repository.ItemUpdateDto;
 import teamproject.usedmarket.repository.MemberRepository;
+import teamproject.usedmarket.service.comment.CommentService;
 import teamproject.usedmarket.service.image.ImageService;
 import teamproject.usedmarket.service.item.ItemService;
 import teamproject.usedmarket.service.like.LikeService;
@@ -21,7 +23,9 @@ import teamproject.usedmarket.service.like.LikeService;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @Slf4j
@@ -32,6 +36,7 @@ public class ItemController {
     private final ItemService itemService;
     private final ImageService imageService;
     private final LikeService likeService;
+    private final CommentService commentService;
     private final MemberRepository memberRepository;
 
     @GetMapping
@@ -82,7 +87,6 @@ public class ItemController {
         return "item/items";
     }
 
-
     @GetMapping("/{itemId}")
     public String item(@PathVariable long itemId, Model model, HttpSession session) {
         Item item = itemService.findById(itemId).get();
@@ -92,16 +96,13 @@ public class ItemController {
         Long memberId = (Long) session.getAttribute("memberId");
         boolean isLiked = likeService.existsByMemberIdAndItemId(memberId, itemId);
         itemService.incrementViewsCount(itemId);
+        // 댓글 및 답글 목록 가져오기
+        List<Comment> comments = commentService.getCommentsByItemId(itemId);
 
         // 현재 로그인한 사용자 정보 가져오기
         Member member = memberRepository.findByMemberId(memberId).get();
-        String buyer = member.getMemberName();
-        String seller = foundMemberName;
+        String currentMemberName = member.getMemberName();
 
-        // 대화 상대 정보 모델에 추가
-        model.addAttribute("buyer", buyer);
-        model.addAttribute("seller", seller);
-        
         model.addAttribute("item", item);
         model.addAttribute("selectedItemTypeId", item.getItemTypeId());
         model.addAttribute("itemTypes", ItemType.values());
@@ -115,8 +116,39 @@ public class ItemController {
         // 추가: 마커의 위도와 경도를 모델에 추가
         model.addAttribute("latitude", item.getLatitude());
         model.addAttribute("longitude", item.getLongitude());
+        // 댓글 추
+        model.addAttribute("comments", comments);
 
         return "item/item";
+    }
+
+    @PostMapping("/{itemId}/addComment")
+    public String addComment(@PathVariable Long itemId, @RequestParam String content, HttpSession session, RedirectAttributes redirectAttributes) {
+        Long memberId = (Long) session.getAttribute("memberId");
+
+        Comment newComment = new Comment(itemId, memberId, content);
+        commentService.insertComment(newComment);
+
+        redirectAttributes.addAttribute("itemId", itemId);
+        return "redirect:/items/{itemId}";
+    }
+
+    @PostMapping("/{itemId}/deleteComment/{commentId}")
+    public String deleteComment(@PathVariable Long itemId, @PathVariable int commentId, HttpSession session, RedirectAttributes redirectAttributes) {
+        Long memberId = (Long) session.getAttribute("memberId");
+
+        Comment comment = commentService.getCommentById(commentId);
+
+        // 댓글 작성자와 현재 사용자가 다르면 권한이 없음
+        if (!comment.getMemberId().equals(memberId)) {
+            redirectAttributes.addFlashAttribute("error", "본인이 작성한 댓글만 삭제할 수 있습니다.");
+            return "redirect:/items/{itemId}";
+        }
+
+        commentService.deleteComment(commentId);
+
+        redirectAttributes.addAttribute("itemId", itemId);
+        return "redirect:/items/{itemId}";
     }
 
     @GetMapping("/add")
