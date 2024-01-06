@@ -54,7 +54,8 @@
         </div>
         <br>
         <div>
-            <p>사진 첨부<input type="file" multiple="multiple" name="imageFiles"></p>
+            <p>사진 첨부<input type="file" id="fileInput" multiple="multiple" onchange="previewImages()" name="imageFiles"></p>
+            <div id="imagePreview"></div>
         </div>
 
         <p><b>거래 장소를 선택해주세요!</b></p>
@@ -156,4 +157,58 @@
     <div th:replace="fragments/footer :: footer"/>
 </div> <!-- /container -->
 </body>
+<script>
+    var uploadedFiles = [];
+
+    // 파일 선택 시 호출되는 함수
+    function previewImages() {
+        var fileInput = document.getElementById('fileInput');
+        var imagePreview = document.getElementById('imagePreview');
+
+        // 선택한 파일이 있는지 확인
+        if (fileInput.files && fileInput.files.length > 0) {
+            for (var i = 0; i < fileInput.files.length; i++) {
+                var reader = new FileReader();
+
+                // 파일을 읽었을 때의 동작 정의
+                reader.onload = function (e) {
+                    // 이미지를 미리보기로 표시
+                    var imgElement = document.createElement('img');
+                    imgElement.src = e.target.result;
+                    imgElement.alt = 'Preview';
+                    imgElement.addEventListener('click', function () {
+                        // 이미지 클릭 시 해당 이미지 제거
+                        removeImage(imgElement);
+                    });
+                    imagePreview.appendChild(imgElement);
+
+                    // 업로드된 파일 목록에 추가
+                    uploadedFiles.push(fileInput.files[i]);
+                };
+
+                // 파일을 읽어오기
+                reader.readAsDataURL(fileInput.files[i]);
+            }
+        }
+    }
+
+    // 이미지 클릭 시 제거
+    function removeImage(imgElement) {
+        // 업로드된 파일 목록에서 해당 파일을 찾아 제거
+        var filename = imgElement.src.substring(imgElement.src.lastIndexOf('/') + 1);
+        uploadedFiles = uploadedFiles.filter(function (file) {
+            return file.name !== filename;
+        });
+
+        // 이미지 제거
+        imgElement.remove();
+    }
+
+    // form 제출 시 서버로 이미지 전송 방지
+    document.getElementById('uploadForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+        // 여기서 서버로의 전송 로직을 추가하면 됨
+        console.log("서버로 전송할 파일 목록:", uploadedFiles);
+    });
+</script>
 </html>

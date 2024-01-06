@@ -77,6 +77,9 @@ p {
         // JSON 형태로 데이터 전송
         xhr.send(JSON.stringify({ itemId: itemId }));
 
+        // 부모 창에 "purchaseCompleted" 메시지 전송
+        window.opener.postMessage('purchaseCompleted', '*');
+
         // 팝업 창 닫기
         window.close();
     }

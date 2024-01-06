@@ -27,12 +27,6 @@ public class PurchaseController {
 
     private final ItemService itemService;
 
-    @GetMapping("/parent")
-    public String parent() {
-        return "item/item";
-    }
-
-
 
     @GetMapping("/item/purchasePopup")
     public String purchasePop(@RequestParam Long itemId,
@@ -42,7 +36,7 @@ public class PurchaseController {
 
         model.addAttribute("title", title);
         model.addAttribute("price", price);
-        model.addAttribute("parentValue", itemId);
+        model.addAttribute("itemId", itemId);
 
         return "popup/purchasePopup";
     }
