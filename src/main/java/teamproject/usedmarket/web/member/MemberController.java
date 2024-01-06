@@ -19,6 +19,7 @@ import teamproject.usedmarket.repository.ItemUpdateDto;
 import teamproject.usedmarket.repository.MemberRepository;
 import teamproject.usedmarket.repository.MemberUpdateDto;
 import teamproject.usedmarket.service.image.ImageService;
+import teamproject.usedmarket.service.item.ItemService;
 import teamproject.usedmarket.service.like.LikeService;
 import teamproject.usedmarket.service.login.LoginService;
 import teamproject.usedmarket.domain.member.Member;
@@ -38,6 +39,7 @@ public class MemberController {
     private final LikeService likeService;
     private final ImageService imageService;
     private final MemberRepository memberRepository;
+    private final ItemService itemService;
 
 
 
@@ -164,27 +166,18 @@ public class MemberController {
         return "members/myPage/memberSell";
     }
 @GetMapping("/myPage/{memberId}/buy")
-    public String memberBuy(@PathVariable long memberId, @RequestParam(defaultValue = "soldOut") String sort, Model model) {
+    public String memberBuy(@PathVariable long memberId, Model model) {
 
-        List<Item> buyItems;
+    List<Item> buyItems = itemService.findByBuyerId(memberId);
+log.info("buyItems = {}",buyItems);
 
-        // 정렬 방식에 따라 아이템을 가져옴
-        switch (sort) {
-            case "onSale":
-                buyItems = memberRepository.findItemsSortedOnSale(memberId);
-                break;
-            case "soldOut":
-                buyItems = memberRepository.findItemsSortedSoldOut(memberId);
-                break;
-            default:
-                buyItems = memberRepository.findItemsSorted(memberId);
-                break;
-        }
+    for (Item buyItem : buyItems) {
+        log.info("buyItem = {}",buyItem);
+    }
 
-        List<ItemImage> images = imageService.findImages();
+    List<ItemImage> images = imageService.findImages();
         model.addAttribute("buyItems", buyItems);
         model.addAttribute("images", images);
-        model.addAttribute("sort", sort); // 현재 정렬 방식 전달
         return "members/myPage/memberBuy";
     }
 

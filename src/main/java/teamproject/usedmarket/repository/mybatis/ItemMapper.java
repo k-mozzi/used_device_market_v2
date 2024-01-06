@@ -19,6 +19,8 @@ public interface ItemMapper {
 
     void incrementViewsCount(Long itemId);
 
+    List<Item> findByBuyerId(@Param("buyerMemberId") Long buyerMemberId);
+
     Optional<Item> findById(Long id);
 
     String findMemberNameBySellerMemberId(@Param("sellerMemberId") Long sellerMemberId, @Param("itemId") Long itemId);
