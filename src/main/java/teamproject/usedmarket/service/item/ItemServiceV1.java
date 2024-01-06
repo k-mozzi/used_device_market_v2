@@ -51,6 +51,11 @@ public class ItemServiceV1 implements ItemService {
     }
 
     @Override
+    public List<Item> findByBuyerId(Long id) {
+       return itemRepository.findByBuyerId(id);
+    }
+
+    @Override
     public String findMemberNameBySellerMemberId(Long sellerMemberId, Long itemId) {
         return itemRepository.findMemberNameBySellerMemberId(sellerMemberId, itemId);
     }

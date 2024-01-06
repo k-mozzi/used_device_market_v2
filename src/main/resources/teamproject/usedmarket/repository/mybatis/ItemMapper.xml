@@ -43,6 +43,13 @@
         where item_id = #{itemId}
     </select>
 
+<select id="findByBuyerId" parameterType="long" resultType="Item">
+        select i.*
+        from item i
+    join member m on i.buyer_member_id = m.member_id
+        where i.buyer_member_id = #{buyerMemberId}
+    </select>
+
     <select id="findMemberNameBySellerMemberId" resultType="java.lang.String">
         SELECT m.member_name
         FROM item i

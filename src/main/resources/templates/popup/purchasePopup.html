@@ -63,6 +63,7 @@ p {
 
         // 부모 창의 값 업데이트
         window.opener.document.getElementById("saleStatus").value = 2;
+        window.opener.document.getElementById("target").remove();
 
         // 서버로 변경된 값 전송 (AJAX)
         var xhr = new XMLHttpRequest();

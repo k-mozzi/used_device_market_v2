@@ -15,6 +15,7 @@ public interface ItemRepository {
 
     public String findMemberNameBySellerMemberId(Long sellerMemberId, Long itemId);
 
+    public List<Item> findByBuyerId(Long id);
     public void update(Long itemId, ItemUpdateDto updateParam);
     public void updateStatus(Long itemId, ItemUpdateDto updateParam);
 
