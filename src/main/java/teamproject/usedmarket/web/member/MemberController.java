@@ -95,8 +95,15 @@ public class MemberController {
     }
 
     @GetMapping("/{memberId}/delete")
-    public String delete(@PathVariable Long memberId, HttpSession session) {
+    public String delete(@PathVariable Long memberId, HttpSession session, RedirectAttributes redirectAttributes) {
         Member member = memberRepository.findByMemberId(memberId).get();
+
+        Long currentMemberId = (Long) session.getAttribute("memberId");
+        if (!currentMemberId.equals(memberId)) {
+            log.info("아이디가 달라용");
+            redirectAttributes.addFlashAttribute("error", "타인의 계정은 삭제할 수 없습니다.");
+            return "redirect:/";
+        }
 
         memberRepository.delete(memberId);
         //회원 탈퇴시 세션 삭제
