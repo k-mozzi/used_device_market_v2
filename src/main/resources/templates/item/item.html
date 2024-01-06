@@ -155,7 +155,7 @@
     </div>
     <div>
         <block th:each="itemImage : ${itemImages}">
-            <img th:if="${itemImage.fileName}" id=viewDiv th:src="@{|/files/${itemImage.fileName}|}" width="250" height="200"/>
+            <img th:if="${itemImage.fileName}" th:src="@{|/files/${itemImage.fileName}|}" width="250" height="200"/>
         </block>
         <!--        <img th:if=${image.fileNames}" th:each="image : ${image.fileNames}"  th:src="@{|/files/${image.fileNames}|}" width="400" height="400"/>-->
         <!--        <img th:each="hor : ${hora}" th:src="@{|/files/${hor}|}" width="400" height="400"/>-->
@@ -327,27 +327,18 @@
 <script>
     function openPopup() {
 
-
-        var itemId = document.getElementById("itemId").value;
-        var title = document.getElementById("title").value;
-        var price = document.getElementById("price").value;
+        // 현재 부모 창의 값 가져오기
+        var parentValue = document.getElementById("itemId").value;
         // 팝업 창 열기
-        var popup = window.open("/item/purchasePopup?itemId=" + itemId + "&title=" + title + "&price=" + price , "Popup", "width=400,height=400");
+        var popup = window.open("/item/purchasePopup?parentValue=" + parentValue , "Popup", "width=400,height=400");
         if (popup) {
-
+            // 창을 부모 창 가운데로 위치시키기
             var x = (window.screen.width - popup.outerWidth) / 2;
             var y = (window.screen.height - popup.outerHeight) / 2;
             popup.moveTo(x, y);
         } else {
             alert("팝업이 차단되었습니다. 팝업 차단을 해제하고 다시 시도해주세요.");
         }
-
-
-        window.addEventListener('message', function(event) {
-            if (event.data === 'purchaseCompleted') {
-                alert('구매가 완료되었습니다!');
-            }
-        });
     }
 </script>
 </html>
