@@ -218,12 +218,17 @@ public class ItemController {
 
         //셀러 아이디와 로그인 아이디가 동일할 때만 접근 가능! 일단 아이템 등록할 때 셀러 멤버 아이디 바인딩 해야 함
         Long currentMemberId = (Long) session.getAttribute("memberId");
+        Long sellerMemberId = item.getSellerMemberId();
+        if (!currentMemberId.equals(sellerMemberId)) {
+            log.info("아이디가 달라용");
+            redirectAttributes.addFlashAttribute("error", "타인의 게시물은 수정할 수 없습니다.");
+            return "redirect:/items";
+        }
 
         model.addAttribute("item", item);
         model.addAttribute("itemTypes", ItemType.values());
         model.addAttribute("statuses", SaleStatus.values());
         model.addAttribute("itemImages", itemImages);
-        model.addAttribute("currentMemberId", currentMemberId);
         // 추가: 마커의 위도와 경도를 모델에 추가
         model.addAttribute("latitude", item.getLatitude());
         model.addAttribute("longitude", item.getLongitude());
@@ -244,6 +249,15 @@ public class ItemController {
     @GetMapping("/{itemId}/delete")
     public String delete(@PathVariable Long itemId, HttpSession session, RedirectAttributes redirectAttributes) {
         Item item = itemService.findById(itemId).get();
+
+        Long currentMemberId = (Long) session.getAttribute("memberId");
+        Long sellerMemberId = item.getSellerMemberId();
+        if (!currentMemberId.equals(sellerMemberId)) {
+            log.info("아이디가 달라용");
+            redirectAttributes.addFlashAttribute("error", "타인의 게시물은 삭제할 수 없습니다.");
+            return "redirect:/items";
+        }
+
         itemService.delete(itemId);
         log.info("delete itemId={}", itemId);
         return "redirect:/items";
