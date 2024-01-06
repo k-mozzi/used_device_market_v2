@@ -50,7 +50,7 @@
 
             <!-- 지역 선택 셀렉트 박스 -->
             <label for="regionId">지역 선택:</label>
-            <select id="regionId" name="regionId" th:field="*{regionId}" required>
+            <select id="regionId" name="regionId" class="form-control" th:field="*{regionId}" required>
                 <option th:each="region : ${regions}"
                         th:value="${region.getRegionId()}"
                         th:text="${region.getDescription()}"></option>

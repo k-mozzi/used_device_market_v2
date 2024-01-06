@@ -1,20 +1,11 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="utf-8">
-    <link th:href="@{/css/bootstrap.min.css}"
-          href="../css/bootstrap.min.css" rel="stylesheet">
-</head>
+<head th:replace="fragments/header :: header"/>
 <body>
-
-<div class="container" style="max-width: 600px">
-    <div class="py-5 text-center">
-        <h2 >멤버 목록</h2>
-    </div>
-
-    <hr class="my-4">
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader"/>
     <div>
-        <table class="table">
+        <table class="table table-striped">
             <thead>
             <tr>
                 <th >멤버 ID</th>
@@ -44,12 +35,10 @@
                     <span aria-hidden="true">&laquo;</span>
                 </a>
             </li>
-
             <!-- 페이지 번호 -->
             <li th:each="pageNumber : ${#numbers.sequence(1, totalPages)}" th:class="${pageNumber == currentPage ? 'page-member active' : 'page-member'}">
                 <a class="page-link" th:href="@{/members(page=${pageNumber})}" th:text="${pageNumber}"></a>
             </li>
-
             <!-- 다음 페이지 -->
             <li th:class="${currentPage == totalPages ? 'page-member disabled' : 'page-member'}">
                 <a class="page-link" th:if="${currentPage != totalPages}" th:href="@{/members(page=${currentPage + 1})}" aria-label="Next">
@@ -64,8 +53,8 @@
                 th:onclick="|location.href='@{/}'|"
                 type="button">홈으로</button>
     </div>
-
-</div> <!-- /container -->
-
+    <br>
+    <div th:replace="fragments/footer :: footer"/>
+</div>
 </body>
 </html>

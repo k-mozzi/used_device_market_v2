@@ -8,7 +8,8 @@
 <body>
 <div class="container" style="max-width: 600px">
     <div class="py-5 text-center">
-        <h2>홈 화면</h2></div>
+        <div th:replace="fragments/bodyHeader :: bodyHeader" />
+    </div>
     <div class="row">
         <div class="col">
             <button class="w-100 btn btn-secondary btn-lg" type="button"
@@ -25,6 +26,7 @@
         </div>
     </div>
     <hr class="my-4">
-</div> <!-- /container -->
+    <div th:replace="fragments/footer :: footer" />
+</div>
 </body>
 </html>

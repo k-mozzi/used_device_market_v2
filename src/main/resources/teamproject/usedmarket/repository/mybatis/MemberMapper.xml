@@ -16,6 +16,12 @@
         where member_id = #{memberId}
     </update>
 
+    <delete id="delete">
+        delete
+        from member
+        where member_id = #{memberId}
+    </delete>
+
     <select id="findByMemberId" resultType="Member">
         select * from member
         where member_id = #{member_id}
