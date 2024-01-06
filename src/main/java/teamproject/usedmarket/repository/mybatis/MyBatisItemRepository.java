@@ -2,6 +2,7 @@ package teamproject.usedmarket.repository.mybatis;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import teamproject.usedmarket.domain.item.Item;
 import teamproject.usedmarket.repository.ItemRepository;
@@ -37,6 +38,11 @@ public class MyBatisItemRepository implements ItemRepository {
     public String findMemberNameBySellerMemberId(Long sellerMemberId, Long itemId) {
         log.info("sellerMemberId={}", sellerMemberId);
         return itemMapper.findMemberNameBySellerMemberId(sellerMemberId, itemId);
+    }
+
+    @Override
+    public List<Item> findByBuyerId(Long id) {
+        return itemMapper.findByBuyerId(id);
     }
 
     @Override
