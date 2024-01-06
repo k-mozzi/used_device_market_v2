@@ -5,7 +5,6 @@
     <!-- jQuery CDN -->
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"
             integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
-
 </head>
 <body>
 <div class="container">
@@ -21,21 +20,6 @@
             <input type="text" th:field="*{title}" class="form-control"
                    placeholder="제목을 입력하세요" required/>
         </div>
-
-        <li>첨부파일<input type="file" multiple="multiple" name="imageFiles"></li>
-
-        <!-- 업로드된 사진 목록 -->
-
-        <th:block class="coll" th:each="itemImage, index : ${itemImages}">
-
-            <div class="ccol" th:field="${itemImage.itemImageId}" th:id="'item-' + ${index.index}">
-                <img class="delete-image" th:alt="${'Image ' + (index.index + 1)}" th:data-index="${index.index}"
-                     th:data-field="${itemImage.itemImageId}" th:if="${itemImage.fileName}"
-                     th:src="@{|/files/${itemImage.fileName}|}" width="250" height="200"/>
-                <p>[이미지 클릭시 삭제]</p>
-            </div>
-        </th:block>
-
         <div class="form-group">
             <label th:for="content">상세설명</label>
             <input type="text" th:field="*{content}" class="form-control"
@@ -53,6 +37,7 @@
                         th:selected="${type.itemTypeId == selectedItemTypeId}"/>
             </select>
         </div>
+        <br>
         <div>
             <div>판매 상태</div>
             <select id="saleStatus" name="saleStatus" class="form-control" th:field="${item.saleStatus}">
@@ -60,7 +45,20 @@
                         th:selected="${status.saleStatusId == selectedSaleStatus}"/>
             </select>
         </div>
-        <span>거래장소</span>
+        <br>
+        <div>
+            <p>첨부파일<input type="file" multiple="multiple" name="imageFiles"></p>
+            <!-- 업로드된 사진 목록 -->
+            <th:block class="coll" th:each="itemImage, index : ${itemImages}">
+                <div class="ccol" th:field="${itemImage.itemImageId}" th:id="'item-' + ${index.index}">
+                    <img class="delete-image" th:alt="${'Image ' + (index.index + 1)}" th:data-index="${index.index}"
+                         th:data-field="${itemImage.itemImageId}" th:if="${itemImage.fileName}"
+                         th:src="@{|/files/${itemImage.fileName}|}" width="250" height="200"/>
+                    <p>[이미지 클릭시 삭제]</p>
+                </div>
+            </th:block>
+        </div>
+        <span><b>거래장소</b></span>
         <div id="map" style="width:100%;height:350px;"></div>
         <div id="clickLatlng"></div>
         <script type="text/javascript"
@@ -108,8 +106,22 @@
                 document.getElementById('longitude').value = latlng.getLng();
             });
         </script>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <hr class="my-4">
+        <div class="row">
+            <div class="col">
+                <button class="w-100 btn btn-primary btn-lg" type="submit">
+                    상품 수정
+                </button>
+            </div>
+            <div class="col">
+                <button class="w-100 btn btn-secondary btn-lg"
+                        th:onclick="|location.href='@{/items/{itemId}(itemId=${item.itemId})}'|"
+                        type="button">취소
+                </button>
+            </div>
+        </div>
     </form>
+    <br>
     <div th:replace="fragments/footer :: footer"/>
 </div> <!-- /container -->
 </body>
