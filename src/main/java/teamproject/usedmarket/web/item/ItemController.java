@@ -192,7 +192,7 @@ public class ItemController {
     }
 
     @PostMapping("/add")
-    public String addItem(@Validated @ModelAttribute Item item, BindingResult bindingResult, @RequestParam("imageFiles") List<MultipartFile> file,
+    public String addItem(@Validated @ModelAttribute Item item, BindingResult bindingResult, @RequestParam("uploadedFiles") List<MultipartFile> file,
                           HttpSession session, RedirectAttributes redirectAttributes, Model model) throws IOException {
 
         if (bindingResult.hasErrors()) {

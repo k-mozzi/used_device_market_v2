@@ -54,7 +54,7 @@
         </div>
         <br>
         <div>
-            <p>사진 첨부<input type="file" id="fileInput" multiple="multiple" onchange="previewImages()" name="imageFiles"></p>
+            <p>사진 첨부<input type="file" id="fileInput" multiple="multiple" onchange="previewImages()" name="uploadedFiles"></p>
             <div id="imagePreview"></div>
         </div>
 
@@ -171,20 +171,22 @@
                 var reader = new FileReader();
 
                 // 파일을 읽었을 때의 동작 정의
-                reader.onload = function (e) {
-                    // 이미지를 미리보기로 표시
-                    var imgElement = document.createElement('img');
-                    imgElement.src = e.target.result;
-                    imgElement.alt = 'Preview';
-                    imgElement.addEventListener('click', function () {
-                        // 이미지 클릭 시 해당 이미지 제거
-                        removeImage(imgElement);
-                    });
-                    imagePreview.appendChild(imgElement);
+                reader.onload = (function (index) {
+                    return function (e) {
+                        // 이미지를 미리보기로 표시
+                        var imgElement = document.createElement('img');
+                        imgElement.src = e.target.result;
+                        imgElement.alt = 'Preview';
+                        imgElement.addEventListener('click', function () {
+                            // 이미지 클릭 시 해당 이미지 제거
+                            removeImage(index);
+                        });
+                        imagePreview.appendChild(imgElement);
 
-                    // 업로드된 파일 목록에 추가
-                    uploadedFiles.push(fileInput.files[i]);
-                };
+                        // 업로드된 파일 목록에 추가
+                        uploadedFiles.push(fileInput.files[index]);
+                    };
+                })(i);
 
                 // 파일을 읽어오기
                 reader.readAsDataURL(fileInput.files[i]);
@@ -193,15 +195,15 @@
     }
 
     // 이미지 클릭 시 제거
-    function removeImage(imgElement) {
+    function removeImage(index) {
         // 업로드된 파일 목록에서 해당 파일을 찾아 제거
-        var filename = imgElement.src.substring(imgElement.src.lastIndexOf('/') + 1);
+        var filename = uploadedFiles[index].name;
         uploadedFiles = uploadedFiles.filter(function (file) {
             return file.name !== filename;
         });
 
         // 이미지 제거
-        imgElement.remove();
+        document.getElementById('imagePreview').removeChild(document.getElementById('imagePreview').childNodes[index]);
     }
 
     // form 제출 시 서버로 이미지 전송 방지
