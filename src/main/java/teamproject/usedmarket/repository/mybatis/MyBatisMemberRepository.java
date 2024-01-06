@@ -43,6 +43,12 @@ public class MyBatisMemberRepository implements MemberRepository {
     }
 
     @Override
+    public void delete(Long memberId) {
+        memberMapper.delete(memberId);
+    }
+
+
+    @Override
     public Optional<Member> findByMemberId(Long memberId) {
         return memberMapper.findByMemberId(memberId);
     }

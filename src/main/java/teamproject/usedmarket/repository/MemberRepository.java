@@ -12,6 +12,8 @@ public interface MemberRepository {
 
     void update(Long memberId, MemberUpdateDto updateParam);
 
+    void delete(Long memberId);
+
     Optional<Member> findByMemberId(Long memberId);
 
     Optional<Member> findByLoginId(String loginId);

@@ -92,6 +92,17 @@ public class MemberController {
         return "redirect:/members/myPage/{memberId}";
     }
 
+    @GetMapping("/{memberId}/delete")
+    public String delete(@PathVariable Long memberId, HttpSession session) {
+        Member member = memberRepository.findByMemberId(memberId).get();
+
+        memberRepository.delete(memberId);
+        //회원 탈퇴시 세션 삭제
+        session.removeAttribute(SessionConst.LOGIN_MEMBER);
+
+        return "redirect:/";
+    }
+
     @GetMapping
     public String members(@RequestParam(defaultValue = "1") int page, Model model) {
         int pageSize = 10; // 한 페이지에 보여줄 아이템 수
