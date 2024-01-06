@@ -163,6 +163,30 @@ public class MemberController {
         model.addAttribute("sort", sort); // 현재 정렬 방식 전달
         return "members/myPage/memberSell";
     }
+@GetMapping("/myPage/{memberId}/buy")
+    public String memberBuy(@PathVariable long memberId, @RequestParam(defaultValue = "soldOut") String sort, Model model) {
+
+        List<Item> buyItems;
+
+        // 정렬 방식에 따라 아이템을 가져옴
+        switch (sort) {
+            case "onSale":
+                buyItems = memberRepository.findItemsSortedOnSale(memberId);
+                break;
+            case "soldOut":
+                buyItems = memberRepository.findItemsSortedSoldOut(memberId);
+                break;
+            default:
+                buyItems = memberRepository.findItemsSorted(memberId);
+                break;
+        }
+
+        List<ItemImage> images = imageService.findImages();
+        model.addAttribute("buyItems", buyItems);
+        model.addAttribute("images", images);
+        model.addAttribute("sort", sort); // 현재 정렬 방식 전달
+        return "members/myPage/memberBuy";
+    }
 
 }
 
