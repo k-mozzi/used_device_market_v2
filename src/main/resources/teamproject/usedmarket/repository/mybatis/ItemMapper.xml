@@ -48,6 +48,7 @@
         from item i
     join member m on i.buyer_member_id = m.member_id
         where i.buyer_member_id = #{buyerMemberId}
+        ORDER BY i.create_datetime DESC
     </select>
 
     <select id="findMemberNameBySellerMemberId" resultType="java.lang.String">

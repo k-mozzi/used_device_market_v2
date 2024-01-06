@@ -17,6 +17,8 @@ public interface MemberMapper {
 
     void update(@Param("memberId") Long memberId, @Param("updateParam") MemberUpdateDto updateParam);
 
+    void delete(Long memberId);
+
     Optional<Member> findByMemberId(Long memberId);
 
     Optional<Member> findByLoginId(String loginId);
