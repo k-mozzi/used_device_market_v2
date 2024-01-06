@@ -328,9 +328,11 @@
     function openPopup() {
 
         // 현재 부모 창의 값 가져오기
-        var parentValue = document.getElementById("itemId").value;
+        var itemId = document.getElementById("itemId").value;
+        var title = document.getElementById("title").value;
+        var price = document.getElementById("price").value;
         // 팝업 창 열기
-        var popup = window.open("/item/purchasePopup?parentValue=" + parentValue , "Popup", "width=400,height=400");
+        var popup = window.open("/item/purchasePopup?itemId=" + itemId + "&title=" + title + "&price=" + price , "Popup", "width=400,height=400");
         if (popup) {
             // 창을 부모 창 가운데로 위치시키기
             var x = (window.screen.width - popup.outerWidth) / 2;
