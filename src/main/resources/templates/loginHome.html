@@ -7,6 +7,9 @@
 <body>
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader" />
+    <div th:if="${not #strings.isEmpty(error)}" class="alert alert-danger" role="alert">
+        <p th:text="${error}"></p>
+    </div>
     <div class="jumbotron">
         <h1>USED MARKET</h1>
         <h4 class="mb-3" th:text="|사용자: ${member.memberName}|">로그인 사용자 이름</h4>
