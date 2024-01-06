@@ -44,10 +44,10 @@
                     var interestButton = $('#interestButton');
                     if (response === 'exists') {
                         interestButton.text('관심 상품 삭제');
-                        interestButton.removeClass('btn-success').addClass('btn-warning');
+                        interestButton.removeClass('btn-primary').addClass('btn-danger');
                     } else {
                         interestButton.text('관심 상품 등록');
-                        interestButton.removeClass('btn-warning').addClass('btn-success');
+                        interestButton.removeClass('btn-danger').addClass('btn-primary');
                     }
                 },
                 error: function () {
@@ -223,26 +223,20 @@
     <div th:if="${item.updateDatetime != null}">
         <div>최종 수정 일자: <span th:text="${#dates.format(item.updateDatetime, 'yyyy-MM-dd HH:mm:ss')}"></span></div>
     </div>
-    <div class="row">
-        <div class="col">
-            <!-- '관심 상품 등록/삭제' 버튼 -->
-            <button id="interestButton" class="w-100 btn"
-                    th:class="${isLiked} ? 'btn-warning btn-lg' : 'btn-success btn-lg'"
-                    th:onclick="|toggleInterest('@{/items/addInterest}', '@{/items/removeInterest}')|">
-                <span th:text="${isLiked} ? '관심 상품 삭제' : '관심 상품 등록'"></span>
-            </button>
-        </div>
-        <div class="col">
-            <!-- '구매하기' 버튼 -->
-            <button id ="target" class="btn w-100 text-white" style="background-color: orange;"
-                    th:if="${item.sellerMemberId != currentMemberId} and ${item.buyerMemberId == null}" th:onclick="openPopup()">구매 하기</button>
-        </div>
-    </div>
+
 
     <hr class="my-4">
 
     <div class="row">
-        <div class="col">
+        <div class="col" th:if="${currentMemberId != item.sellerMemberId}">
+            <!-- '관심 상품 등록/삭제' 버튼 -->
+            <button id="interestButton" class="w-100 btn"
+                    th:class="${isLiked} ? 'btn-danger btn-lg' : 'btn-primary btn-lg'"
+                    th:onclick="|toggleInterest('@{/items/addInterest}', '@{/items/removeInterest}')|">
+                <span th:text="${isLiked} ? '관심 상품 삭제' : '관심 상품 등록'"></span>
+            </button>
+        </div>
+        <div class="col" th:if="${currentMemberId == item.sellerMemberId}">
             <button class="w-100 btn btn-primary btn-lg"
                     onclick="location.href='editForm.html'"
                     th:onclick="|location.href='@{/items/{itemId}/edit(itemId=${item.itemId})}'|"
@@ -256,11 +250,18 @@
                     type="button">목록으로
             </button>
         </div>
-        <div class="col">
+        <div class="col" th:if="${currentMemberId == item.sellerMemberId}">
             <button class="w-100 btn btn-danger btn-lg"
                     onclick="location.href='items.html'"
                     th:onclick="|location.href='@{/items/{itemId}/delete(itemId=${item.itemId})}'|"
                     type="button">삭제
+            </button>
+        </div>
+        <div class="col" th:if="${item.sellerMemberId != currentMemberId} and ${item.buyerMemberId == null}">
+            <!-- '구매하기' 버튼 -->
+            <button class="w-100 btn btn-success btn-lg"
+                    th:onclick="openPopup()"
+                    type="button">구매 하기
             </button>
         </div>
     </div>
@@ -274,26 +275,29 @@
     </div>
 
     <!-- 댓글 목록 표시 영역 -->
-    <div class="mt-4">
+    <div class="mt-4" th:if="${not comments.isEmpty}">
         <h4>댓글 목록</h4>
         <div id="commentList">
             <!-- Thymeleaf 문법을 사용하여 댓글 목록 출력 -->
             <div th:each="comment : ${comments}">
                 <div>
-                    <span th:text="${comment.memberId}"></span>: <span th:text="${comment.content}"></span>
+                    회원번호 <span th:text="${comment.memberId}"></span>: <span th:text="${comment.content}"></span>
                     <!-- 댓글 생성일 표시 -->
-                    <div>생성일: <span th:text="${#dates.format(comment.createDatetime, 'yyyy-MM-dd HH:mm:ss')}"></span></div>
+                    <div>생성일: <span th:text="${#dates.format(comment.createDatetime, 'yyyy-MM-dd HH:mm:ss')}"></span>
+                    </div>
                     <!-- 댓글 작성자와 현재 사용자가 동일한 경우에만 삭제 버튼 표시 -->
                     <form th:if="${comment.memberId == currentMemberId || currentMemberId == item.sellerMemberId}"
                           th:action="@{'/items/' + ${currentItemId} + '/deleteComment/' + ${comment.commentId}}"
                           method="post">
-                        <button type="submit">삭제</button>
+                        <button type="submit" class="btn btn-danger btn-sm">삭제</button>
                     </form>
-                    <input type="hidden" id="buyerId" name="buyerId" class="form-control" th:value="${currentMemberId}" disabled>
+                    <input type="hidden" id="buyerId" name="buyerId" class="form-control" th:value="${currentMemberId}"
+                           disabled>
                     <!-- 덧글(답글) 입력창과 등록 버튼 -->
-                    <div class="mt-2" th:if="${comment.memberId == currentMemberId || currentMemberId == item.sellerMemberId}">
+                    <div class="mt-2"
+                         th:if="${comment.memberId == currentMemberId || currentMemberId == item.sellerMemberId}">
                         <form th:action="@{'/items/' + ${currentItemId} + '/addReply'}" method="post">
-                            <input type="hidden" name="parentCommentId" th:value="${comment.commentId}" />
+                            <input type="hidden" name="parentCommentId" th:value="${comment.commentId}"/>
                             <label for="replyText">댓글에 답글 작성</label>
                             <input type="text" id="replyText" name="content" class="form-control">
                             <button type="submit" class="btn btn-primary mt-2">답글 등록</button>
@@ -305,13 +309,16 @@
                     <div id="replyList" class="ml-4">
                         <div th:each="replyList : ${replyMap[comment.commentId]}">
                             <div th:if="${comment.memberId == currentMemberId || currentMemberId == item.sellerMemberId}">
-                                <span th:text="${replyList.memberId}"></span>: <span th:text="${replyList.content}"></span>
+                                회원번호 <span th:text="${replyList.memberId}"></span>: <span
+                                    th:text="${replyList.content}"></span>
                                 <!-- 댓글 생성일 표시 -->
-                                <div>생성일: <span th:text="${#dates.format(replyList.createDatetime, 'yyyy-MM-dd HH:mm:ss')}"></span></div>
+                                <div>생성일: <span
+                                        th:text="${#dates.format(replyList.createDatetime, 'yyyy-MM-dd HH:mm:ss')}"></span>
+                                </div>
                                 <!-- 덧글(답글) 작성자와 현재 사용자가 동일한 경우에만 삭제 버튼 표시 -->
                                 <form th:action="@{'/items/' + ${currentItemId} + '/deleteReply/' + ${replyList.commentId}}"
                                       method="post">
-                                    <button type="submit">삭제</button>
+                                    <button type="submit" class="btn btn-danger btn-sm">삭제</button>
                                 </form>
                                 <span>------------------------------</span>
                             </div>
@@ -322,6 +329,8 @@
             </div>
         </div>
     </div>
+    <br>
+    <div th:replace="fragments/footer :: footer"/>
 </div>
 </body>
 <script>
@@ -330,7 +339,7 @@
         // 현재 부모 창의 값 가져오기
         var parentValue = document.getElementById("itemId").value;
         // 팝업 창 열기
-        var popup = window.open("/item/purchasePopup?parentValue=" + parentValue , "Popup", "width=400,height=400");
+        var popup = window.open("/item/purchasePopup?parentValue=" + parentValue, "Popup", "width=400,height=400");
         if (popup) {
             // 창을 부모 창 가운데로 위치시키기
             var x = (window.screen.width - popup.outerWidth) / 2;

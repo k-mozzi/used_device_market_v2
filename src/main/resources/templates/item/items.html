@@ -4,9 +4,6 @@
 <body>
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader"/>
-    <div th:if="${not #strings.isEmpty(error)}" class="alert alert-danger" role="alert">
-        <p th:text="${error}"></p>
-    </div>
     <div class="mb-3">
         <a href="/items/add" class="btn btn-primary">상품 등록</a>
     </div>
