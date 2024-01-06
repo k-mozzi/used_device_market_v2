@@ -47,7 +47,7 @@
     <select id="findItemsSortedSoldOut" parameterType="map" resultType="item">
         SELECT *
         FROM item
-        WHERE seller_member_id = #{memberId} AND sale_status = 2
+        WHERE buyer_member_id = #{memberId} AND sale_status = 2
         ORDER BY create_datetime DESC
     </select>
 

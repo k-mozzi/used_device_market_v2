@@ -2,19 +2,58 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link th:href="@{/css/bootstrap.min.css}" href="css/bootstrap.min.css" rel="stylesheet">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Popup</title>
+
+    <style>
+        .container {
+  font-family: arial;
+  font-size: 24px;
+  margin: 25px;
+  width: 350px;
+  height: 200px;
+  outline: dashed 1px black;
+}
+
+.row{
+padding: 30px; /* 좌우 여백 조절 (선택 사항) */
+}
+
+button {
+padding: 10px;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+}
+
+p {
+  /* 수평 중앙 정렬하기 */
+  text-align: center;
+}
+    </style>
 </head>
 <body>
+<div  class="container">
 <!-- 부모 창의 값 표시 -->
-<p>상품번호 : <input id="parentValue" th:text="${parentValue}" th:value="${parentValue}" disabled/></p>
+<p>상품번호 : <input id="parentValue" th:value="${parentValue}" disabled/></p>
+
+<div class="row">
+    <div class="col">
+        <!-- 취소 버튼 -->
+        <button class="w-90 btn btn-danger btn-lg"
+        onclick="cancel()">취소</button>
+    </div>
+    <div class="col">
+        <!-- 구매 버튼 -->
+        <button class="w-90 btn btn-primary btn-lg" onclick="changeValue()">구매완료</button>
+    </div>
+</div>
+</div>
 
 
-<!-- 값 변경 버튼 -->
-<button onclick="changeValue()">구매하기</button>
-
-<!-- 부모 창의 값 업데이트 -->
 <script>
 
     function changeValue() {
@@ -35,6 +74,12 @@
 
         // 팝업 창 닫기
         window.close();
+    }
+
+    function cancel() {
+    // 팝업 창 닫기
+        window.close();
+
     }
 </script>
 </body>

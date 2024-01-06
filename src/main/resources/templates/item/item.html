@@ -234,7 +234,8 @@
         </div>
         <div class="col">
             <!-- '구매하기' 버튼 -->
-            <button th:if="${item.sellerMemberId != currentMemberId}" th:onclick="openPopup()">구매 하기</button>
+            <button class="btn w-100 text-white" style="background-color: orange;"
+                    th:if="${item.sellerMemberId != currentMemberId} and ${item.buyerMemberId == null}" th:onclick="openPopup()">구매 하기</button>
         </div>
     </div>
 
@@ -330,7 +331,14 @@
         var parentValue = document.getElementById("itemId").value;
         // 팝업 창 열기
         var popup = window.open("/item/purchasePopup?parentValue=" + parentValue , "Popup", "width=400,height=400");
-
+        if (popup) {
+            // 창을 부모 창 가운데로 위치시키기
+            var x = (window.screen.width - popup.outerWidth) / 2;
+            var y = (window.screen.height - popup.outerHeight) / 2;
+            popup.moveTo(x, y);
+        } else {
+            alert("팝업이 차단되었습니다. 팝업 차단을 해제하고 다시 시도해주세요.");
+        }
     }
 </script>
 </html>
