@@ -12,7 +12,6 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class LoginService {
-
     private final MemberRepository memberRepository;
 
     /**
@@ -54,5 +53,4 @@ public class LoginService {
     public Optional<Member> findOne(Long memberId) {
         return memberRepository.findByMemberId(memberId);
     }
-
 }

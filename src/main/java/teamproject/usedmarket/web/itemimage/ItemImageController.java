@@ -11,21 +11,12 @@ import teamproject.usedmarket.service.image.ImageService;
 //@RequestMapping("/image")
 @RequiredArgsConstructor
 public class ItemImageController {
-
     private final ImageService imageService;
-
-
 
     @PostMapping("/deleteImage/{itemImageId}")
     @ResponseBody
     public String deletePhoto(@PathVariable int itemImageId) {
-
-
         imageService.delete(itemImageId);
-
-
         return "deleted : "+itemImageId;
     }
-
-
 }

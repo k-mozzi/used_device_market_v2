@@ -14,7 +14,6 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 public class Item {
-
     private Long itemId;
     private int itemTypeId;
     @NotBlank
@@ -33,10 +32,8 @@ public class Item {
     private String repImagePath;
     private Date createDatetime;
     private Date updateDatetime;
-
     private String filename;
     private String filepath;
-
     private BigDecimal latitude; // 위도
     private BigDecimal longitude; // 경도
 

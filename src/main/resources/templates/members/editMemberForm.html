@@ -10,12 +10,10 @@
     </style>
 </head>
 <body>
-
 <div class="container">
     <div class="py-5 text-center">
         <h2>회원 정보 수정</h2>
     </div>
-
     <form th:action="@{'/members/' + ${member.memberId} + '/edit'}" method="post">
         <div>
             <label for="loginId">로그인 ID</label>
@@ -54,6 +52,5 @@
         </div>
     </form>
 </div>
-
 </body>
 </html>

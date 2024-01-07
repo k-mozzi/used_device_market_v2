@@ -19,10 +19,7 @@ import java.util.Optional;
 @Repository
 @RequiredArgsConstructor
 public class MyBatisImageRepository implements ImageRepository {
-
-
     private final ImageMapper imageMapper;
-
 
     @Override
     public void save(ItemImage itemImage) {
@@ -49,15 +46,8 @@ public class MyBatisImageRepository implements ImageRepository {
         imageMapper.update(itemImageId, updateDto);
     }
 
-
     @Override
     public void delete(int itemImageId) {
         imageMapper.delete(itemImageId);
     }
-
-
-
-
-
-
 }

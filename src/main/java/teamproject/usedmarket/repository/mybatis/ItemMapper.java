@@ -11,10 +11,10 @@ import java.util.Optional;
 
 @Mapper
 public interface ItemMapper {
-
     void save(Item item);
 
     void update(@Param("itemId") Long itemId, @Param("updateParam") ItemUpdateDto updateParam);
+
     void updateStatus(@Param("itemId") Long itemId, @Param("updateParam") ItemUpdateDto updateParam);
 
     void incrementViewsCount(Long itemId);
@@ -38,7 +38,4 @@ public interface ItemMapper {
     List<Item> findItemsSortedByLikesCount(Map<String, Object> params);
 
     List<Item> findItemsWithPagingAndSearch(Map<String, Object> params);
-
-
-
 }

@@ -43,9 +43,7 @@
     </script>
 </head>
 <body>
-
 <div class="container">
-
     <div class="py-5 text-center">
         <h2>회원 상세</h2>
     </div>
@@ -73,9 +71,7 @@
     <div th:if="${member.updateDatetime != null}">
         <div>최종 수정 일자: <span th:text="${#dates.format(member.updateDatetime, 'yyyy-MM-dd HH:mm:ss')}"></span></div>
     </div>
-
     <hr class="my-4">
-
     <div class="row">
         <div class="col">
             <button class="w-100 btn btn-primary btn-lg"
@@ -95,9 +91,7 @@
                     type="button">회원 탈퇴
             </button>
         </div>
-
     </div>
-
 </div>
 </body>
 </html>

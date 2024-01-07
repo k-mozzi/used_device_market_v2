@@ -13,9 +13,6 @@ import teamproject.usedmarket.repository.MemberRepository;
 @Controller
 @RequiredArgsConstructor
 public class HomeController {
-
-    private final MemberRepository memberRepository;
-
     @GetMapping("/")
     public String homeLogin(
             @SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false)
@@ -29,5 +26,4 @@ public class HomeController {
         model.addAttribute("member", loginMember);
         return "loginHome";
     }
-
 }

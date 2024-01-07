@@ -36,14 +36,11 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/members")
 public class MemberController {
-
     private final LoginService loginService;
     private final LikeService likeService;
     private final ImageService imageService;
     private final MemberRepository memberRepository;
     private final ItemService itemService;
-
-
 
     @GetMapping("/add")
     public String addForm(@ModelAttribute("member") Member member, Model model) {
@@ -53,7 +50,6 @@ public class MemberController {
 
     @PostMapping("/add")
     public String join(@Validated @ModelAttribute Member member, BindingResult bindingResult, Model model) {
-
         try {
             if (bindingResult.hasErrors()) {
                 log.info("error={}", bindingResult);
@@ -220,7 +216,6 @@ log.info("buyItems = {}",buyItems);
         model.addAttribute("images", images);
         return "members/myPage/memberBuy";
     }
-
 }
 
 

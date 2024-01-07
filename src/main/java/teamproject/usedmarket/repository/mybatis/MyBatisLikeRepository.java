@@ -15,7 +15,6 @@ import java.util.Map;
 @Repository
 @RequiredArgsConstructor
 public class MyBatisLikeRepository implements LikeRepository {
-
     private final LikeMapper likeMapper;
 
     @Override
@@ -42,19 +41,4 @@ public class MyBatisLikeRepository implements LikeRepository {
     public int totalLikedItem(Long itemId) {
         return likeMapper.totalLikedItem(itemId);
     }
-
-//    @Override
-//    public List<Item> findLikedItemsWithPaging(Long memberId, int page, int pageSize) {
-//        int startRow = (page - 1) * pageSize;
-//        Map<String, Object> params = new HashMap<>();
-//        params.put("startRow", startRow);
-//        params.put("pageSize", pageSize);
-//        return likeMapper.findLikedItemsWithPaging(memberId, params);
-//    }
-//
-//    @Override
-//    public int countItems(Long memberId) {
-//        return likeMapper.countItems(memberId);
-//    }
-
 }

@@ -28,7 +28,6 @@ import java.util.Optional;
 @Repository
 @RequiredArgsConstructor
 public class MyBatisMemberRepository implements MemberRepository {
-
     private final MemberMapper memberMapper;
 
     @Override
@@ -46,7 +45,6 @@ public class MyBatisMemberRepository implements MemberRepository {
     public void delete(Long memberId) {
         memberMapper.delete(memberId);
     }
-
 
     @Override
     public Optional<Member> findByMemberId(Long memberId) {
@@ -78,7 +76,6 @@ public class MyBatisMemberRepository implements MemberRepository {
         return memberMapper.findItemsSorted(memberId);
     }
 
-
     @Override
     public List<Item> findMembersWithPaging(int page, int pageSize) {
         int startRow = (page - 1) * pageSize;
@@ -92,6 +89,4 @@ public class MyBatisMemberRepository implements MemberRepository {
     public int countItems() {
         return memberMapper.countItems();
     }
-
-
 }

@@ -8,7 +8,6 @@ import java.util.Map;
 import java.util.Optional;
 
 public interface ItemRepository {
-
     public Item save(Item item);
 
     public Optional<Item> findByItemId(Long itemId);
@@ -16,7 +15,9 @@ public interface ItemRepository {
     public String findMemberNameBySellerMemberId(Long sellerMemberId, Long itemId);
 
     public List<Item> findByBuyerId(Long id);
+
     public void update(Long itemId, ItemUpdateDto updateParam);
+
     public void updateStatus(Long itemId, ItemUpdateDto updateParam);
 
     public void incrementViewsCount(Long itemId);
@@ -34,5 +35,4 @@ public interface ItemRepository {
     public List<Item> findItemsSortedByLikesCount(int page, int pageSize, String itemType, String regionId);
 
     public List<Item> findItemsWithPagingAndSearch(int page, int pageSize, String searchText);
-
 }

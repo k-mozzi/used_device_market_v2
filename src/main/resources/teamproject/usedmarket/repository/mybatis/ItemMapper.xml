@@ -22,10 +22,10 @@
         where item_id = #{itemId}
     </update>
 
-<update id="updateStatus">
+    <update id="updateStatus">
         update item
-        set  sale_status=#{updateParam.saleStatus},
-    buyer_member_id=#{updateParam.buyerMemberId},
+        set sale_status=#{updateParam.saleStatus},
+            buyer_member_id=#{updateParam.buyerMemberId},
             update_datetime=#{updateParam.updateDatetime, jdbcType=TIMESTAMP}
 
         where item_id = #{itemId}
@@ -43,10 +43,10 @@
         where item_id = #{itemId}
     </select>
 
-<select id="findByBuyerId" parameterType="long" resultType="Item">
+    <select id="findByBuyerId" parameterType="long" resultType="Item">
         select i.*
         from item i
-    join member m on i.buyer_member_id = m.member_id
+        join member m on i.buyer_member_id = m.member_id
         where i.buyer_member_id = #{buyerMemberId}
         ORDER BY i.create_datetime DESC
     </select>
@@ -54,9 +54,9 @@
     <select id="findMemberNameBySellerMemberId" resultType="java.lang.String">
         SELECT m.member_name
         FROM item i
-                 JOIN member m ON i.seller_member_id = m.member_id
+        JOIN member m ON i.seller_member_id = m.member_id
         WHERE i.seller_member_id = #{sellerMemberId}
-          AND i.item_id = #{itemId}
+        AND i.item_id = #{itemId}
     </select>
 
     <delete id="delete">
@@ -141,5 +141,4 @@
         ORDER BY create_datetime DESC
         LIMIT #{startRow, jdbcType=INTEGER}, #{pageSize, jdbcType=INTEGER}
     </select>
-
 </mapper>

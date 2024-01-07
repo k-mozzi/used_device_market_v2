@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface MemberRepository {
-
     Member save(Member member);
 
     void update(Long memberId, MemberUpdateDto updateParam);
@@ -29,5 +28,4 @@ public interface MemberRepository {
     List<Item> findMembersWithPaging(int page, int pageSize);
 
     int countItems();
-
 }

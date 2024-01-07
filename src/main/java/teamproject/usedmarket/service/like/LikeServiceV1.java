@@ -12,7 +12,6 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class LikeServiceV1 implements LikeService {
-
     private final LikeRepository likeRepository;
 
     @Override
@@ -39,16 +38,4 @@ public class LikeServiceV1 implements LikeService {
     public int totalLikedItem(Long itemId) {
         return likeRepository.totalLikedItem(itemId);
     }
-
-//    @Override
-//    public List<Item> findLikedItemsWithPaging(Long memberId, int page, int pageSize) {
-//        return likeRepository.findLikedItemsWithPaging(memberId, page, pageSize);
-//    }
-//
-//    @Override
-//    public int countItems(Long memberId) {
-//        return likeRepository.countItems(memberId);
-//    }
-
-
 }

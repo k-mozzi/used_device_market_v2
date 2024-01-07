@@ -9,7 +9,6 @@ import java.util.List;
 
 @Mapper
 public interface CommentMapper {
-
     Comment getCommentById(int commentId);
 
     List<Comment> getCommentsByItemId(Long itemId);
@@ -25,5 +24,4 @@ public interface CommentMapper {
     void deleteComment(int commentId);
 
     void deleteReply(int replyId);
-
 }

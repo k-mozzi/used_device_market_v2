@@ -47,7 +47,6 @@ public class ItemController {
                         @RequestParam(required = false) String regionId,
                         @RequestParam(required = false) String searchText,
                         Model model) {
-
         int pageSize = 10; // 페이지당 아이템 수
         List<Item> items;
 
@@ -320,5 +319,4 @@ public class ItemController {
         int totalLikedItem = likeService.totalLikedItem(itemId);
         return ResponseEntity.ok(totalLikedItem);
     }
-
 }

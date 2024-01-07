@@ -12,7 +12,6 @@ import java.util.Optional;
 
 @Mapper
 public interface MemberMapper {
-
     void save(Member member);
 
     void update(@Param("memberId") Long memberId, @Param("updateParam") MemberUpdateDto updateParam);
@@ -34,6 +33,4 @@ public interface MemberMapper {
     List<Item> findMembersWithPaging(Map<String, Object> params);
 
     int countItems();
-
-
 }

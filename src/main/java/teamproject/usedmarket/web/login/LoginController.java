@@ -20,7 +20,6 @@ import javax.servlet.http.HttpSession;
 @Data
 @Controller
 public class LoginController {
-
     private final LoginService loginService;
 
     /**
@@ -40,7 +39,6 @@ public class LoginController {
     public String login(@Validated @ModelAttribute LoginForm form, BindingResult bindingResult,
                         @RequestParam(defaultValue = "/") String redirectURL,
                         HttpServletRequest request) {
-
         //검증 로직
         if (bindingResult.hasErrors()) {
             log.info("errors={}", bindingResult);
@@ -65,7 +63,6 @@ public class LoginController {
         return "redirect:" + redirectURL;
     }
 
-
     @PostMapping("/logout")
     public String logoutV3(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
@@ -74,5 +71,4 @@ public class LoginController {
         }
         return "redirect:/";
     }
-
 }

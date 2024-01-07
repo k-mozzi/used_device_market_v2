@@ -20,16 +20,13 @@ import java.util.List;
 @Slf4j
 @Service
 public class ImageServiceV1 implements ImageService {
-
-
-
-
-//    public static final String FILE_PATH = "/Users/kimgang/Documents/SpringProject/imageFile";
+    public static final String FILE_PATH = "/Users/kimgang/Documents/SpringProject/imageFile";
     private final ImageRepository imageRepository;
 
-    String FILE_PATH = "C:\\Users\\82109\\Desktop\\spring_img";
-    String DIRECTORY_PATH = "c:/Users/82109/Desktop/spring_img/";
-//    String DIRECTORY_PATH = "/Users/kimgang/Documents/SpringProject/imageFile";
+    //    String FILE_PATH = "C:\\Users\\82109\\Desktop\\spring_img";
+//    String DIRECTORY_PATH = "c:/Users/82109/Desktop/spring_img/";
+    String DIRECTORY_PATH = "/Users/kimgang/Documents/SpringProject/imageFile";
+
     @Override
     public List<ItemImage> findByItemId(Long itemid) {
         List<ItemImage> findImages = imageRepository.findByItemId(itemid);
@@ -37,45 +34,37 @@ public class ImageServiceV1 implements ImageService {
 
     }
 
-
-
     @Override
     public void save(Long itemId, List<MultipartFile> file) throws IOException {
+        ItemImage itemImage = new ItemImage();
+        for (MultipartFile multipartFile : file) {
+            if (multipartFile.getSize() == 0) {
 
+            } else {
+                itemImage.setRepImageCheck(false);
 
-                    ItemImage itemImage = new ItemImage();
-                for (MultipartFile multipartFile : file) {
-                    if (multipartFile.getSize() == 0) {
-
-                    } else {
-                        itemImage.setRepImageCheck(false);
-
-                        if (imageRepository.findByItemId(itemId).isEmpty()) {
-                            itemImage.setRepImageCheck(true);
-                        }
-
-                        itemImage.setItemId(itemId);
-                        itemImage.setCreateDatetime(new Date());
-
-                        UUID uuid = UUID.randomUUID();
-                        String un_fileName = uuid + "_" + multipartFile.getOriginalFilename();
-                        String fileName = UriUtils.encode(un_fileName, StandardCharsets.UTF_8);
-
-
-                        File saveFile = new File(FILE_PATH, fileName); //경로, 파일이름 지정
-
-                        multipartFile.transferTo(saveFile); //저장
-
-                        itemImage.setFileName(fileName);
-                        itemImage.setFilePath(DIRECTORY_PATH+fileName);
-                        imageRepository.save(itemImage);
-                    }
+                if (imageRepository.findByItemId(itemId).isEmpty()) {
+                    itemImage.setRepImageCheck(true);
                 }
 
+                itemImage.setItemId(itemId);
+                itemImage.setCreateDatetime(new Date());
+
+                UUID uuid = UUID.randomUUID();
+                String un_fileName = uuid + "_" + multipartFile.getOriginalFilename();
+                String fileName = UriUtils.encode(un_fileName, StandardCharsets.UTF_8);
+
+
+                File saveFile = new File(FILE_PATH, fileName); //경로, 파일이름 지정
+
+                multipartFile.transferTo(saveFile); //저장
+
+                itemImage.setFileName(fileName);
+                itemImage.setFilePath(DIRECTORY_PATH + fileName);
+                imageRepository.save(itemImage);
+            }
         }
-
-
-
+    }
 
     @Override
     public ItemImage findById(int itemImageId) {
@@ -90,8 +79,6 @@ public class ImageServiceV1 implements ImageService {
     @Override
     public void delete(int itemImageId) {
         ItemImage findImageToDelete = imageRepository.findById(itemImageId);
-
-
 
         String fileName = findImageToDelete.getFileName();
         String filePath = DIRECTORY_PATH + fileName;
@@ -123,11 +110,8 @@ public class ImageServiceV1 implements ImageService {
             ImageUpdateDto updateDto = new ImageUpdateDto();
             updateDto.setUpdateDatetime(new Date());
             updateDto.setRepImageCheck(true);
-            imageRepository.update(itemImages.get(0).getItemImageId(),updateDto);
+            imageRepository.update(itemImages.get(0).getItemImageId(), updateDto);
         }
-
-
-
 
     }
 
@@ -135,6 +119,4 @@ public class ImageServiceV1 implements ImageService {
     public void update(int itemImageId, ImageUpdateDto updateDto) throws IOException {
         imageRepository.update(itemImageId, updateDto);
     }
-
-
 }

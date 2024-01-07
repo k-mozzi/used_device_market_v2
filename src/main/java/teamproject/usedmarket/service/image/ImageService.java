@@ -10,10 +10,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ImageService {
-
     List<ItemImage> findByItemId(Long itemid);
-    void save(Long itemId, List<MultipartFile> imageFiles) throws IOException;
 
+    void save(Long itemId, List<MultipartFile> imageFiles) throws IOException;
 
     ItemImage findById(int itemImageId);
 

@@ -17,14 +17,10 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class ItemServiceV1 implements ItemService {
-
-
     private final ItemRepository itemRepository;
-
 
     @Override
     public Item save(Item item, HttpSession session) throws IOException {
-
         //세션에서 멤버 아이디 가져온 후 아이템 객체의 setSellerMemberId에 바인딩
         Long currentMemberId = (Long) session.getAttribute("memberId");
         item.setSellerMemberId(currentMemberId);
@@ -84,7 +80,6 @@ public class ItemServiceV1 implements ItemService {
         return itemRepository.countItems();
     }
 
-
     @Override
     public List<Item> findItemsSortedByRegistrationDate(int page, int pageSize, String itemType, String regionId) {
         return itemRepository.findItemsSortedByRegistrationDate(page, pageSize, itemType, regionId);
@@ -104,7 +99,4 @@ public class ItemServiceV1 implements ItemService {
     public List<Item> findItemsWithPagingAndSearch(int page, int pageSize, String searchText) {
         return itemRepository.findItemsWithPagingAndSearch(page, pageSize, searchText);
     }
-
-
-
 }
