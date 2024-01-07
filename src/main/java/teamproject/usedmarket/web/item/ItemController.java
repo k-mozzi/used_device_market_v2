@@ -2,6 +2,7 @@ package teamproject.usedmarket.web.item;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -258,19 +259,22 @@ public class ItemController {
     }
 
     @GetMapping("/{itemId}/delete")
-    public String delete(@PathVariable Long itemId, HttpSession session, RedirectAttributes redirectAttributes) {
-        Item item = itemService.findById(itemId).get();
+    public ResponseEntity<String> delete(@PathVariable Long itemId, HttpSession session) {
+        Item item = itemService.findById(itemId).orElse(null);
+
+        if (item == null) {
+            return new ResponseEntity<>("아이템을 찾을 수 없습니다.", HttpStatus.NOT_FOUND);
+        }
+
         Long currentMemberId = (Long) session.getAttribute("memberId");
         Long sellerMemberId = item.getSellerMemberId();
+
         if (!currentMemberId.equals(sellerMemberId)) {
-            log.info("아이디가 달라용");
-            redirectAttributes.addFlashAttribute("error", "타인의 게시물은 삭제할 수 없습니다.");
-            return "redirect:/items";
+            return new ResponseEntity<>("타인의 게시물은 삭제할 수 없습니다.", HttpStatus.FORBIDDEN);
         }
 
         itemService.delete(itemId);
-        log.info("delete itemId={}", itemId);
-        return "redirect:/items";
+        return new ResponseEntity<>("아이템 삭제 성공", HttpStatus.OK);
     }
 
 
