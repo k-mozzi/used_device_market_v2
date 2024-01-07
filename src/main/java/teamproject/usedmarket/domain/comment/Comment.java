@@ -9,7 +9,6 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 public class Comment {
-
     private int commentId;
     private Long itemId;
     private Long memberId;

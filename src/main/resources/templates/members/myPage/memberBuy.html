@@ -4,7 +4,6 @@
 <body>
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader"/>
-
     <div th:if="${#lists.isEmpty(buyItems)}">
         <p><b>등록된 상품이 없습니다.</b></p>
     </div>
@@ -19,7 +18,6 @@
                 <th></th>
             </tr>
             </thead>
-
             <tbody>
             <tr th:each="buyItem : ${buyItems}">
                 <td>
@@ -31,13 +29,9 @@
                 <td th:text="${#dates.format(buyItem.createDatetime, 'yyyy-MM-dd HH:mm:ss')}">등록 일자</td>
                 <td>
                     <block th:each="image : ${images}">
-                        <!--                    <img th:if="${item.filename}" th:src="@{|/files/${item.getFilename()}|}" width="100" height="100"/>-->
                         <img th:if="${buyItem.itemId == image.itemId} and ${image.repImageCheck == true}" th:src="@{|/files/${image.fileName}|}" width="200" height="200"/>
                     </block>
                 </td>
-                <!--                <td>-->
-                <!--                    <a href="#" th:href="@{/items/{itemId}/edit (id=${item.itemId})}" class="btn btn-primary" role="button">수정</a>-->
-                <!--                </td>-->
             </tr>
             </tbody>
         </table>

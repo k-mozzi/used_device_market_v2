@@ -1,7 +1,6 @@
 package teamproject.usedmarket.domain.member;
 
 public enum Region {
-
     SEOUL("서울", 1),
     INCHEON("인천", 2),
     SEJONG("세종", 3),
@@ -39,5 +38,4 @@ public enum Region {
         }
         throw new IllegalArgumentException("Invalid regionId: " + regionId);
     }
-
 }

@@ -10,7 +10,6 @@ import java.util.Map;
 
 @Mapper
 public interface LikeMapper {
-
     void addInterest(ItemLike itemLike);
 
     void removeInterest(ItemLike itemLike);
@@ -20,9 +19,4 @@ public interface LikeMapper {
     List<Item> findLikedItemByMemberId(Long memberId);
 
     int totalLikedItem(Long itemId);
-
-//    List<Item> findLikedItemsWithPaging(Long memberId, Map<String, Object> params);
-//
-//    int countItems(Long memberId);
-
 }

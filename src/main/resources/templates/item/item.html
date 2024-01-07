@@ -252,10 +252,7 @@
     <div th:if="${item.updateDatetime != null}">
         <div>최종 수정 일자: <span th:text="${#dates.format(item.updateDatetime, 'yyyy-MM-dd HH:mm:ss')}"></span></div>
     </div>
-
-
     <hr class="my-4">
-
     <div class="row">
         <div class="col" th:if="${currentMemberId != item.sellerMemberId}">
             <!-- '관심 상품 등록/삭제' 버튼 -->
@@ -301,7 +298,6 @@
             <button type="submit" class="btn btn-primary mt-2">댓글 등록</button>
         </form>
     </div>
-
     <!-- 댓글 목록 표시 영역 -->
     <div class="mt-4" th:if="${not comments.isEmpty}">
         <h4>댓글 목록</h4>
@@ -331,7 +327,6 @@
                             <button type="submit" class="btn btn-primary mt-2">답글 등록</button>
                         </form>
                     </div>
-
                     <!-- 내가 작성한거 보여야함. 판매자가 작성한거 보여야함. 다른사람은 못 봄 -->
                     <!-- 덧글(답글) 목록 표시 -->
                     <div id="replyList" class="ml-4">
@@ -379,7 +374,6 @@
             var top = (window.innerHeight - height) / 2;
 
         var popup = window.open("/item/purchasePopup?itemId=" + itemId+"&title="+title+"&price="+price, "Popup", 'width=' + width + ',height=' + height + ',left=' + left + ',top=' + top);
-
 
         // 자식 창에서 메시지를 받아 알림창 띄우기
         window.addEventListener('message', function(event) {

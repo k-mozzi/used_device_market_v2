@@ -13,7 +13,6 @@ import java.util.List;
 @Repository
 @RequiredArgsConstructor
 public class MyBatisCommentRepository implements CommentRepository {
-
     private final CommentMapper commentMapper;
 
     @Override

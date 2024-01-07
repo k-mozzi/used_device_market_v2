@@ -11,7 +11,6 @@ import java.util.Date;
 
 @Data
 public class ItemUpdateDto {
-
     private Long itemId;
     @NotBlank
     @Size(min = 1, max = 30)
@@ -25,19 +24,16 @@ public class ItemUpdateDto {
     private int itemTypeId;
     private int saleStatus;
     Long buyerMemberId;
-//    private Long buyerMemberId;
-//    private int viewsCount;
     private Date updateDatetime;
     private String filename;
     private String filepath;
     private BigDecimal latitude; // 위도
     private BigDecimal longitude; // 경도
 
-
     public ItemUpdateDto() {
     }
 
-    public ItemUpdateDto(int saleStatus,Long buyerMemberId, Date updateDatetime) {
+    public ItemUpdateDto(int saleStatus, Long buyerMemberId, Date updateDatetime) {
         this.saleStatus = saleStatus;
         this.buyerMemberId = buyerMemberId;
         this.updateDatetime = updateDatetime;

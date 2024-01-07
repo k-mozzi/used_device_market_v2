@@ -13,14 +13,14 @@ import java.util.Optional;
 
 @Mapper
 public interface ImageMapper {
-
     void save(ItemImage itemImage);
 
     void update(@Param("itemImageId") int itemImageId, @Param("updateDto") ImageUpdateDto updateDto);
 
     List<ItemImage> findAll();
 
-   ItemImage findById(int itemImageId);
+    ItemImage findById(int itemImageId);
+
     List<ItemImage> findByItemId(@Param("itemId") Long itemId);
 
     void delete(@Param("itemImageId") int itemImageId);

@@ -18,8 +18,6 @@ import java.util.Optional;
 @Repository
 @RequiredArgsConstructor
 public class MyBatisItemRepository implements ItemRepository {
-
-
     private final ItemMapper itemMapper;
 
     @Override
@@ -50,7 +48,8 @@ public class MyBatisItemRepository implements ItemRepository {
         itemMapper.update(itemId, updateParam);
         log.info("update item={}", updateParam.getUpdateDatetime());
     }
-@Override
+
+    @Override
     public void updateStatus(Long itemId, ItemUpdateDto updateParam) {
         itemMapper.updateStatus(itemId, updateParam);
         log.info("update item={}", updateParam.getUpdateDatetime());
@@ -125,5 +124,4 @@ public class MyBatisItemRepository implements ItemRepository {
 
         return itemMapper.findItemsWithPagingAndSearch(params);
     }
-
 }

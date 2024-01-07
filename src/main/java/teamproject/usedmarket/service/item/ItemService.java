@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ItemService {
-
     Item save(Item item, HttpSession session) throws IOException;
 
     void update(Long itemId, ItemUpdateDto updateParam) throws IOException;
@@ -37,5 +36,4 @@ public interface ItemService {
     List<Item> findItemsSortedByLikesCount(int page, int pageSize, String itemType, String regionId);
 
     List<Item> findItemsWithPagingAndSearch(int page, int pageSize, String searchText);
-
 }

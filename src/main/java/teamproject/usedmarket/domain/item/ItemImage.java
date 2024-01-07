@@ -11,7 +11,6 @@ import java.util.List;
  */
 @Data
 public class ItemImage {
-
     private int itemImageId;
     private Long itemId;
     private String fileName;
@@ -21,9 +20,6 @@ public class ItemImage {
     private Date updateDatetime;
     private boolean repImageCheck;
 
-
-
     public ItemImage() {
     }
-
 }

@@ -12,7 +12,6 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 public class ItemLike {
-
     private int itemLikeId;
     private Long memberId;
     private Long itemId;

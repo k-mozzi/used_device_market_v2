@@ -2,7 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="teamproject.usedmarket.repository.mybatis.CommentMapper">
-
     <resultMap id="CommentResultMap" type="Comment">
         <id property="commentId" column="comment_id"/>
         <result property="itemId" column="item_id"/>
@@ -51,5 +50,4 @@
     <delete id="deleteReply">
         DELETE FROM comment WHERE comment_id = #{replyId}
     </delete>
-
 </mapper>

@@ -32,5 +32,4 @@ public class MyBatisConfig {
     public MemberRepository memberRepository() {
         return new MyBatisMemberRepository(memberMapper);
     }
-
 }

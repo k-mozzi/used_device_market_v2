@@ -7,7 +7,6 @@ import teamproject.usedmarket.repository.CommentUpdateDto;
 import java.util.List;
 
 public interface CommentService {
-
     Comment getCommentById(int commentId);
 
     List<Comment> getCommentsByItemId(Long itemId);
@@ -23,5 +22,4 @@ public interface CommentService {
     void deleteComment(int commentId);
 
     void deleteReply(int replyId);
-
 }

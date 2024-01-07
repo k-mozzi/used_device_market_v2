@@ -11,9 +11,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class CommentServiceV1 implements CommentService {
-
     private final CommentRepository commentRepository;
-
 
     @Override
     public Comment getCommentById(int commentId) {
@@ -54,5 +52,4 @@ public class CommentServiceV1 implements CommentService {
     public void deleteReply(int replyId) {
         commentRepository.deleteComment(replyId);
     }
-
 }

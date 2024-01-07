@@ -11,14 +11,11 @@ import teamproject.usedmarket.web.interceptor.LoginCheckInterceptor;
 
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
-
-
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry
-                .addResourceHandler("/files/**")
-                .addResourceLocations("file:///C:/Users/82109/Desktop/spring_img/");
-//                .addResourceLocations("file:/Users/kimgang/Documents/SpringProject/imageFile/");
+        registry.addResourceHandler("/files/**")
+//                .addResourceLocations("file:///C:/Users/82109/Desktop/spring_img/");
+                .addResourceLocations("file:/Users/kimgang/Documents/SpringProject/imageFile/");
     }
 
     @Override
@@ -34,5 +31,4 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/", "/members/add", "/login", "/logout",
                         "/css/**", "/*.ico", "/error");
     }
-
 }

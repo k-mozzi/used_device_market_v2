@@ -5,7 +5,6 @@ import teamproject.usedmarket.domain.comment.Comment;
 import java.util.List;
 
 public interface CommentRepository {
-
     Comment getCommentById(int commentId);
 
     List<Comment> getCommentsByItemId(Long itemId);
@@ -21,5 +20,4 @@ public interface CommentRepository {
     void deleteComment(int commentId);
 
     void deleteReply(int replyId);
-
 }

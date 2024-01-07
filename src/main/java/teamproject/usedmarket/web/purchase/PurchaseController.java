@@ -23,17 +23,13 @@ import java.util.Optional;
 @RequestMapping
 @RequiredArgsConstructor
 public class PurchaseController {
-
-
     private final ItemService itemService;
-
 
     @GetMapping("/item/purchasePopup")
     public String purchasePop(@RequestParam Long itemId,
                               @RequestParam String title,
                               @RequestParam Integer price,
                               Model model) {
-
         model.addAttribute("title", title);
         model.addAttribute("price", price);
         model.addAttribute("itemId", itemId);
@@ -41,25 +37,19 @@ public class PurchaseController {
         return "popup/purchasePopup";
     }
 
-
-
-
     @ResponseBody
     @PostMapping("/updateValue")
     public ResponseEntity<String> updateValue(@RequestBody Map<String, String> requestBody, HttpSession session) throws IOException {
         Long memberId = (Long) session.getAttribute("memberId");
-        log.info("memberId22={}",memberId);
+        log.info("memberId22={}", memberId);
 
         String itemId = requestBody.get("itemId");
-        log.info("itemId = {}",itemId);
+        log.info("itemId = {}", itemId);
         Long id = Long.valueOf(itemId);
-        ItemUpdateDto itemUpdateDto = new ItemUpdateDto(2,memberId, new Date());
-        itemService.updateStatus(id,itemUpdateDto);
+        ItemUpdateDto itemUpdateDto = new ItemUpdateDto(2, memberId, new Date());
+        itemService.updateStatus(id, itemUpdateDto);
 
 
         return ResponseEntity.ok("Success");
     }
-
-
-
 }

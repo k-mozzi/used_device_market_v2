@@ -9,25 +9,18 @@ import java.util.Date;
 
 @Data
 public class Member {
-
     private Long memberId;
-
     @NotBlank
     @Size(min = 4, max = 15)
     private String loginId;
-
     @NotBlank
     @Size(min = 2, max = 10)
     private String memberName;
-
     @NotNull
     @Size(min = 6, max = 15)
     private String password;
-
     private int regionId;
-
     private Date createDatetime;
-
     private Date updateDatetime;
 
     public Member() {
@@ -47,5 +40,4 @@ public class Member {
         this.createDatetime = createDatetime;
         this.updateDatetime = updateDatetime;
     }
-
 }
