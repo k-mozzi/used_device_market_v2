@@ -215,7 +215,6 @@ public class ItemController {
         Item item = itemService.findById(itemId).get();
         List<ItemImage> itemImages = imageService.findByItemId(itemId);
 
-
         //셀러 아이디와 로그인 아이디가 동일할 때만 접근 가능! 일단 아이템 등록할 때 셀러 멤버 아이디 바인딩 해야 함
         Long currentMemberId = (Long) session.getAttribute("memberId");
         Long sellerMemberId = item.getSellerMemberId();
@@ -237,10 +236,21 @@ public class ItemController {
     }
 
     @PostMapping("/{itemId}/edit")
-    public String edit(@PathVariable Long itemId, @ModelAttribute ItemUpdateDto updateParam,
-                       @RequestParam("imageFiles") List<MultipartFile> file) throws IOException {
+    public String edit(@PathVariable Long itemId, @Validated @ModelAttribute("item") ItemUpdateDto updateParam, BindingResult bindingResult,
+                       @RequestParam("imageFiles") List<MultipartFile> file, Model model) throws IOException {
         List<ItemImage> itemImages = imageService.findByItemId(itemId);
         Item item = itemService.findById(itemId).get();
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("itemTypes", ItemType.values());
+            model.addAttribute("statuses", SaleStatus.values());
+            model.addAttribute("itemImages", itemImages);
+            // 추가: 마커의 위도와 경도를 모델에 추가
+            model.addAttribute("latitude", item.getLatitude());
+            model.addAttribute("longitude", item.getLongitude());
+            return "item/editForm";
+        }
+
         updateParam.setUpdateDatetime(new Date());
         itemService.update(itemId, updateParam);
         imageService.save(itemId, file);
