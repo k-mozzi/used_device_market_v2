@@ -1,0 +1,386 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link th:href="@{/css/bootstrap.min.css}" href="css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container {
+            max-width: 560px;
+        }
+    </style>
+    <!-- jQuery를 사용하기 위한 CDN 추가 -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var currentMemberId = [[${currentMemberId}]];
+        var currentItemId = [[${currentItemId}]];
+        var sellerMemberId = [[${item.sellerMemberId}]];
+        var isOwnItem = currentMemberId === sellerMemberId;
+        var latitude = [[${latitude}]];
+        var longitude = [[${longitude}]];
+        /*]]>*/
+    </script>
+    <script>
+        // 페이지 로드 시 초기 버튼 상태 설정
+        $(document).ready(function () {
+            updateInterestButton();
+            // 페이지 로딩 시 찜 수 초기화
+            updateInterestCount(currentItemId);
+            // 추가: 서버에서 받아온 위도와 경도로 마커 생성
+            var markerPosition = new kakao.maps.LatLng(latitude, longitude);
+            marker.setPosition(markerPosition);
+            map.setCenter(markerPosition);
+        });
+
+        // Ajax를 사용하여 현재 관심 상품 상태를 가져오고 버튼을 업데이트하는 함수
+        function updateInterestButton() {
+            var memberId = currentMemberId;
+            var itemId = currentItemId;
+
+            $.ajax({
+                type: 'GET',
+                url: '/items/' + itemId + '/interestStatus',
+                success: function (response) {
+                    var interestButton = $('#interestButton');
+                    if (response === 'exists') {
+                        interestButton.text('관심 상품 삭제');
+                        interestButton.removeClass('btn-primary').addClass('btn-danger');
+                    } else {
+                        interestButton.text('관심 상품 등록');
+                        interestButton.removeClass('btn-danger').addClass('btn-primary');
+                    }
+                },
+                error: function () {
+                    console.error('서버 오류');
+                }
+            });
+        }
+
+        // Ajax를 사용하여 관심 상품 등록
+        function addInterest() {
+            var memberId = currentMemberId;
+            var itemId = currentItemId;
+
+            $.ajax({
+                type: 'POST',
+                url: '/items/' + itemId + '/addInterest',
+                success: function (response) {
+                    if (response === 'success') {
+                        console.log('관심 상품 등록 성공');
+                        updateInterestButton(); // 버튼 업데이트
+                        updateInterestCount(itemId);
+                    } else {
+                        console.error('관심 상품 등록 실패');
+                    }
+                },
+                error: function () {
+                    console.error('서버 오류');
+                }
+            });
+        }
+
+        // Ajax를 사용하여 관심 상품 삭제
+        function removeInterest() {
+            var memberId = currentMemberId;
+            var itemId = currentItemId;
+
+            $.ajax({
+                type: 'POST',
+                url: '/items/' + itemId + '/removeInterest',
+                success: function (response) {
+                    if (response === 'success') {
+                        console.log('관심 상품 삭제 성공');
+                        updateInterestButton(); // 버튼 업데이트
+                        updateInterestCount(itemId);
+                    } else {
+                        console.error('관심 상품 삭제 실패');
+                    }
+                },
+                error: function () {
+                    console.error('서버 오류');
+                }
+            });
+        }
+
+        // 찜 수 업데이트를 위한 함수 추가
+        function updateInterestCount(itemId) {
+            $.ajax({
+                type: 'GET',
+                url: '/items/' + itemId + '/totalLikedItem',
+                success: function (count) {
+                    $('#totalLikedItem').text(count || 0);
+                },
+                error: function () {
+                    console.error('서버 오류');
+                }
+            });
+        }
+
+        // 토글 버튼 클릭 시 관심 상품 등록 또는 삭제 동작
+        function toggleInterest() {
+            var interestButton = $('#interestButton');
+
+            if (isOwnItem) {
+                // 판매자가 자신의 상품에 대해 찜 기능을 사용할 수 없도록 막음
+                console.log('자신의 상품에는 찜 기능을 사용할 수 없습니다.');
+            } else {
+                if (interestButton.text() === '관심 상품 등록') {
+                    addInterest(); // 관심 상품 등록 기능 호출
+                } else {
+                    removeInterest(); // 관심 상품 삭제 기능 호출
+                }
+                // 찜 수 업데이트
+                updateInterestCount(currentItemId);
+            }
+        }
+
+        // '삭제' 버튼 클릭 시 확인창 표시
+        function confirmDelete() {
+            if (confirm('정말 삭제하시겠습니까?')) {
+                // 확인을 눌렀을 때의 동작
+                executeDelete();
+            } else {
+                // 취소를 눌렀을 때의 동작 (아무 동작 없음)
+            }
+        }
+
+        // 아이템 삭제 로직 실행 및 리다이렉트
+        function executeDelete() {
+            console.log('executeDelete function called');
+            var itemId = currentItemId;
+
+            $.ajax({
+                type: 'GET',
+                url: '/items/' + itemId + '/delete',
+                success: function (response) {
+                    console.log('아이템 삭제 성공');
+                    // 아이템 목록 뷰로 리다이렉트
+                    window.location.href = '/items';
+                },
+                error: function () {
+                    console.error('서버 오류');
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+<div class="container">
+    <div class="py-5 text-center">
+        <h2>상품 상세</h2>
+    </div>
+    <div>
+        <label for="itemId">상품 ID</label>
+        <input type="text" id="itemId" name="itemId" class="form-control" value="1" th:value="${item.itemId}" disabled>
+    </div>
+    <div>
+        <label for="foundMemberName">판매자</label>
+        <input type="text" id="foundMemberName" name="foundMemberName" class="form-control"
+               th:value="${foundMemberName}" disabled>
+    </div>
+    <div>
+        <label for="title">제목</label>
+        <input type="text" id="title" name="title" class="form-control" value="10000" th:value="${item.title}" disabled>
+    </div>
+    <div>
+        <block th:each="itemImage : ${itemImages}">
+            <img th:if="${itemImage.fileName}" th:src="@{|/files/${itemImage.fileName}|}" width="250" height="200"/>
+        </block>
+        <!--        <img th:if=${image.fileNames}" th:each="image : ${image.fileNames}"  th:src="@{|/files/${image.fileNames}|}" width="400" height="400"/>-->
+        <!--        <img th:each="hor : ${hora}" th:src="@{|/files/${hor}|}" width="400" height="400"/>-->
+        <!--        <input type="text" id="title" name="title" class="form-control" value="10000" th:value="${item.title}" disabled>-->
+    </div>
+    <div>
+        <label for="content">상세설명</label>
+        <input type="text" id="content" name="content" class="form-control" value="상품A" th:value="${item.content}"
+               disabled>
+    </div>
+    <div>
+        <label for="price">가격</label>
+        <input type="text" id="price" name="price" class="form-control" value="10" th:value="${item.price}" disabled>
+    </div>
+    <div>
+        <div>아이템 타입</div>
+        <select id="itemType" name="itemType" class="form-control" th:field="${item.itemTypeId}" disabled>
+            <option th:each="type : ${itemTypes}" th:value="${type.itemTypeId}" th:text="${type.description}"
+                    th:selected="${type.itemTypeId == selectedItemTypeId}"/>
+        </select>
+    </div>
+    <div>
+        <div>판매 상태</div>
+        <select id="saleStatus" name="saleStatus" class="form-control" th:field="${item.saleStatus}" disabled>
+            <option th:each="status : ${statuses}" th:value="${status.saleStatusId}" th:text="${status.description}"
+                    th:selected="${status.saleStatusId == selectedSaleStatus}"/>
+        </select>
+    </div>
+    <span>거래장소</span>
+    <div id="map" style="width:100%;height:350px;"></div>
+    <div id="clickLatlng"></div>
+    <script type="text/javascript"
+            src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ef1254b7c0e4ca0bba75f337f56fe2aa"></script>
+    <script>
+        var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+            mapOption = {
+                center: new kakao.maps.LatLng(36.35041273683429, 127.38483422584034), // 지도의 중심좌표
+                level: 3 // 지도의 확대 레벨
+            };
+
+        var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+        // 지도에 확대 축소 컨트롤을 생성한다
+        var zoomControl = new kakao.maps.ZoomControl();
+
+        // 지도의 우측에 확대 축소 컨트롤을 추가한다
+        map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+
+        // 지도를 클릭한 위치에 표출할 마커입니다
+        var marker = new kakao.maps.Marker({
+            // 지도 중심좌표에 마커를 생성합니다
+            position: map.getCenter(),
+            draggable: false
+        });
+        // 지도에 마커를 표시합니다
+        marker.setMap(map);
+    </script>
+    <div>
+        <div>조회수: <span th:text="${item.viewsCount}"></span></div>
+    </div>
+    <div>
+        <div>찜수: <span id="totalLikedItem" th:text="${totalLikedItem} ? ${totalLikedItem} : 0"></span></div>
+    </div>
+    <!--  수정 이력이 있는 경우에만 수정일 출력  -->
+    <div th:if="${item.updateDatetime != null}">
+        <div>최종 수정 일자: <span th:text="${#dates.format(item.updateDatetime, 'yyyy-MM-dd HH:mm:ss')}"></span></div>
+    </div>
+    <hr class="my-4">
+    <div class="row">
+        <div class="col" th:if="${currentMemberId != item.sellerMemberId}">
+            <!-- '관심 상품 등록/삭제' 버튼 -->
+            <button id="interestButton" class="w-100 btn"
+                    th:class="${isLiked} ? 'btn-danger btn-lg' : 'btn-primary btn-lg'"
+                    th:onclick="|toggleInterest('@{/items/addInterest}', '@{/items/removeInterest}')|">
+                <span th:text="${isLiked} ? '관심 상품 삭제' : '관심 상품 등록'"></span>
+            </button>
+        </div>
+        <div class="col" th:if="${currentMemberId == item.sellerMemberId}">
+            <button class="w-100 btn btn-primary btn-lg"
+                    onclick="location.href='editForm.html'"
+                    th:onclick="|location.href='@{/items/{itemId}/edit(itemId=${item.itemId})}'|"
+                    type="button">상품 수정
+            </button>
+        </div>
+        <div class="col">
+            <button class="w-100 btn btn-secondary btn-lg"
+                    onclick="location.href='items.html'"
+                    th:onclick="|location.href='@{/items}'|"
+                    type="button">목록으로
+            </button>
+        </div>
+        <div class="col" th:if="${currentMemberId == item.sellerMemberId}">
+            <button class="w-100 btn btn-danger btn-lg"
+                    onclick="confirmDelete()"
+                    type="button">삭제
+            </button>
+        </div>
+        <div class="col" th:if="${item.sellerMemberId != currentMemberId} and ${item.buyerMemberId == null}">
+            <!-- '구매하기' 버튼 -->
+            <button id="target" class="w-100 btn btn-success btn-lg"
+                    th:onclick="openPopup()"
+                    type="button">구매 하기
+            </button>
+        </div>
+    </div>
+    <!-- 댓글 입력창과 등록 버튼 -->
+    <div class="mt-3">
+        <form th:action="@{'/items/' + ${currentItemId} + '/addComment'}" method="post">
+            <label for="commentText">댓글 작성: 답글은 댓글 주인과 상품 주인만 등록/조회할 수 있습니다.</label>
+            <input type="text" id="commentText" name="content" class="form-control">
+            <button type="submit" class="btn btn-primary mt-2">댓글 등록</button>
+        </form>
+    </div>
+    <!-- 댓글 목록 표시 영역 -->
+    <div class="mt-4" th:if="${not comments.isEmpty}">
+        <h4>댓글 목록</h4>
+        <div id="commentList">
+            <!-- Thymeleaf 문법을 사용하여 댓글 목록 출력 -->
+            <div th:each="comment : ${comments}">
+                <div>
+                    회원번호 <span th:text="${comment.memberId}"></span>: <span th:text="${comment.content}"></span>
+                    <!-- 댓글 생성일 표시 -->
+                    <div>생성일: <span th:text="${#dates.format(comment.createDatetime, 'yyyy-MM-dd HH:mm:ss')}"></span>
+                    </div>
+                    <!-- 댓글 작성자와 현재 사용자가 동일한 경우에만 삭제 버튼 표시 -->
+                    <form th:if="${comment.memberId == currentMemberId || currentMemberId == item.sellerMemberId}"
+                          th:action="@{'/items/' + ${currentItemId} + '/deleteComment/' + ${comment.commentId}}"
+                          method="post">
+                        <button type="submit" class="btn btn-danger btn-sm">삭제</button>
+                    </form>
+                    <input type="hidden" id="buyerId" name="buyerId" class="form-control" th:value="${currentMemberId}"
+                           disabled>
+                    <!-- 덧글(답글) 입력창과 등록 버튼 -->
+                    <div class="mt-2"
+                         th:if="${comment.memberId == currentMemberId || currentMemberId == item.sellerMemberId}">
+                        <form th:action="@{'/items/' + ${currentItemId} + '/addReply'}" method="post">
+                            <input type="hidden" name="parentCommentId" th:value="${comment.commentId}"/>
+                            <label for="replyText">댓글에 답글 작성</label>
+                            <input type="text" id="replyText" name="content" class="form-control">
+                            <button type="submit" class="btn btn-primary mt-2">답글 등록</button>
+                        </form>
+                    </div>
+                    <!-- 내가 작성한거 보여야함. 판매자가 작성한거 보여야함. 다른사람은 못 봄 -->
+                    <!-- 덧글(답글) 목록 표시 -->
+                    <div id="replyList" class="ml-4">
+                        <div th:each="replyList : ${replyMap[comment.commentId]}">
+                            <div th:if="${comment.memberId == currentMemberId || currentMemberId == item.sellerMemberId}">
+                                회원번호 <span th:text="${replyList.memberId}"></span>: <span
+                                    th:text="${replyList.content}"></span>
+                                <!-- 댓글 생성일 표시 -->
+                                <div>생성일: <span
+                                        th:text="${#dates.format(replyList.createDatetime, 'yyyy-MM-dd HH:mm:ss')}"></span>
+                                </div>
+                                <!-- 덧글(답글) 작성자와 현재 사용자가 동일한 경우에만 삭제 버튼 표시 -->
+                                <form th:action="@{'/items/' + ${currentItemId} + '/deleteReply/' + ${replyList.commentId}}"
+                                      method="post">
+                                    <button type="submit" class="btn btn-danger btn-sm">삭제</button>
+                                </form>
+                                <span>------------------------------</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div th:replace="fragments/footer :: footer"/>
+</div>
+</body>
+<script>
+    function openPopup() {
+
+        // 현재 부모 창의 값 가져오기
+        var itemId = document.getElementById("itemId").value;
+        var title = document.getElementById("title").value;
+        var price = document.getElementById("price").value;
+        // 팝업 창 열기
+
+        // 새로운 창을 띄우기 전에 창의 크기를 지정
+            var width = 500;
+            var height = 600;
+
+            // 창을 정중앙에 위치시키기 위한 좌표 계산
+            var left = (window.innerWidth - width) / 2;
+            var top = (window.innerHeight - height) / 2;
+
+        var popup = window.open("/item/purchasePopup?itemId=" + itemId+"&title="+title+"&price="+price, "Popup", 'width=' + width + ',height=' + height + ',left=' + left + ',top=' + top);
+
+        // 자식 창에서 메시지를 받아 알림창 띄우기
+        window.addEventListener('message', function(event) {
+            if (event.data === 'purchaseCompleted') {
+                alert('구매가 완료되었습니다!');
+            }
+        });
+    }
+</script>
+</html>

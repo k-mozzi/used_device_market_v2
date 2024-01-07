@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="teamproject.usedmarket.repository.mybatis.ImageMapper">
+    <insert id="save" useGeneratedKeys="true" keyProperty="itemImageId">
+        insert into item_image (item_id, file_name, file_path, ordering_number, create_datetime, rep_image_check)
+        values (#{itemId}, #{fileName}, #{filePath}, #{orderingNumber}, #{createDatetime, jdbcType=TIMESTAMP},
+                #{repImageCheck})
+    </insert>
+
+    <update id="update">
+        update item_image
+        set rep_image_check=#{updateDto.repImageCheck},
+        update_datetime=#{updateDto.updateDatetime, jdbcType=TIMESTAMP}
+        where item_image_id = #{itemImageId}
+    </update>
+
+    <select id="findById" resultType="itemImage">
+        select *
+        from item_image
+        where item_image_id = #{itemImageId}
+    </select>
+
+    <select id="findByItemId" resultType="itemImage">
+        select item_image_id, file_name
+        from item_image
+        where item_id = #{itemId}
+    </select>
+
+    <select id="findAll" resultType="itemImage">
+        select *
+        from item_image
+        order by item_image_id desc
+    </select>
+
+    <delete id="delete">
+        delete
+        from item_image
+        where item_image_id = #{itemImageId}
+    </delete>
+</mapper>
