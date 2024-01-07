@@ -27,23 +27,16 @@ public class PurchaseController {
 
     private final ItemService itemService;
 
-    @GetMapping("/parent")
-    public String parent() {
-        return "item/item";
-    }
-
-
 
     @GetMapping("/item/purchasePopup")
-    public String purchasePop(@RequestParam("parentValue") Long parentValue,
-                              HttpSession session,Model model) {
-        Long memberId = (Long) session.getAttribute("memberId");
+    public String purchasePop(@RequestParam Long itemId,
+                              @RequestParam String title,
+                              @RequestParam Integer price,
+                              Model model) {
 
-
-        log.info("itemId2222={}",parentValue);
-        log.info("start Popup");
-
-        model.addAttribute("parentValue", parentValue);
+        model.addAttribute("title", title);
+        model.addAttribute("price", price);
+        model.addAttribute("itemId", itemId);
 
         return "popup/purchasePopup";
     }
@@ -57,16 +50,12 @@ public class PurchaseController {
         Long memberId = (Long) session.getAttribute("memberId");
         log.info("memberId22={}",memberId);
 
-        String parentValue = requestBody.get("parentValue");
-        log.info("itemId = {}",parentValue);
-        Long id = Long.valueOf(parentValue);
+        String itemId = requestBody.get("itemId");
+        log.info("itemId = {}",itemId);
+        Long id = Long.valueOf(itemId);
         ItemUpdateDto itemUpdateDto = new ItemUpdateDto(2,memberId, new Date());
         itemService.updateStatus(id,itemUpdateDto);
 
-
-
-        // 실제로 DB 업데이트하는 로직 수행 (ItemService를 호출하거나 직접 구현)
-        // 예를 들어, itemService.updateValue(newValue);
 
         return ResponseEntity.ok("Success");
     }

@@ -7,7 +7,7 @@
 <body>
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader"/>
-    <form th:action="@{/items/add}" th:object="${item}" enctype="multipart/form-data" method="post">
+    <form id="uploadForm" th:action="@{/items/add}" th:object="${item}" enctype="multipart/form-data" method="post">
         <!-- 위도 경도 히든 필드 -->
         <input type="hidden" th:field="*{latitude}" id="latitude" />
         <input type="hidden" th:field="*{longitude}" id="longitude" />
@@ -54,7 +54,8 @@
         </div>
         <br>
         <div>
-            <p>사진 첨부<input type="file" multiple="multiple" name="imageFiles"></p>
+            <p>사진 첨부<input type="file" id="fileInput" multiple="multiple" onchange="previewImages()" name="uploadedFiles"></p>
+            <div id="imagePreview"></div>
         </div>
 
         <p><b>거래 장소를 선택해주세요!</b></p>
@@ -156,4 +157,34 @@
     <div th:replace="fragments/footer :: footer"/>
 </div> <!-- /container -->
 </body>
+<script>
+    // 파일 선택 시 호출되는 함수
+    function previewImages() {
+        var fileInput = document.getElementById('fileInput');
+        var imagePreview = document.getElementById('imagePreview');
+        imagePreview.innerHTML = ''; // 이미지 미리보기를 갱신하기 전에 기존 내용을 지웁니다.
+
+        // 선택한 파일이 있는지 확인
+        if (fileInput.files && fileInput.files.length > 0) {
+            for (var i = 0; i < fileInput.files.length; i++) {
+                var reader = new FileReader();
+
+                // 파일을 읽었을 때의 동작 정의
+                reader.onload = (function (index) {
+                    return function (e) {
+                        // 이미지를 미리보기로 표시
+                        var imgElement = document.createElement('img');
+                        imgElement.src = e.target.result;
+                        imgElement.alt = 'Preview';
+                        imagePreview.appendChild(imgElement);
+                    };
+                })(i);
+
+                // 파일을 읽어오기
+                reader.readAsDataURL(fileInput.files[i]);
+            }
+        }
+    }
+</script>
+
 </html>

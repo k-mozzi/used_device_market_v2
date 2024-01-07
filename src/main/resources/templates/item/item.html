@@ -259,7 +259,7 @@
         </div>
         <div class="col" th:if="${item.sellerMemberId != currentMemberId} and ${item.buyerMemberId == null}">
             <!-- '구매하기' 버튼 -->
-            <button class="w-100 btn btn-success btn-lg"
+            <button id="target" class="w-100 btn btn-success btn-lg"
                     th:onclick="openPopup()"
                     type="button">구매 하기
             </button>
@@ -337,9 +337,11 @@
     function openPopup() {
 
         // 현재 부모 창의 값 가져오기
-        var parentValue = document.getElementById("itemId").value;
+        var itemId = document.getElementById("itemId").value;
+        var title = document.getElementById("title").value;
+        var price = document.getElementById("price").value;
         // 팝업 창 열기
-        var popup = window.open("/item/purchasePopup?parentValue=" + parentValue, "Popup", "width=400,height=400");
+        var popup = window.open("/item/purchasePopup?itemId=" + itemId+"&title="+title+"&price="+price, "Popup", "width=400,height=400");
         if (popup) {
             // 창을 부모 창 가운데로 위치시키기
             var x = (window.screen.width - popup.outerWidth) / 2;
@@ -348,6 +350,14 @@
         } else {
             alert("팝업이 차단되었습니다. 팝업 차단을 해제하고 다시 시도해주세요.");
         }
+
+        // 자식 창에서 메시지를 받아 알림창 띄우기
+        window.addEventListener('message', function(event) {
+            if (event.data === 'purchaseCompleted') {
+                alert('구매가 완료되었습니다!');
+            }
+        });
     }
+
 </script>
 </html>

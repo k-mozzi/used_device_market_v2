@@ -10,11 +10,10 @@
     <style>
         .container {
   font-family: arial;
-  font-size: 24px;
+  font-size: 20px;
   margin: 25px;
   width: 350px;
   height: 200px;
-  outline: dashed 1px black;
 }
 
 .row{
@@ -38,7 +37,12 @@ p {
 <body>
 <div  class="container">
 <!-- 부모 창의 값 표시 -->
-<p>상품번호 : <input id="parentValue" th:value="${parentValue}" disabled/></p>
+<input  type="hidden" id="itemId" th:value="${itemId}" disabled/>
+<p><h4>상품</h4><input type="text" id="title" style="text-align:center" th:value="${title}" disabled/></p>
+<p><h4>가격</h4><input type="text" id="price" style="text-align:center" th:value="${price}" disabled/></p>
+
+
+
 
 <div class="row">
     <div class="col">
@@ -48,7 +52,7 @@ p {
     </div>
     <div class="col">
         <!-- 구매 버튼 -->
-        <button class="w-90 btn btn-primary btn-lg" onclick="changeValue()">구매완료</button>
+        <button class="w-90 btn btn-primary btn-lg" onclick="changeValue()">바로구매</button>
     </div>
 </div>
 </div>
@@ -59,7 +63,7 @@ p {
     function changeValue() {
 
 
-        var parentValue = document.getElementById("parentValue").value;
+        var itemId = document.getElementById("itemId").value;
 
         // 부모 창의 값 업데이트
         window.opener.document.getElementById("saleStatus").value = 2;
@@ -71,7 +75,10 @@ p {
         xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
         // JSON 형태로 데이터 전송
-        xhr.send(JSON.stringify({ parentValue: parentValue }));
+        xhr.send(JSON.stringify({ itemId:itemId }));
+
+        // 부모 창에 "purchaseCompleted" 메시지 전송
+        window.opener.postMessage('purchaseCompleted', '*');
 
         // 팝업 창 닫기
         window.close();
@@ -80,7 +87,6 @@ p {
     function cancel() {
     // 팝업 창 닫기
         window.close();
-
     }
 </script>
 </body>
