@@ -133,6 +133,35 @@
                 updateInterestCount(currentItemId);
             }
         }
+
+        // '삭제' 버튼 클릭 시 확인창 표시
+        function confirmDelete() {
+            if (confirm('정말 삭제하시겠습니까?')) {
+                // 확인을 눌렀을 때의 동작
+                executeDelete();
+            } else {
+                // 취소를 눌렀을 때의 동작 (아무 동작 없음)
+            }
+        }
+
+        // 아이템 삭제 로직 실행 및 리다이렉트
+        function executeDelete() {
+            console.log('executeDelete function called');
+            var itemId = currentItemId;
+
+            $.ajax({
+                type: 'GET',
+                url: '/items/' + itemId + '/delete',
+                success: function (response) {
+                    console.log('아이템 삭제 성공');
+                    // 아이템 목록 뷰로 리다이렉트
+                    window.location.href = '/items';
+                },
+                error: function () {
+                    console.error('서버 오류');
+                }
+            });
+        }
     </script>
 </head>
 <body>
@@ -252,8 +281,7 @@
         </div>
         <div class="col" th:if="${currentMemberId == item.sellerMemberId}">
             <button class="w-100 btn btn-danger btn-lg"
-                    onclick="location.href='items.html'"
-                    th:onclick="|location.href='@{/items/{itemId}/delete(itemId=${item.itemId})}'|"
+                    onclick="confirmDelete()"
                     type="button">삭제
             </button>
         </div>

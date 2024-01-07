@@ -9,6 +9,38 @@
             max-width: 560px;
         }
     </style>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var memberId = [[${member.memberId}]];
+
+        /*]]>*/
+    </script>
+    <script>
+        function confirmWithdraw() {
+            if (confirm('정말 탈퇴하시겠습니까?')) {
+                executeWithdraw();
+            } else {
+                // 취소를 눌렀을 때의 동작 (아무 동작 없음)
+            }
+        }
+
+        function executeWithdraw() {
+            // 재선언하지 않고 기존의 memberId를 사용
+            $.ajax({
+                type: 'GET',
+                url: '/members/' + memberId + '/withdraw',
+                success: function (response) {
+                    console.log('회원 탈퇴 성공');
+                    // 홈 화면으로 리다이렉트
+                    window.location.href = '/';
+                },
+                error: function () {
+                    console.error('서버 오류');
+                }
+            });
+        }
+    </script>
 </head>
 <body>
 
@@ -59,7 +91,7 @@
         </div>
         <div class="col">
             <button class="w-100 btn btn-danger btn-lg"
-                    th:onclick="|location.href='@{/members/{memberId}/delete(memberId=${member.memberId})}'|"
+                    onclick="confirmWithdraw()"
                     type="button">회원 탈퇴
             </button>
         </div>

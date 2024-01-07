@@ -2,6 +2,8 @@ package teamproject.usedmarket.web.member;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -94,22 +96,42 @@ public class MemberController {
         return "redirect:/members/myPage/{memberId}";
     }
 
-    @GetMapping("/{memberId}/delete")
-    public String delete(@PathVariable Long memberId, HttpSession session, RedirectAttributes redirectAttributes) {
-        Member member = memberRepository.findByMemberId(memberId).get();
+//    @GetMapping("/{memberId}/delete")
+//    public String delete(@PathVariable Long memberId, HttpSession session, RedirectAttributes redirectAttributes) {
+//        Member member = memberRepository.findByMemberId(memberId).get();
+//
+//        Long currentMemberId = (Long) session.getAttribute("memberId");
+//        if (!currentMemberId.equals(memberId)) {
+//            log.info("아이디가 달라용");
+//            redirectAttributes.addFlashAttribute("error", "타인의 계정은 삭제할 수 없습니다.");
+//            return "redirect:/";
+//        }
+//
+//        memberRepository.delete(memberId);
+//        //회원 탈퇴시 세션 삭제
+//        session.removeAttribute(SessionConst.LOGIN_MEMBER);
+//
+//        return "redirect:/";
+//    }
+
+    @GetMapping("/{memberId}/withdraw")
+    public ResponseEntity<String> withdraw(@PathVariable Long memberId, HttpSession session) {
+        Member member = memberRepository.findByMemberId(memberId).orElse(null);
+
+        if (member == null) {
+            return new ResponseEntity<>("회원을 찾을 수 없습니다.", HttpStatus.NOT_FOUND);
+        }
 
         Long currentMemberId = (Long) session.getAttribute("memberId");
         if (!currentMemberId.equals(memberId)) {
-            log.info("아이디가 달라용");
-            redirectAttributes.addFlashAttribute("error", "타인의 계정은 삭제할 수 없습니다.");
-            return "redirect:/";
+            return new ResponseEntity<>("타인의 계정은 삭제할 수 없습니다.", HttpStatus.FORBIDDEN);
         }
 
         memberRepository.delete(memberId);
-        //회원 탈퇴시 세션 삭제
+        // 회원 탈퇴 시 세션 삭제
         session.removeAttribute(SessionConst.LOGIN_MEMBER);
 
-        return "redirect:/";
+        return new ResponseEntity<>("회원 탈퇴 성공", HttpStatus.OK);
     }
 
     @GetMapping
