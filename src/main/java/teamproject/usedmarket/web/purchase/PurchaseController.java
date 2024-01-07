@@ -57,10 +57,6 @@ public class PurchaseController {
         itemService.updateStatus(id,itemUpdateDto);
 
 
-
-        // 실제로 DB 업데이트하는 로직 수행 (ItemService를 호출하거나 직접 구현)
-        // 예를 들어, itemService.updateValue(newValue);
-
         return ResponseEntity.ok("Success");
     }
 

@@ -165,26 +165,23 @@
     function previewImages() {
         var fileInput = document.getElementById('fileInput');
         var imagePreview = document.getElementById('imagePreview');
+        imagePreview.innerHTML = ''; // 이미지 미리보기를 갱신하기 전에 기존 내용을 지웁니다.
 
         // 선택한 파일이 있는지 확인
         if (fileInput.files && fileInput.files.length > 0) {
-            imagePreview.innerHTML = ''; // 이미지 미리보기 영역 초기화
-
             for (var i = 0; i < fileInput.files.length; i++) {
                 var reader = new FileReader();
 
                 // 파일을 읽었을 때의 동작 정의
-                reader.onload = function (e) {
-                    // 이미지를 미리보기로 표시
-                    var imgElement = document.createElement('img');
-                    imgElement.src = e.target.result;
-                    imgElement.alt = 'Preview';
-                    imgElement.addEventListener('click', function () {
-                        // 이미지 클릭 시 해당 이미지 제거
-                        imagePreview.removeChild(imgElement);
-                    });
-                    imagePreview.appendChild(imgElement);
-                };
+                reader.onload = (function (index) {
+                    return function (e) {
+                        // 이미지를 미리보기로 표시
+                        var imgElement = document.createElement('img');
+                        imgElement.src = e.target.result;
+                        imgElement.alt = 'Preview';
+                        imagePreview.appendChild(imgElement);
+                    };
+                })(i);
 
                 // 파일을 읽어오기
                 reader.readAsDataURL(fileInput.files[i]);

@@ -229,6 +229,7 @@ public class ItemController {
         model.addAttribute("itemTypes", ItemType.values());
         model.addAttribute("statuses", SaleStatus.values());
         model.addAttribute("itemImages", itemImages);
+        model.addAttribute("currentMemberId", currentMemberId);
         // 추가: 마커의 위도와 경도를 모델에 추가
         model.addAttribute("latitude", item.getLatitude());
         model.addAttribute("longitude", item.getLongitude());
@@ -249,7 +250,6 @@ public class ItemController {
     @GetMapping("/{itemId}/delete")
     public String delete(@PathVariable Long itemId, HttpSession session, RedirectAttributes redirectAttributes) {
         Item item = itemService.findById(itemId).get();
-
         Long currentMemberId = (Long) session.getAttribute("memberId");
         Long sellerMemberId = item.getSellerMemberId();
         if (!currentMemberId.equals(sellerMemberId)) {
