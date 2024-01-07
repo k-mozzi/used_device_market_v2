@@ -29,7 +29,7 @@
         </div>
         <div>
             <label th:for="price">price</label>
-            <input type="text" th:field="*{price}"
+            <input type="number" th:field="*{price}"
                    th:errorclass="field-error" class="form-control" placeholder="가격을 입력하세요">
             <div class="field-error" th:errors="*{price}">
                 가격 오류
