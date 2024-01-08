@@ -229,14 +229,7 @@
       <workItem from="1704111748253" duration="32051000" />
       <workItem from="1704273720304" duration="30995000" />
       <workItem from="1704433442958" duration="53894000" />
-    </task>
-    <task id="LOCAL-00023" summary="홈 컨트롤러를 통해 로그인 확인">
-      <option name="closed" value="true" />
-      <created>1703221888774</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1703221888774</updated>
+      <workItem from="1704709154861" duration="297000" />
     </task>
     <task id="LOCAL-00024" summary="쿠키를 사용하던 로그인 로직 http session을 사용하도록 변경, 인증 체크 인터셉터 적용, 회원 목록에 홈 버튼 추가">
       <option name="closed" value="true" />
@@ -622,7 +615,15 @@
       <option name="project" value="LOCAL" />
       <updated>1704620816359</updated>
     </task>
-    <option name="localTasksCounter" value="72" />
+    <task id="LOCAL-00072" summary="?">
+      <option name="closed" value="true" />
+      <created>1704709385401</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1704709385401</updated>
+    </task>
+    <option name="localTasksCounter" value="73" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -682,7 +683,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="아이템 목록에 검색어를 통한 검색 기능 추가" />
     <MESSAGE value="아이템 목록에 상품 등록 버튼 생성" />
     <MESSAGE value="아이템 검증 구현, 관심상품 목록에서 삭제된 상품은 나오지 않도록 변경" />
     <MESSAGE value="아이템 검증 구현, 관심상품 목록에서 판매완료 상품은 나오지 않도록 변경" />
@@ -707,7 +707,8 @@
     <MESSAGE value="날려" />
     <MESSAGE value="통합" />
     <MESSAGE value="css 오류 해결" />
-    <option name="LAST_COMMIT_MESSAGE" value="css 오류 해결" />
+    <MESSAGE value="?" />
+    <option name="LAST_COMMIT_MESSAGE" value="?" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
