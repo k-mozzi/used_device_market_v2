@@ -64,7 +64,7 @@
                 <div class="ccol" th:field="${itemImage.itemImageId}" th:id="'item-' + ${index.index}">
                     <img class="delete-image" th:alt="${'Image ' + (index.index + 1)}" th:data-index="${index.index}"
                          th:data-field="${itemImage.itemImageId}" th:if="${itemImage.fileName}"
-                         th:src="@{|/files/${itemImage.fileName}|}" width="250" height="200"/>
+                         th:src="@{|${itemImage.filePath}|}" width="250" height="200"/>
                     <p>[이미지 클릭시 삭제]</p>
                 </div>
             </th:block>
