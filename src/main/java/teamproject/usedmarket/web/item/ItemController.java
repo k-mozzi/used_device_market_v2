@@ -40,6 +40,8 @@ public class ItemController {
     private final CommentService commentService;
     private final MemberRepository memberRepository;
 
+
+
     @GetMapping
     public String items(@RequestParam(defaultValue = "1") int page,
                         @RequestParam(defaultValue = "registrationDate") String sort,
