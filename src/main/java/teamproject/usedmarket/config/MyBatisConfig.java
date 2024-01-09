@@ -9,6 +9,7 @@ import teamproject.usedmarket.repository.mybatis.ItemMapper;
 import teamproject.usedmarket.repository.mybatis.MemberMapper;
 import teamproject.usedmarket.repository.mybatis.MyBatisItemRepository;
 import teamproject.usedmarket.repository.mybatis.MyBatisMemberRepository;
+import teamproject.usedmarket.service.image.ImageService;
 import teamproject.usedmarket.service.item.ItemService;
 import teamproject.usedmarket.service.item.ItemServiceV1;
 
@@ -19,15 +20,12 @@ public class MyBatisConfig {
     private final MemberMapper memberMapper;
     private final ImageService imageService;
     private final S3Config s3Config;
+
     @Bean
     public ItemService itemService() {
         return new ItemServiceV1(imageService,itemRepository(),s3Config);
     }
 
-    @Bean
-    public ItemService itemService() {
-        return new ItemServiceV1(itemRepository());
-    }
 
     @Bean
     public ItemRepository itemRepository() {

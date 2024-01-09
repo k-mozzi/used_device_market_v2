@@ -47,13 +47,6 @@
             </select>
         </div>
         <br>
-        <div>
-            <div>판매 상태</div>
-            <select id="saleStatus" name="saleStatus" class="form-control" th:field="${item.saleStatus}">
-                <option th:each="status : ${statuses}" th:value="${status.saleStatusId}" th:text="${status.description}"
-                        th:selected="${status.saleStatusId == selectedSaleStatus}"/>
-            </select>
-        </div>
         <br>
         <div>
             <p>첨부파일<input type="file" id="fileInput" multiple="multiple" onchange="previewImages()" name="imageFiles"></p>
@@ -73,7 +66,7 @@
         <div id="map" style="width:100%;height:350px;"></div>
         <div id="clickLatlng"></div>
         <script type="text/javascript"
-                src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ef1254b7c0e4ca0bba75f337f56fe2aa"></script>
+                src="//dapi.kakao.com/v2/maps/sdk.js?appkey=430cc29a41a4dbf30363beb500a9b31b"></script>
         <script>
             // 수정: 서버에서 받아온 위도와 경도로 마커 생성
             var markerPosition = new kakao.maps.LatLng([[${latitude}]], [[${longitude}]]);

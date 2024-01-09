@@ -40,8 +40,6 @@ public class ItemController {
     private final CommentService commentService;
     private final MemberRepository memberRepository;
 
-
-
     @GetMapping
     public String items(@RequestParam(defaultValue = "1") int page,
                         @RequestParam(defaultValue = "registrationDate") String sort,
@@ -189,7 +187,6 @@ public class ItemController {
         model.addAttribute("regionId", regionId);
         model.addAttribute("item", new Item());
         model.addAttribute("itemTypes", ItemType.values());
-        model.addAttribute("statuses", SaleStatus.values());
         return "item/addForm";
     }
 
@@ -200,7 +197,6 @@ public class ItemController {
         if (bindingResult.hasErrors()) {
             log.info("errors = {}", bindingResult);
             model.addAttribute("itemTypes", ItemType.values());
-            model.addAttribute("statuses", SaleStatus.values());
             return "item/addForm";
         }
 
@@ -226,9 +222,14 @@ public class ItemController {
             return "redirect:/items";
         }
 
+        if (item.getSaleStatus() == 2) {
+            log.info("판매완료 상품은 수정할 수 없습니다.");
+            redirectAttributes.addFlashAttribute("error", "팬마완료 상품은 수정할 수 없습니다.");
+            return "redirect:/items";
+        }
+
         model.addAttribute("item", item);
         model.addAttribute("itemTypes", ItemType.values());
-        model.addAttribute("statuses", SaleStatus.values());
         model.addAttribute("itemImages", itemImages);
         model.addAttribute("currentMemberId", currentMemberId);
         // 추가: 마커의 위도와 경도를 모델에 추가
@@ -245,7 +246,6 @@ public class ItemController {
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("itemTypes", ItemType.values());
-            model.addAttribute("statuses", SaleStatus.values());
             model.addAttribute("itemImages", itemImages);
             // 추가: 마커의 위도와 경도를 모델에 추가
             model.addAttribute("latitude", item.getLatitude());
@@ -260,7 +260,7 @@ public class ItemController {
     }
 
     @GetMapping("/{itemId}/delete")
-    public ResponseEntity<String> delete(@PathVariable Long itemId, HttpSession session) {
+    public ResponseEntity<String> delete(@PathVariable Long itemId, HttpSession session, RedirectAttributes redirectAttributes) {
         Item item = itemService.findById(itemId).orElse(null);
 
         if (item == null) {
@@ -271,7 +271,13 @@ public class ItemController {
         Long sellerMemberId = item.getSellerMemberId();
 
         if (!currentMemberId.equals(sellerMemberId)) {
-            return new ResponseEntity<>("타인의 게시물은 삭제할 수 없습니다.", HttpStatus.FORBIDDEN);
+            redirectAttributes.addFlashAttribute("error", "타인의 게시물은 삭제할 수 없습니다.");
+            return ResponseEntity.status(HttpStatus.SEE_OTHER).header("Location", "/items").body(null);
+        }
+
+        if (item.getSaleStatus() == 2) {
+            redirectAttributes.addFlashAttribute("error", "판매완료 상품은 삭제할 수 없습니다.");
+            return ResponseEntity.status(HttpStatus.SEE_OTHER).header("Location", "/items/").body(null);
         }
 
         itemService.delete(itemId);

@@ -166,6 +166,9 @@
 </head>
 <body>
 <div class="container">
+    <div th:if="${not #strings.isEmpty(error)}" class="alert alert-danger" role="alert">
+        <p th:text="${error}"></p>
+    </div>
     <div class="py-5 text-center">
         <h2>상품 상세</h2>
     </div>
@@ -217,7 +220,7 @@
     <div id="map" style="width:100%;height:350px;"></div>
     <div id="clickLatlng"></div>
     <script type="text/javascript"
-            src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ef1254b7c0e4ca0bba75f337f56fe2aa"></script>
+            src="//dapi.kakao.com/v2/maps/sdk.js?appkey=430cc29a41a4dbf30363beb500a9b31b"></script>
     <script>
         var mapContainer = document.getElementById('map'), // 지도를 표시할 div
             mapOption = {
@@ -262,7 +265,7 @@
                 <span th:text="${isLiked} ? '관심 상품 삭제' : '관심 상품 등록'"></span>
             </button>
         </div>
-        <div class="col" th:if="${currentMemberId == item.sellerMemberId}">
+        <div class="col" th:if="${currentMemberId == item.sellerMemberId && item.saleStatus != 2}">
             <button class="w-100 btn btn-primary btn-lg"
                     onclick="location.href='editForm.html'"
                     th:onclick="|location.href='@{/items/{itemId}/edit(itemId=${item.itemId})}'|"
@@ -276,7 +279,7 @@
                     type="button">목록으로
             </button>
         </div>
-        <div class="col" th:if="${currentMemberId == item.sellerMemberId}">
+        <div class="col" th:if="${currentMemberId == item.sellerMemberId && item.saleStatus != 2}">
             <button class="w-100 btn btn-danger btn-lg"
                     onclick="confirmDelete()"
                     type="button">삭제

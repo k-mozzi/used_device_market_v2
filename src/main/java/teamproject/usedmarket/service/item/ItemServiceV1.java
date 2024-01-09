@@ -1,11 +1,19 @@
 package teamproject.usedmarket.service.item;
 
 
+import com.amazonaws.AmazonServiceException;
+import com.amazonaws.SdkClientException;
+import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import teamproject.usedmarket.config.S3Config;
 import teamproject.usedmarket.domain.item.Item;
+import teamproject.usedmarket.domain.item.ItemImage;
 import teamproject.usedmarket.repository.ItemRepository;
 import teamproject.usedmarket.repository.ItemUpdateDto;
+import teamproject.usedmarket.service.image.ImageService;
 import teamproject.usedmarket.service.item.ItemService;
 
 import javax.servlet.http.HttpSession;
@@ -14,10 +22,17 @@ import java.util.List;
 import java.util.Optional;
 
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ItemServiceV1 implements ItemService {
+    private final ImageService imageService;
     private final ItemRepository itemRepository;
+
+    private final S3Config s3Config;
+
+    @Value("${cloud.aws.s3.bucket}")
+    private String bucket;
 
     @Override
     public Item save(Item item, HttpSession session) throws IOException {
@@ -67,7 +82,25 @@ public class ItemServiceV1 implements ItemService {
 
     @Override
     public void delete(Long itemId) {
+        List<ItemImage> itemImages = imageService.findByItemId(itemId);
+        for (ItemImage itemImage : itemImages) {
+            String fileName = itemImage.getFileName();
+            //S3 파일 삭제 요청
+            try {
+                s3Config.amazonS3Client().deleteObject(new DeleteObjectRequest(bucket, fileName));
+                log.info("파일 삭제 성공");
+            } catch (AmazonServiceException e) {
+                log.info("Amazon S3 서비스 예외: ",e.getErrorMessage());
+                e.printStackTrace();
+            } catch (SdkClientException e) {
+                log.info("AWS SDK 클라이언트 예외: ",e.getMessage());
+                e.printStackTrace();
+            }
+        }
+
+
         itemRepository.delete(itemId);
+
     }
 
     @Override
