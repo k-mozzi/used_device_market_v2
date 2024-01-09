@@ -17,6 +17,12 @@ import teamproject.usedmarket.service.item.ItemServiceV1;
 public class MyBatisConfig {
     private final ItemMapper itemMapper;
     private final MemberMapper memberMapper;
+    private final ImageService imageService;
+    private final S3Config s3Config;
+    @Bean
+    public ItemService itemService() {
+        return new ItemServiceV1(imageService,itemRepository(),s3Config);
+    }
 
     @Bean
     public ItemService itemService() {
