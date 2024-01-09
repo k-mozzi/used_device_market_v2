@@ -166,6 +166,9 @@
 </head>
 <body>
 <div class="container">
+    <div th:if="${not #strings.isEmpty(error)}" class="alert alert-danger" role="alert">
+        <p th:text="${error}"></p>
+    </div>
     <div class="py-5 text-center">
         <h2>상품 상세</h2>
     </div>
@@ -184,7 +187,7 @@
     </div>
     <div>
         <block th:each="itemImage : ${itemImages}">
-            <img th:if="${itemImage.fileName}" th:src="@{|/files/${itemImage.fileName}|}" width="250" height="200"/>
+            <img th:if="${itemImage.fileName}" th:src="@{|${itemImage.filePath}|}" width="250" height="200"/>
         </block>
         <!--        <img th:if=${image.fileNames}" th:each="image : ${image.fileNames}"  th:src="@{|/files/${image.fileNames}|}" width="400" height="400"/>-->
         <!--        <img th:each="hor : ${hora}" th:src="@{|/files/${hor}|}" width="400" height="400"/>-->
@@ -262,7 +265,7 @@
                 <span th:text="${isLiked} ? '관심 상품 삭제' : '관심 상품 등록'"></span>
             </button>
         </div>
-        <div class="col" th:if="${currentMemberId == item.sellerMemberId}">
+        <div class="col" th:if="${currentMemberId == item.sellerMemberId && item.saleStatus != 2}">
             <button class="w-100 btn btn-primary btn-lg"
                     onclick="location.href='editForm.html'"
                     th:onclick="|location.href='@{/items/{itemId}/edit(itemId=${item.itemId})}'|"
@@ -276,7 +279,7 @@
                     type="button">목록으로
             </button>
         </div>
-        <div class="col" th:if="${currentMemberId == item.sellerMemberId}">
+        <div class="col" th:if="${currentMemberId == item.sellerMemberId && item.saleStatus != 2}">
             <button class="w-100 btn btn-danger btn-lg"
                     onclick="confirmDelete()"
                     type="button">삭제

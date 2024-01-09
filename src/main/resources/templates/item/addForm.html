@@ -44,14 +44,6 @@
                         th:text="${itemType.getDescription()}"></option>
             </select>
         </div>
-        <div>
-            <label for="saleStatus">판매 상태</label>
-            <select id="saleStatus" name="saleStatus" class="form-control" th:field="*{saleStatus}" required>
-                <option th:each="saleStatus : ${statuses}"
-                        th:value="${saleStatus.getSaleStatusId()}"
-                        th:text="${saleStatus.getDescription()}"></option>
-            </select>
-        </div>
         <br>
         <div>
             <p>사진 첨부<input type="file" id="fileInput" multiple="multiple" onchange="previewImages()" name="uploadedFiles"></p>

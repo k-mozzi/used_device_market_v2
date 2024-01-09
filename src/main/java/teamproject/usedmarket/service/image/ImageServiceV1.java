@@ -1,10 +1,17 @@
 package teamproject.usedmarket.service.image;
 
+import com.amazonaws.AmazonServiceException;
+import com.amazonaws.SdkClientException;
+import com.amazonaws.services.s3.model.CannedAccessControlList;
+import com.amazonaws.services.s3.model.DeleteObjectRequest;
+import com.amazonaws.services.s3.model.PutObjectRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriUtils;
+import teamproject.usedmarket.config.S3Config;
 import teamproject.usedmarket.domain.item.ItemImage;
 import teamproject.usedmarket.repository.ImageRepository;
 import teamproject.usedmarket.service.image.ImageService;
@@ -20,18 +27,19 @@ import java.util.List;
 @Slf4j
 @Service
 public class ImageServiceV1 implements ImageService {
-    public static final String FILE_PATH = "/Users/kimgang/Documents/SpringProject/imageFile";
-    private final ImageRepository imageRepository;
+//    public static final String FILE_PATH = "/Users/kimgang/Documents/SpringProject/imageFile";
+//    String DIRECTORY_PATH = "/Users/kimgang/Documents/SpringProject/imageFile";
+    private final S3Config s3Config;
 
-    //    String FILE_PATH = "C:\\Users\\82109\\Desktop\\spring_img";
-//    String DIRECTORY_PATH = "c:/Users/82109/Desktop/spring_img/";
-    String DIRECTORY_PATH = "/Users/kimgang/Documents/SpringProject/imageFile";
+    @Value("${cloud.aws.s3.bucket}")
+    private String bucket;
+    private final ImageRepository imageRepository;
+    String FILE_PATH = "/home/ubuntu/spring_img/";
 
     @Override
     public List<ItemImage> findByItemId(Long itemid) {
         List<ItemImage> findImages = imageRepository.findByItemId(itemid);
         return findImages;
-
     }
 
     @Override
@@ -54,14 +62,22 @@ public class ImageServiceV1 implements ImageService {
                 String un_fileName = uuid + "_" + multipartFile.getOriginalFilename();
                 String fileName = UriUtils.encode(un_fileName, StandardCharsets.UTF_8);
 
+                String localPath = FILE_PATH + fileName;
 
-                File saveFile = new File(FILE_PATH, fileName); //경로, 파일이름 지정
+                File localFile = new File(localPath); //경로, 파일이름 지정
+                multipartFile.transferTo(localFile); //저장
 
-                multipartFile.transferTo(saveFile); //저장
+                //s3에 이미지 올림
+                s3Config.amazonS3Client().putObject(new PutObjectRequest(bucket, fileName, localFile).withCannedAcl(CannedAccessControlList.PublicRead));
+                String s3Url = s3Config.amazonS3Client().getUrl(bucket, fileName).toString();
+
 
                 itemImage.setFileName(fileName);
-                itemImage.setFilePath(DIRECTORY_PATH + fileName);
+                itemImage.setFilePath(s3Url);
                 imageRepository.save(itemImage);
+
+                //서버에 저장한 이미지를 삭제
+                localFile.delete();
             }
         }
     }
@@ -81,20 +97,17 @@ public class ImageServiceV1 implements ImageService {
         ItemImage findImageToDelete = imageRepository.findById(itemImageId);
 
         String fileName = findImageToDelete.getFileName();
-        String filePath = DIRECTORY_PATH + fileName;
-        File file = new File(filePath);
 
+        //S3 파일 삭제 요청
         try {
-            // 파일을 삭제합니다.
-            if (file.delete()) {
-                log.info(filePath + "가 성공적으로 삭제되었습니다.");
-            } else {
-                log.info(filePath + "를 삭제할 수 없습니다.");
-            }
-        } catch (SecurityException e) {
-            log.info(filePath + "에 대한 삭제 권한이 없습니다.");
-        } catch (Exception e) {
-            log.info("오류가 발생했습니다: " + e.getMessage());
+            s3Config.amazonS3Client().deleteObject(new DeleteObjectRequest(bucket, fileName));
+            log.info("파일 삭제 성공");
+        } catch (AmazonServiceException e) {
+            log.info("Amazon S3 서비스 예외: ",e.getErrorMessage());
+            e.printStackTrace();
+        } catch (SdkClientException e) {
+            log.info("AWS SDK 클라이언트 예외: ",e.getMessage());
+            e.printStackTrace();
         }
 
         imageRepository.delete(itemImageId);

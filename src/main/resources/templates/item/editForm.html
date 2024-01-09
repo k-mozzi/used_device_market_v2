@@ -47,13 +47,6 @@
             </select>
         </div>
         <br>
-        <div>
-            <div>판매 상태</div>
-            <select id="saleStatus" name="saleStatus" class="form-control" th:field="${item.saleStatus}">
-                <option th:each="status : ${statuses}" th:value="${status.saleStatusId}" th:text="${status.description}"
-                        th:selected="${status.saleStatusId == selectedSaleStatus}"/>
-            </select>
-        </div>
         <br>
         <div>
             <p>첨부파일<input type="file" id="fileInput" multiple="multiple" onchange="previewImages()" name="imageFiles"></p>
@@ -64,7 +57,7 @@
                 <div class="ccol" th:field="${itemImage.itemImageId}" th:id="'item-' + ${index.index}">
                     <img class="delete-image" th:alt="${'Image ' + (index.index + 1)}" th:data-index="${index.index}"
                          th:data-field="${itemImage.itemImageId}" th:if="${itemImage.fileName}"
-                         th:src="@{|/files/${itemImage.fileName}|}" width="250" height="200"/>
+                         th:src="@{|${itemImage.filePath}|}" width="250" height="200"/>
                     <p>[이미지 클릭시 삭제]</p>
                 </div>
             </th:block>

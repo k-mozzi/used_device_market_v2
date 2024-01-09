@@ -4,7 +4,29 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4382e50c-c7e1-44b5-8d51-bf5bda6e21ad" name="Changes" comment="" />
+    <list default="true" id="4382e50c-c7e1-44b5-8d51-bf5bda6e21ad" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/teamproject/usedmarket/config/S3Config.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.5/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.5/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.5/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.5/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/teamproject/usedmarket/config/S3Config.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/teamproject/usedmarket/config/S3Config.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/teamproject/usedmarket/config/WebMvcConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/teamproject/usedmarket/config/WebMvcConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/teamproject/usedmarket/service/image/ImageServiceV1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/teamproject/usedmarket/service/image/ImageServiceV1.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/teamproject/usedmarket/service/item/ItemServiceV1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/teamproject/usedmarket/service/item/ItemServiceV1.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/teamproject/usedmarket/web/item/ItemController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/teamproject/usedmarket/web/item/ItemController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/teamproject/usedmarket/repository/mybatis/ImageMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/teamproject/usedmarket/repository/mybatis/ImageMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/item/addForm.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/item/addForm.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/item/editForm.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/item/editForm.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/item/item.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/item/item.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/item/items.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/item/items.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/members/myPage/memberBuy.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/members/myPage/memberBuy.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/members/myPage/memberLike.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/members/myPage/memberLike.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/members/myPage/memberSell.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/members/myPage/memberSell.html" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

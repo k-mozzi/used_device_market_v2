@@ -29,7 +29,7 @@
                 <td th:text="${#dates.format(buyItem.createDatetime, 'yyyy-MM-dd HH:mm:ss')}">등록 일자</td>
                 <td>
                     <block th:each="image : ${images}">
-                        <img th:if="${buyItem.itemId == image.itemId} and ${image.repImageCheck == true}" th:src="@{|/files/${image.fileName}|}" width="200" height="200"/>
+                        <img th:if="${buyItem.itemId == image.itemId} and ${image.repImageCheck == true}" th:src="@{|${image.filePath}|}" width="200" height="200"/>
                     </block>
                 </td>
             </tr>
