@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/bootstrap.min.css}" href="css/bootstrap.min.css" rel="stylesheet">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Popup</title>
+
+    <style>
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 50vh;
+            margin: 0;
+        }
+
+        .container {
+  font-family: arial;
+  font-size: 20px;
+  margin: 25px;
+  width: 400px;
+  height: 200px;
+  line-height: 2.1;
+  text-align : center;
+
+  justify-content : center;
+}
+
+.row{
+padding: 30px; /* 좌우 여백 조절 (선택 사항) */
+}
+
+<!--button {-->
+<!--padding: 10px;-->
+<!--            background-color: #3498db;-->
+<!--            color: #fff;-->
+<!--            border: none;-->
+<!--            border-radius: 5px;-->
+<!--}-->
+
+p {
+  /* 수평 중앙 정렬하기 */
+  text-align: center;
+  line-height: 5px;
+}
+    </style>
+</head>
+<body>
+<div  class="container">
+<!-- 부모 창의 값 표시 -->
+<input  type="hidden" id="itemId" th:value="${itemId}" disabled/>
+    <div><p><h4>상품</h4><input type="text" id="title" style="text-align:center" th:value="${title}" disabled/></p></div>
+    <div><p><h4>가격</h4><input type="text" id="price" style="text-align:center" th:value="${price}" disabled/></p></div>
+
+
+
+    <div style="height: 110px;"></div>
+<div class="row" style="margin-bottom: 10px;">
+    <div class="col">
+        <!-- 취소 버튼 -->
+        <button class="w-90 btn btn-danger btn-lg"
+        onclick="cancel()">취소</button>
+    </div>
+    <div class="col">
+        <!-- 구매 버튼 -->
+        <button class="w-90 btn btn-primary btn-lg" onclick="changeValue()">바로구매</button>
+    </div>
+</div>
+</div>
+
+
+<script>
+
+    function changeValue() {
+
+
+        var itemId = document.getElementById("itemId").value;
+
+        // 부모 창의 값 업데이트
+        window.opener.document.getElementById("saleStatus").value = 2;
+        window.opener.document.getElementById("target").remove();
+
+        // 서버로 변경된 값 전송 (AJAX)
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/updateValue", true);
+        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+        // JSON 형태로 데이터 전송
+        xhr.send(JSON.stringify({ itemId:itemId }));
+
+        // 부모 창에 "purchaseCompleted" 메시지 전송
+        window.opener.postMessage('purchaseCompleted', '*');
+
+        // 팝업 창 닫기
+        window.close();
+    }
+
+    function cancel() {
+    // 팝업 창 닫기
+        window.close();
+    }
+</script>
+</body>
+</html>
