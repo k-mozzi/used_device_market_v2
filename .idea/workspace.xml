@@ -4,29 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4382e50c-c7e1-44b5-8d51-bf5bda6e21ad" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/teamproject/usedmarket/config/S3Config.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.5/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.5/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.5/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.5/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/teamproject/usedmarket/config/S3Config.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/teamproject/usedmarket/config/S3Config.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/teamproject/usedmarket/config/WebMvcConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/teamproject/usedmarket/config/WebMvcConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/teamproject/usedmarket/service/image/ImageServiceV1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/teamproject/usedmarket/service/image/ImageServiceV1.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/teamproject/usedmarket/service/item/ItemServiceV1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/teamproject/usedmarket/service/item/ItemServiceV1.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/teamproject/usedmarket/web/item/ItemController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/teamproject/usedmarket/web/item/ItemController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/teamproject/usedmarket/repository/mybatis/ImageMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/teamproject/usedmarket/repository/mybatis/ImageMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/item/addForm.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/item/addForm.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/item/editForm.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/item/editForm.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/item/item.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/item/item.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/item/items.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/item/items.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/members/myPage/memberBuy.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/members/myPage/memberBuy.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/members/myPage/memberLike.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/members/myPage/memberLike.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/members/myPage/memberSell.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/members/myPage/memberSell.html" afterDir="false" />
-    </list>
+    <list default="true" id="4382e50c-c7e1-44b5-8d51-bf5bda6e21ad" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -63,10 +41,10 @@
     </option>
   </component>
   <component name="Git.Merge.Settings">
-    <option name="BRANCH" value="origin/development" />
+    <option name="BRANCH" value="origin/main" />
   </component>
   <component name="Git.Rebase.Settings">
-    <option name="NEW_BASE" value="kkm" />
+    <option name="NEW_BASE" value="origin/main" />
   </component>
   <component name="Git.Settings">
     <favorite-branches>
@@ -128,28 +106,29 @@
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;kkm&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/kimgang/Documents/SpringProject/usedmarketV2/src/main/resources&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;File.Encoding&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "kkm",
+    "last_opened_file_path": "/Users/kimgang/Documents/SpringProject/usedmarketV2/src/main/resources",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "File.Encoding",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="teamproject.usedmarket.service" />
@@ -252,14 +231,6 @@
       <workItem from="1704273720304" duration="30995000" />
       <workItem from="1704433442958" duration="53894000" />
       <workItem from="1704709154861" duration="297000" />
-    </task>
-    <task id="LOCAL-00024" summary="쿠키를 사용하던 로그인 로직 http session을 사용하도록 변경, 인증 체크 인터셉터 적용, 회원 목록에 홈 버튼 추가">
-      <option name="closed" value="true" />
-      <created>1703228520678</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1703228520678</updated>
     </task>
     <task id="LOCAL-00025" summary="타인의 게시물 수정, 삭제 시도시 items로 리다이렉트되도록 구현, 조회수 증가 사이드 이팩트 해결">
       <option name="closed" value="true" />
@@ -645,7 +616,15 @@
       <option name="project" value="LOCAL" />
       <updated>1704709385401</updated>
     </task>
-    <option name="localTasksCounter" value="73" />
+    <task id="LOCAL-00073" summary="이미지 서비스 수정, 아이템 등록/수정시 saleStatus 선택할 수 없도록 변경, 판매완료 상품 수정/삭제할 수 없도록 변경">
+      <option name="closed" value="true" />
+      <created>1704779068561</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1704779068561</updated>
+    </task>
+    <option name="localTasksCounter" value="74" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -705,7 +684,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="아이템 목록에 상품 등록 버튼 생성" />
     <MESSAGE value="아이템 검증 구현, 관심상품 목록에서 삭제된 상품은 나오지 않도록 변경" />
     <MESSAGE value="아이템 검증 구현, 관심상품 목록에서 판매완료 상품은 나오지 않도록 변경" />
     <MESSAGE value="카카오 지도 API를 이용해 아이템 등록할 때 원하는 거래장소에 마커를 생성할 수 있도록 구현" />
@@ -730,7 +708,8 @@
     <MESSAGE value="통합" />
     <MESSAGE value="css 오류 해결" />
     <MESSAGE value="?" />
-    <option name="LAST_COMMIT_MESSAGE" value="?" />
+    <MESSAGE value="이미지 서비스 수정, 아이템 등록/수정시 saleStatus 선택할 수 없도록 변경, 판매완료 상품 수정/삭제할 수 없도록 변경" />
+    <option name="LAST_COMMIT_MESSAGE" value="이미지 서비스 수정, 아이템 등록/수정시 saleStatus 선택할 수 없도록 변경, 판매완료 상품 수정/삭제할 수 없도록 변경" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
