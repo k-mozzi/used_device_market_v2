@@ -4,7 +4,130 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4382e50c-c7e1-44b5-8d51-bf5bda6e21ad" name="Changes" comment="" />
+    <list default="true" id="4382e50c-c7e1-44b5-8d51-bf5bda6e21ad" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/teamproject/usedmarket/HomeController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/teamproject/usedmarket/SessionConst.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/teamproject/usedmarket/UsedmarketApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/teamproject/usedmarket/config/MyBatisConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/teamproject/usedmarket/config/S3Config.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/teamproject/usedmarket/config/WebMvcConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/teamproject/usedmarket/domain/comment/Comment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/teamproject/usedmarket/domain/item/Item.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/teamproject/usedmarket/domain/item/ItemImage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/teamproject/usedmarket/domain/item/ItemLike.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/teamproject/usedmarket/domain/item/ItemType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/teamproject/usedmarket/domain/item/SaleStatus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/teamproject/usedmarket/domain/member/Member.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/teamproject/usedmarket/domain/member/Region.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/teamproject/usedmarket/repository/CommentRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/teamproject/usedmarket/repository/CommentUpdateDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/teamproject/usedmarket/repository/ImageRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/teamproject/usedmarket/repository/ItemRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/teamproject/usedmarket/repository/ItemUpdateDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/teamproject/usedmarket/repository/LikeRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/teamproject/usedmarket/repository/MemberRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/teamproject/usedmarket/repository/MemberUpdateDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/teamproject/usedmarket/repository/mybatis/CommentMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/teamproject/usedmarket/repository/mybatis/ImageMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/teamproject/usedmarket/repository/mybatis/ItemMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/teamproject/usedmarket/repository/mybatis/LikeMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/teamproject/usedmarket/repository/mybatis/MemberMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/teamproject/usedmarket/repository/mybatis/MyBatisCommentRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/teamproject/usedmarket/repository/mybatis/MyBatisImageRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/teamproject/usedmarket/repository/mybatis/MyBatisItemRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/teamproject/usedmarket/repository/mybatis/MyBatisLikeRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/teamproject/usedmarket/repository/mybatis/MyBatisMemberRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/teamproject/usedmarket/service/comment/CommentService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/teamproject/usedmarket/service/comment/CommentServiceV1.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/teamproject/usedmarket/service/image/ImageService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/teamproject/usedmarket/service/image/ImageServiceV1.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/teamproject/usedmarket/service/item/ItemService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/teamproject/usedmarket/service/item/ItemServiceV1.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/teamproject/usedmarket/service/like/LikeService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/teamproject/usedmarket/service/like/LikeServiceV1.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/teamproject/usedmarket/service/login/LoginService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/teamproject/usedmarket/web/interceptor/LogInterceptor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/teamproject/usedmarket/web/interceptor/LoginCheckInterceptor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/teamproject/usedmarket/web/item/ItemController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/teamproject/usedmarket/web/itemimage/ImageUpdateDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/teamproject/usedmarket/web/itemimage/ItemImageController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/teamproject/usedmarket/web/login/LoginController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/teamproject/usedmarket/web/login/LoginForm.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/teamproject/usedmarket/web/member/MemberController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/teamproject/usedmarket/web/purchase/PurchaseController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/errors.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/css/bootstrap-grid.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/css/bootstrap-grid.css.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/css/bootstrap-grid.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/css/bootstrap-grid.min.css.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/css/bootstrap-reboot.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/css/bootstrap-reboot.css.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/css/bootstrap-reboot.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/css/bootstrap-reboot.min.css.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/css/bootstrap.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/css/bootstrap.css.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/css/bootstrap.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/css/bootstrap.min.css.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/css/jumbotron-narrow.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/js/bootstrap.bundle.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/js/bootstrap.bundle.js.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/js/bootstrap.bundle.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/js/bootstrap.bundle.min.js.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/js/bootstrap.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/js/bootstrap.js.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/js/bootstrap.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/js/bootstrap.min.js.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/teamproject/usedmarket/repository/mybatis/CommentMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/teamproject/usedmarket/repository/mybatis/ImageMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/teamproject/usedmarket/repository/mybatis/ItemMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/teamproject/usedmarket/repository/mybatis/LikeMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/teamproject/usedmarket/repository/mybatis/MemberMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/fragments/bodyHeader.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/fragments/footer.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/fragments/header.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/home.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/item/addForm.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/item/editForm.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/item/item.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/item/items.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/login/loginForm.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/loginHome.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/members/addMemberForm.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/members/editMemberForm.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/members/members.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/members/myPage.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/members/myPage/memberBuy.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/members/myPage/memberInfo.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/members/myPage/memberLike.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/members/myPage/memberSell.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/popup/purchasePopup.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/static/css/bootstrap-grid.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/static/css/bootstrap-grid.css.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/static/css/bootstrap-grid.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/static/css/bootstrap-grid.min.css.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/static/css/bootstrap-reboot.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/static/css/bootstrap-reboot.css.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/static/css/bootstrap-reboot.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/static/css/bootstrap-reboot.min.css.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/static/css/bootstrap.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/static/css/bootstrap.css.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/static/css/bootstrap.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/static/css/bootstrap.min.css.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/static/css/jumbotron-narrow.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/static/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/static/js/bootstrap.bundle.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/static/js/bootstrap.bundle.js.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/static/js/bootstrap.bundle.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/static/js/bootstrap.bundle.min.js.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/static/js/bootstrap.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/static/js/bootstrap.js.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/static/js/bootstrap.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/static/js/bootstrap.min.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -116,7 +239,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "kkm",
+    "git-widget-placeholder": "main",
     "last_opened_file_path": "/Users/kimgang/Documents/SpringProject/usedmarketV2/src/main/resources",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -231,14 +354,6 @@
       <workItem from="1704273720304" duration="30995000" />
       <workItem from="1704433442958" duration="53894000" />
       <workItem from="1704709154861" duration="297000" />
-    </task>
-    <task id="LOCAL-00025" summary="타인의 게시물 수정, 삭제 시도시 items로 리다이렉트되도록 구현, 조회수 증가 사이드 이팩트 해결">
-      <option name="closed" value="true" />
-      <created>1703238880474</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1703238880474</updated>
     </task>
     <task id="LOCAL-00026" summary="타인의 게시물 수정, 삭제 시도시 items로 리다이렉트된 후 오류 메시지 출력">
       <option name="closed" value="true" />
@@ -624,7 +739,15 @@
       <option name="project" value="LOCAL" />
       <updated>1704779068561</updated>
     </task>
-    <option name="localTasksCounter" value="74" />
+    <task id="LOCAL-00074" summary="?????">
+      <option name="closed" value="true" />
+      <created>1704779816576</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1704779816576</updated>
+    </task>
+    <option name="localTasksCounter" value="75" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -684,7 +807,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="아이템 검증 구현, 관심상품 목록에서 삭제된 상품은 나오지 않도록 변경" />
     <MESSAGE value="아이템 검증 구현, 관심상품 목록에서 판매완료 상품은 나오지 않도록 변경" />
     <MESSAGE value="카카오 지도 API를 이용해 아이템 등록할 때 원하는 거래장소에 마커를 생성할 수 있도록 구현" />
     <MESSAGE value="아이템 등록시 현재 로그인한 멤버의 지역에 따라 지도의 초기 마커 값이 다르게 설정되도록 구현" />
@@ -709,7 +831,8 @@
     <MESSAGE value="css 오류 해결" />
     <MESSAGE value="?" />
     <MESSAGE value="이미지 서비스 수정, 아이템 등록/수정시 saleStatus 선택할 수 없도록 변경, 판매완료 상품 수정/삭제할 수 없도록 변경" />
-    <option name="LAST_COMMIT_MESSAGE" value="이미지 서비스 수정, 아이템 등록/수정시 saleStatus 선택할 수 없도록 변경, 판매완료 상품 수정/삭제할 수 없도록 변경" />
+    <MESSAGE value="?????" />
+    <option name="LAST_COMMIT_MESSAGE" value="?????" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
