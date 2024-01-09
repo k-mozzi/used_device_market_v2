@@ -1,0 +1,97 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container {
+            max-width: 560px;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var memberId = [[${member.memberId}]];
+
+        /*]]>*/
+    </script>
+    <script>
+        function confirmWithdraw() {
+            if (confirm('정말 탈퇴하시겠습니까?')) {
+                executeWithdraw();
+            } else {
+                // 취소를 눌렀을 때의 동작 (아무 동작 없음)
+            }
+        }
+
+        function executeWithdraw() {
+            // 재선언하지 않고 기존의 memberId를 사용
+            $.ajax({
+                type: 'GET',
+                url: '/members/' + memberId + '/withdraw',
+                success: function (response) {
+                    console.log('회원 탈퇴 성공');
+                    // 홈 화면으로 리다이렉트
+                    window.location.href = '/';
+                },
+                error: function () {
+                    console.error('서버 오류');
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+<div class="container">
+    <div class="py-5 text-center">
+        <h2>회원 상세</h2>
+    </div>
+    <div>
+        <label for="memberId">회원 ID</label>
+        <input type="text" id="memberId" name="memberId" class="form-control" th:value="${member.memberId}" disabled>
+    </div>
+    <div>
+        <label for="memberName">회원 이름</label>
+        <input type="text" id="memberName" name="memberName" class="form-control" th:value="${member.memberName}" disabled>
+    </div>
+    <div>
+        <div>지역</div>
+        <select id="region" name="region" class="form-control" th:field="${member.regionId}" disabled>
+            <option th:each="region : ${regions}" th:value="${region.regionId}" th:text="${region.description}"
+                    th:selected="${region.regionId == selectedRegionId}"/>
+        </select>
+    </div>
+    <div>
+        <label for="createDatetime">회원가입 일시</label>
+        <input type="text" id="createDatetime" name="createDatetime" class="form-control"
+                th:value="${member.createDatetime != null ? #dates.format(member.createDatetime, 'yyyy-MM-dd HH:mm:ss') : ''}" disabled>
+    </div>
+    <!--  수정 이력이 있는 경우에만 수정일 출력  -->
+    <div th:if="${member.updateDatetime != null}">
+        <div>최종 수정 일자: <span th:text="${#dates.format(member.updateDatetime, 'yyyy-MM-dd HH:mm:ss')}"></span></div>
+    </div>
+    <hr class="my-4">
+    <div class="row">
+        <div class="col">
+            <button class="w-100 btn btn-primary btn-lg"
+                    th:onclick="|location.href='@{/members/{memberId}/edit(memberId=${member.memberId})}'|"
+                    type="button">회원 정보 수정
+            </button>
+        </div>
+        <div class="col">
+            <button class="w-100 btn btn-secondary btn-lg"
+                    th:onclick="|location.href='@{/members/myPage}'|"
+                    type="button">MyPage
+            </button>
+        </div>
+        <div class="col">
+            <button class="w-100 btn btn-danger btn-lg"
+                    onclick="confirmWithdraw()"
+                    type="button">회원 탈퇴
+            </button>
+        </div>
+    </div>
+</div>
+</body>
+</html>
