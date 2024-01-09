@@ -1,0 +1,718 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="4382e50c-c7e1-44b5-8d51-bf5bda6e21ad" name="Changes" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand />
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Dockerfile" />
+        <option value="Enum" />
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Merge.Settings">
+    <option name="BRANCH" value="origin/main" />
+  </component>
+  <component name="Git.Rebase.Settings">
+    <option name="NEW_BASE" value="origin/main" />
+  </component>
+  <component name="Git.Settings">
+    <favorite-branches>
+      <branch-storage>
+        <map>
+          <entry type="LOCAL">
+            <value>
+              <list>
+                <branch-info repo="$PROJECT_DIR$" source="kkm" />
+              </list>
+            </value>
+          </entry>
+        </map>
+      </branch-storage>
+    </favorite-branches>
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitToolBoxStore">
+    <option name="projectConfigVersion" value="5" />
+    <option name="recentBranches">
+      <RecentBranches>
+        <option name="branchesForRepo">
+          <list>
+            <RecentBranchesForRepo>
+              <option name="branches">
+                <list>
+                  <RecentBranch>
+                    <option name="branchName" value="kkm" />
+                    <option name="lastUsedInstant" value="1704709101" />
+                  </RecentBranch>
+                  <RecentBranch>
+                    <option name="branchName" value="main" />
+                    <option name="lastUsedInstant" value="1704619277" />
+                  </RecentBranch>
+                </list>
+              </option>
+              <option name="repositoryRootUrl" value="file://$PROJECT_DIR$" />
+            </RecentBranchesForRepo>
+          </list>
+        </option>
+      </RecentBranches>
+    </option>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
+  <component name="ProjectId" id="2ZcJ9pEc3K0zG6oQwsbWGq9MYdz" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "kkm",
+    "last_opened_file_path": "/Users/kimgang/Documents/SpringProject/usedmarketV2/src/main/resources",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "File.Encoding",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="teamproject.usedmarket.service" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources" />
+      <recent name="$PROJECT_DIR$/src/main/resources/templates/css" />
+      <recent name="$PROJECT_DIR$/src/main/resources/static/css" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources/templates" />
+      <recent name="$PROJECT_DIR$/src/main/resources/static" />
+      <recent name="$PROJECT_DIR$/src/main/resources/templates/members/mypage" />
+      <recent name="$PROJECT_DIR$/src/main/resources/teamproject/usedmarket/repository/mybatis" />
+      <recent name="$PROJECT_DIR$/src/main/resources/teamproject/usedmarket/domain/item/mybatis" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="teamproject.usedmarket.repository" />
+      <recent name="teamproject.usedmarket" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="teamproject.usedmarket.repository.mybatis" />
+      <recent name="teamproject.usedmarket.repository" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Spring Boot.UsedmarketApplication">
+    <configuration name="usedmarketV2 [bootJar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="bootJar" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="usedmarket.test" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="usedmarket.test" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UsedmarketApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="usedmarket.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="teamproject.usedmarket.UsedmarketApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UsedmarketApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="usedmarket.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="teamproject.usedmarket.UsedmarketApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Gradle.usedmarketV2 [bootJar]" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4382e50c-c7e1-44b5-8d51-bf5bda6e21ad" name="Changes" comment="" />
+      <created>1702715285997</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1702715285997</updated>
+      <workItem from="1702715288424" duration="50233000" />
+      <workItem from="1703067651201" duration="8953000" />
+      <workItem from="1703133200260" duration="4626000" />
+      <workItem from="1703139871801" duration="18610000" />
+      <workItem from="1703219196717" duration="56064000" />
+      <workItem from="1703585113623" duration="25129000" />
+      <workItem from="1703835753837" duration="8479000" />
+      <workItem from="1704007196570" duration="4840000" />
+      <workItem from="1704014117597" duration="30559000" />
+      <workItem from="1704111748253" duration="32051000" />
+      <workItem from="1704273720304" duration="30995000" />
+      <workItem from="1704433442958" duration="53894000" />
+      <workItem from="1704709154861" duration="297000" />
+    </task>
+    <task id="LOCAL-00025" summary="타인의 게시물 수정, 삭제 시도시 items로 리다이렉트되도록 구현, 조회수 증가 사이드 이팩트 해결">
+      <option name="closed" value="true" />
+      <created>1703238880474</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1703238880474</updated>
+    </task>
+    <task id="LOCAL-00026" summary="타인의 게시물 수정, 삭제 시도시 items로 리다이렉트된 후 오류 메시지 출력">
+      <option name="closed" value="true" />
+      <created>1703242691853</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1703242691853</updated>
+    </task>
+    <task id="LOCAL-00027" summary="loginHome에 로그인 사용자 이름 나오도록 변경, 아이템 상세 페이지에 판매자 이름 나오도록 변경">
+      <option name="closed" value="true" />
+      <created>1703248063118</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1703248063118</updated>
+    </task>
+    <task id="LOCAL-00028" summary="멤버 상세 만드는 중">
+      <option name="closed" value="true" />
+      <created>1703309213440</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1703309213440</updated>
+    </task>
+    <task id="LOCAL-00029" summary="회원 상세 기능 구현">
+      <option name="closed" value="true" />
+      <created>1703316180188</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1703316180189</updated>
+    </task>
+    <task id="LOCAL-00030" summary="회원가입시 updateDatetime 바인딩되는 문제 해결, 회원가입 오류가 발생해서 회원가입 폼을 다시 내보낼 때 셀렉트박스가 제대로 나오지 않는 문제 해결">
+      <option name="closed" value="true" />
+      <created>1703318126931</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1703318126931</updated>
+    </task>
+    <task id="LOCAL-00031" summary="관심상품 등록, 삭제 기능 추가">
+      <option name="closed" value="true" />
+      <created>1703582941818</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1703582941818</updated>
+    </task>
+    <task id="LOCAL-00032" summary="마이페이지 폼 생성, 관심 상품 조희 기능 구현">
+      <option name="closed" value="true" />
+      <created>1703590541425</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1703590541425</updated>
+    </task>
+    <task id="LOCAL-00033" summary="판매 목록 구현">
+      <option name="closed" value="true" />
+      <created>1703594664886</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1703594664886</updated>
+    </task>
+    <task id="LOCAL-00034" summary="해당 아이템을 관심상품으로 등록한 회원 수 표시 기능 구현">
+      <option name="closed" value="true" />
+      <created>1703653205907</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1703653205907</updated>
+    </task>
+    <task id="LOCAL-00035" summary="아이템 상세에 접근함과 동시에 조회수 증가시키도록 변경">
+      <option name="closed" value="true" />
+      <created>1703653697664</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1703653697664</updated>
+    </task>
+    <task id="LOCAL-00036" summary="관심상품 수 비동기식으로 증가, 감소하도록 변경">
+      <option name="closed" value="true" />
+      <created>1703655007364</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1703655007364</updated>
+    </task>
+    <task id="LOCAL-00037" summary="풀 확인">
+      <option name="closed" value="true" />
+      <created>1703655636032</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1703655636032</updated>
+    </task>
+    <task id="LOCAL-00038" summary="새로고침 했을 때 아이템에 회원들이 등록한 총 찜 수가 0으로 나타나는 문제 해결">
+      <option name="closed" value="true" />
+      <created>1703657521954</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1703657521954</updated>
+    </task>
+    <task id="LOCAL-00039" summary="자신이 등록한 상품엔 찜 기능 사용할 수 없도록 변경">
+      <option name="closed" value="true" />
+      <created>1703661391040</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1703661391040</updated>
+    </task>
+    <task id="LOCAL-00040" summary="아이템 등록하면 아이템 상세 화면으로 리다이렉트되도록 변경">
+      <option name="closed" value="true" />
+      <created>1703662403216</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1703662403216</updated>
+    </task>
+    <task id="LOCAL-00041" summary="풀 확인">
+      <option name="closed" value="true" />
+      <created>1703662803372</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1703662803372</updated>
+    </task>
+    <task id="LOCAL-00042" summary="아이템 목록, 회원 목록 페이징 기능 구현">
+      <option name="closed" value="true" />
+      <created>1704026494609</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1704026494609</updated>
+    </task>
+    <task id="LOCAL-00043" summary="상품 목록, 찜 목록, 판매 목록에 상품이 없는 경우 기본 메시지가 출력되도록 설정">
+      <option name="closed" value="true" />
+      <created>1704086431171</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1704086431171</updated>
+    </task>
+    <task id="LOCAL-00044" summary="아이템 목록에서 최신순, 조회수순, 좋아요순으로 정렬하는 기능 구현">
+      <option name="closed" value="true" />
+      <created>1704094819719</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1704094819719</updated>
+    </task>
+    <task id="LOCAL-00045" summary="판매완료된 아이템은 아이템 목록에서 제외">
+      <option name="closed" value="true" />
+      <created>1704098672120</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1704098672120</updated>
+    </task>
+    <task id="LOCAL-00046" summary="마이 페이지의 판매 목록에서 판매중, 판매완료 상품 구분">
+      <option name="closed" value="true" />
+      <created>1704109719757</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1704109719757</updated>
+    </task>
+    <task id="LOCAL-00047" summary="아이템 목록에 카테고리 셀렉트박스 추가">
+      <option name="closed" value="true" />
+      <created>1704173977833</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1704173977833</updated>
+    </task>
+    <task id="LOCAL-00048" summary="아이템 목록에 지역 셀렉트박스 추가">
+      <option name="closed" value="true" />
+      <created>1704179520063</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1704179520063</updated>
+    </task>
+    <task id="LOCAL-00049" summary="아이템 목록에 검색어를 통한 검색 기능 추가">
+      <option name="closed" value="true" />
+      <created>1704192115889</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1704192115889</updated>
+    </task>
+    <task id="LOCAL-00050" summary="아이템 목록에 상품 등록 버튼 생성">
+      <option name="closed" value="true" />
+      <created>1704196068856</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1704196068856</updated>
+    </task>
+    <task id="LOCAL-00051" summary="아이템 검증 구현, 관심상품 목록에서 판매완료 상품은 나오지 않도록 변경">
+      <option name="closed" value="true" />
+      <created>1704261216074</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1704261216074</updated>
+    </task>
+    <task id="LOCAL-00052" summary="카카오 지도 API를 이용해 아이템 등록할 때 원하는 거래장소에 마커를 생성할 수 있도록 구현">
+      <option name="closed" value="true" />
+      <created>1704276185645</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1704276185645</updated>
+    </task>
+    <task id="LOCAL-00053" summary="아이템 등록시 현재 로그인한 멤버의 지역에 따라 지도의 초기 마커 값이 다르게 설정되도록 구현">
+      <option name="closed" value="true" />
+      <created>1704283694499</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1704283694499</updated>
+    </task>
+    <task id="LOCAL-00054" summary="아이템 수정에서 지도의 마커 위치 변경할 수 있도록 구현">
+      <option name="closed" value="true" />
+      <created>1704355309092</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1704355309092</updated>
+    </task>
+    <task id="LOCAL-00055" summary="파일구조정리 및 필요없는 파일 삭제">
+      <option name="closed" value="true" />
+      <created>1704371902147</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1704371902147</updated>
+    </task>
+    <task id="LOCAL-00056" summary="댓글 작성, 삭제 기능 구현">
+      <option name="closed" value="true" />
+      <created>1704445499956</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1704445499957</updated>
+    </task>
+    <task id="LOCAL-00057" summary="댓글에 대한 답글 기능 구현: 댓글 주인과 상품 주인만 등록/조회 가능">
+      <option name="closed" value="true" />
+      <created>1704451604820</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1704451604820</updated>
+    </task>
+    <task id="LOCAL-00058" summary="회원 수정 구현">
+      <option name="closed" value="true" />
+      <created>1704455241925</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1704455241926</updated>
+    </task>
+    <task id="LOCAL-00059" summary="아이템 수정 폼 검증">
+      <option name="closed" value="true" />
+      <created>1704455621400</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1704455621400</updated>
+    </task>
+    <task id="LOCAL-00060" summary="회원 수정 후 세션 갱신">
+      <option name="closed" value="true" />
+      <created>1704457486153</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1704457486153</updated>
+    </task>
+    <task id="LOCAL-00061" summary="회원 삭제 구현">
+      <option name="closed" value="true" />
+      <created>1704524612044</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1704524612045</updated>
+    </task>
+    <task id="LOCAL-00062" summary="디자인 통일">
+      <option name="closed" value="true" />
+      <created>1704538375758</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1704538375758</updated>
+    </task>
+    <task id="LOCAL-00063" summary="아이템 상세 폼(item.html) 수정">
+      <option name="closed" value="true" />
+      <created>1704546086229</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1704546086229</updated>
+    </task>
+    <task id="LOCAL-00064" summary="타인 게시물 수정 및 삭제 방지 로직 재구현">
+      <option name="closed" value="true" />
+      <created>1704547255907</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1704547255907</updated>
+    </task>
+    <task id="LOCAL-00065" summary="타인 계정 삭제 방지 로직 구현">
+      <option name="closed" value="true" />
+      <created>1704547622105</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1704547622105</updated>
+    </task>
+    <task id="LOCAL-00066" summary="등록, 수정 검증 수정">
+      <option name="closed" value="true" />
+      <created>1704607000238</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1704607000238</updated>
+    </task>
+    <task id="LOCAL-00067" summary="아이템 삭제, 회원 탈퇴시 alert 창 뜨도록 변경">
+      <option name="closed" value="true" />
+      <created>1704610120895</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1704610120895</updated>
+    </task>
+    <task id="LOCAL-00068" summary="불필요한 공백 제거 및 구조 통일">
+      <option name="closed" value="true" />
+      <created>1704616815658</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1704616815658</updated>
+    </task>
+    <task id="LOCAL-00069" summary="날려">
+      <option name="closed" value="true" />
+      <created>1704620206128</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1704620206128</updated>
+    </task>
+    <task id="LOCAL-00070" summary="통합">
+      <option name="closed" value="true" />
+      <created>1704620364403</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1704620364404</updated>
+    </task>
+    <task id="LOCAL-00071" summary="css 오류 해결">
+      <option name="closed" value="true" />
+      <created>1704620816359</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1704620816359</updated>
+    </task>
+    <task id="LOCAL-00072" summary="?">
+      <option name="closed" value="true" />
+      <created>1704709385401</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1704709385401</updated>
+    </task>
+    <task id="LOCAL-00073" summary="이미지 서비스 수정, 아이템 등록/수정시 saleStatus 선택할 수 없도록 변경, 판매완료 상품 수정/삭제할 수 없도록 변경">
+      <option name="closed" value="true" />
+      <created>1704779068561</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1704779068561</updated>
+    </task>
+    <option name="localTasksCounter" value="74" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="origin/main" />
+                </option>
+              </RecentGroup>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="kkm" />
+                </option>
+              </RecentGroup>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="origin/development" />
+                </option>
+              </RecentGroup>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="origin/createItemType" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/main" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="아이템 검증 구현, 관심상품 목록에서 삭제된 상품은 나오지 않도록 변경" />
+    <MESSAGE value="아이템 검증 구현, 관심상품 목록에서 판매완료 상품은 나오지 않도록 변경" />
+    <MESSAGE value="카카오 지도 API를 이용해 아이템 등록할 때 원하는 거래장소에 마커를 생성할 수 있도록 구현" />
+    <MESSAGE value="아이템 등록시 현재 로그인한 멤버의 지역에 따라 지도의 초기 마커 값이 다르게 설정되도록 구현" />
+    <MESSAGE value="아이템 수정에서 지도의 마커 위치 변경할 수 있도록 구현" />
+    <MESSAGE value="파일구조정리 및 필요없는 파일 삭제" />
+    <MESSAGE value="댓글 작성, 삭제 기능 구현" />
+    <MESSAGE value="댓글에 대한 답글 기능 구현: 댓글 주인과 상품 주인만 등록/조회 가능" />
+    <MESSAGE value="회원 수정 구현" />
+    <MESSAGE value="아이템 수정 폼 검증" />
+    <MESSAGE value="회원 수정 후 세션 갱신" />
+    <MESSAGE value="회원 삭제 구현" />
+    <MESSAGE value="디자인 통일" />
+    <MESSAGE value="아이템 상세 폼(item.html) 수정" />
+    <MESSAGE value="타인 게시물 수정 및 삭제 방지 로직 재구현" />
+    <MESSAGE value="타인 계정 삭제 방지 로직 구현" />
+    <MESSAGE value="등록, 수정 검증 수정" />
+    <MESSAGE value="아이템 삭제, 회원 탈퇴시 alert 창 뜨도록 변경" />
+    <MESSAGE value="불필요한 공백 제거 및 구조 통일" />
+    <MESSAGE value="min" />
+    <MESSAGE value="날려" />
+    <MESSAGE value="통합" />
+    <MESSAGE value="css 오류 해결" />
+    <MESSAGE value="?" />
+    <MESSAGE value="이미지 서비스 수정, 아이템 등록/수정시 saleStatus 선택할 수 없도록 변경, 판매완료 상품 수정/삭제할 수 없도록 변경" />
+    <option name="LAST_COMMIT_MESSAGE" value="이미지 서비스 수정, 아이템 등록/수정시 saleStatus 선택할 수 없도록 변경, 판매완료 상품 수정/삭제할 수 없도록 변경" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>

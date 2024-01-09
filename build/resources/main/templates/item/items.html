@@ -72,7 +72,7 @@
                 <td>
                     <block th:each="image : ${images}">
                         <img th:if="${item.itemId == image.itemId} and ${image.repImageCheck == true}"
-                             th:src="@{|/files/${image.fileName}|}" width="200" height="200"/>
+                             th:src="@{|${image.filePath}|}" width="200" height="200"/>
                     </block>
                 </td>
             </tr>
