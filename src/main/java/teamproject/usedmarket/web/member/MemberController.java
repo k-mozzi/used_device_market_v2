@@ -70,8 +70,15 @@ public class MemberController {
     }
 
     @GetMapping("/{memberId}/edit")
-    public String editForm(@PathVariable Long memberId, Model model) {
+    public String editForm(@PathVariable Long memberId, Model model, HttpSession session, RedirectAttributes redirectAttributes) {
         Member member = memberRepository.findByMemberId(memberId).get();
+
+        Long currentMemberId = (Long) session.getAttribute("memberId");
+        if (!currentMemberId.equals(memberId)) {
+            log.info("아이디가 달라용");
+            redirectAttributes.addFlashAttribute("error", "타인의 계정은 수정할 수 없습니다.");
+            return "redirect:/";
+        }
 
         model.addAttribute("member", member);
         model.addAttribute("regions", Region.values());
@@ -111,7 +118,7 @@ public class MemberController {
 //    }
 
     @GetMapping("/{memberId}/withdraw")
-    public ResponseEntity<String> withdraw(@PathVariable Long memberId, HttpSession session) {
+    public ResponseEntity<String> withdraw(@PathVariable Long memberId, HttpSession session, RedirectAttributes redirectAttributes) {
         Member member = memberRepository.findByMemberId(memberId).orElse(null);
 
         if (member == null) {
@@ -120,7 +127,8 @@ public class MemberController {
 
         Long currentMemberId = (Long) session.getAttribute("memberId");
         if (!currentMemberId.equals(memberId)) {
-            return new ResponseEntity<>("타인의 계정은 삭제할 수 없습니다.", HttpStatus.FORBIDDEN);
+            redirectAttributes.addFlashAttribute("error", "타인의 계정은 삭제할 수 없습니다.");
+            return ResponseEntity.status(HttpStatus.SEE_OTHER).header("Location", "/").body(null);
         }
 
         memberRepository.delete(memberId);
@@ -143,7 +151,6 @@ public class MemberController {
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("images", images);
-        log.info("totalPage={}", totalPages);
 
         return "members/members";
     }
@@ -158,7 +165,13 @@ public class MemberController {
      * 회원 상세
      */
     @GetMapping("/myPage/{memberId}")
-    public String memberInfo(@PathVariable long memberId, Model model) {
+    public String memberInfo(@PathVariable long memberId, Model model, HttpSession session, RedirectAttributes redirectAttributes) {
+        Long currentMemberId = (Long) session.getAttribute("memberId");
+        if (!currentMemberId.equals(memberId)) {
+            log.info("아이디가 달라용");
+            redirectAttributes.addFlashAttribute("error", "타인의 회원정보는 열람할 수 없습니다.");
+            return "redirect:/";
+        }
 
         Member member = loginService.findOne(memberId).get();
         model.addAttribute("member", member);
@@ -168,7 +181,13 @@ public class MemberController {
     }
 
     @GetMapping("/myPage/{memberId}/like")
-    public String memberLike(@PathVariable long memberId, Model model) {
+    public String memberLike(@PathVariable long memberId, Model model, HttpSession session, RedirectAttributes redirectAttributes) {
+        Long currentMemberId = (Long) session.getAttribute("memberId");
+        if (!currentMemberId.equals(memberId)) {
+            log.info("아이디가 달라용");
+            redirectAttributes.addFlashAttribute("error", "타인의 관심상품은 열람할 수 없습니다.");
+            return "redirect:/";
+        }
 
         List<Item> likedItems = likeService.findLikedItemByMemberId(memberId);
         List<ItemImage> images = imageService.findImages();
@@ -178,7 +197,14 @@ public class MemberController {
     }
 
     @GetMapping("/myPage/{memberId}/sell")
-    public String memberSell(@PathVariable long memberId, @RequestParam(defaultValue = "onSale") String sort, Model model) {
+    public String memberSell(@PathVariable long memberId, @RequestParam(defaultValue = "onSale") String sort,
+                             Model model, HttpSession session, RedirectAttributes redirectAttributes) {
+        Long currentMemberId = (Long) session.getAttribute("memberId");
+        if (!currentMemberId.equals(memberId)) {
+            log.info("아이디가 달라용");
+            redirectAttributes.addFlashAttribute("error", "타인의 판매내역은 열람할 수 없습니다.");
+            return "redirect:/";
+        }
 
         List<Item> soldItems;
 
@@ -201,21 +227,20 @@ public class MemberController {
         model.addAttribute("sort", sort); // 현재 정렬 방식 전달
         return "members/myPage/memberSell";
     }
-@GetMapping("/myPage/{memberId}/buy")
-    public String memberBuy(@PathVariable long memberId, Model model) {
 
-    List<Item> buyItems = itemService.findByBuyerId(memberId);
-log.info("buyItems = {}",buyItems);
+    @GetMapping("/myPage/{memberId}/buy")
+    public String memberBuy(@PathVariable long memberId, Model model, HttpSession session, RedirectAttributes redirectAttributes) {
+        Long currentMemberId = (Long) session.getAttribute("memberId");
+        if (!currentMemberId.equals(memberId)) {
+            log.info("아이디가 달라용");
+            redirectAttributes.addFlashAttribute("error", "타인의 구매내역은 열람할 수 없습니다.");
+            return "redirect:/";
+        }
 
-    for (Item buyItem : buyItems) {
-        log.info("buyItem = {}",buyItem);
-    }
-
-    List<ItemImage> images = imageService.findImages();
+        List<Item> buyItems = itemService.findByBuyerId(memberId);
+        List<ItemImage> images = imageService.findImages();
         model.addAttribute("buyItems", buyItems);
         model.addAttribute("images", images);
         return "members/myPage/memberBuy";
     }
 }
-
-
