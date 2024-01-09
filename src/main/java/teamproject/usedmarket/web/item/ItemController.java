@@ -149,7 +149,6 @@ public class ItemController {
         commentService.insertComment(newReply);
 
         redirectAttributes.addAttribute("itemId", itemId);
-        log.info("답글은={}", newReply);
         return "redirect:/items/{itemId}";
     }
 
@@ -201,6 +200,7 @@ public class ItemController {
         }
 
         item.setCreateDatetime(new Date());
+        item.setSaleStatus(1);
         Item savedItem = itemService.save(item, session);
         redirectAttributes.addAttribute("itemId", savedItem.getItemId());
         imageService.save(savedItem.getItemId(), file);
