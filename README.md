@@ -26,7 +26,7 @@
 * Javascript
 * Thymeleaf
 * jQuery
-📋 주요 키워드
+### 📋 주요 키워드
 * REST API
 * HTTP 통신
 * 페이징
