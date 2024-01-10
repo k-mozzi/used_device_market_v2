@@ -42,3 +42,9 @@
 <p align="center">
   <img src="https://github.com/k-mozzi/used_device_market_v2/assets/86914189/79804bff-1381-4e94-ac81-b81e8619abaa">
 </p>
+
+* 클래스
+  <p align="center">
+  <img src="https://github.com/k-mozzi/used_device_market_v2/assets/86914189/48df924d-4d67-42c1-8077-9d722b3b03c3">
+</p>
+
