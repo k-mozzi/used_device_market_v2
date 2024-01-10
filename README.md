@@ -4,7 +4,7 @@
 * MySQL Workbench
 * git
 * GitHub
-*📋 사용 기술
+📋 사용 기술
 *백엔드
 * Spring boot
 * JAVA 11
@@ -22,7 +22,7 @@
 * Javascript
 * Thymeleaf
 * jQuery
-* 📋 주요 키워드
+📋 주요 키워드
 * REST API
 * HTTP 통신
 * 페이징
