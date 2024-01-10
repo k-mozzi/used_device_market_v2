@@ -1,6 +1,6 @@
 package teamproject.usedmarket.repository;
 
-import teamproject.usedmarket.domain.comment.Comment;
+import teamproject.usedmarket.web.item.CommentUpdateDto;
 
 import java.util.List;
 
