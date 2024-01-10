@@ -12,7 +12,7 @@ import teamproject.usedmarket.config.S3Config;
 import teamproject.usedmarket.domain.item.Item;
 import teamproject.usedmarket.domain.item.ItemImage;
 import teamproject.usedmarket.repository.ItemRepository;
-import teamproject.usedmarket.repository.ItemUpdateDto;
+import teamproject.usedmarket.web.item.ItemUpdateDto;
 import teamproject.usedmarket.service.image.ImageService;
 import teamproject.usedmarket.service.item.ItemService;
 
