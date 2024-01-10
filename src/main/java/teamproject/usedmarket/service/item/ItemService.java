@@ -2,7 +2,7 @@ package teamproject.usedmarket.service.item;
 
 import org.springframework.web.multipart.MultipartFile;
 import teamproject.usedmarket.domain.item.Item;
-import teamproject.usedmarket.repository.ItemUpdateDto;
+import teamproject.usedmarket.web.item.ItemUpdateDto;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
