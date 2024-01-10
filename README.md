@@ -38,4 +38,7 @@
 🏭 시스템 구조
 
 🔗 ERD 설계
-* shopping mall ERD
+*  ERD
+<p align="center">
+  <img src="">
+</p>
