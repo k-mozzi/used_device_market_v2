@@ -2,7 +2,6 @@ package teamproject.usedmarket.service.image;
 
 import org.springframework.web.multipart.MultipartFile;
 import teamproject.usedmarket.domain.item.ItemImage;
-import teamproject.usedmarket.repository.ItemUpdateDto;
 import teamproject.usedmarket.web.itemimage.ImageUpdateDto;
 
 import java.io.IOException;
