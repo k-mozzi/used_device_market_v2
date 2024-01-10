@@ -4,21 +4,20 @@
 * MySQL Workbench
 * git
 * GitHub
-📋 사용 기술
-* 백엔드
+## 📋 사용 기술
+### 백엔드
 * Spring boot
 * JAVA 11
 * Spring MVC
 * MyBatis
-* Spring Data JPA
-* Build tool
+### Build tool
 * Gradle
 * Mysql
 * AWS
 * EC2
 * S3
 * RDS
-* 프론트엔드
+### 프론트엔드
 * Javascript
 * Thymeleaf
 * jQuery
