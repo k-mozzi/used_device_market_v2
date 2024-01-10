@@ -40,5 +40,5 @@
 🔗 ERD 설계
 *  ERD
 <p align="center">
-  <img src="">
+  <img src="https://github.com/k-mozzi/used_device_market_v2/assets/86914189/79804bff-1381-4e94-ac81-b81e8619abaa">
 </p>
