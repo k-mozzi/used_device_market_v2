@@ -32,11 +32,11 @@ public class ImageServiceV1 implements ImageService {
     @Value("${cloud.aws.s3.bucket}")
     private String bucket;
 
-//    public static final String FILE_PATH = "/Users/kimgang/Documents/SpringProject/imageFile";
+
     private final ImageRepository imageRepository;
 
         String FILE_PATH = "/home/ubuntu/spring_img/";
-//    String DIRECTORY_PATH = "/Users/kimgang/Documents/SpringProject/imageFile";
+
 
     @Override
     public List<ItemImage> findByItemId(Long itemid) {
