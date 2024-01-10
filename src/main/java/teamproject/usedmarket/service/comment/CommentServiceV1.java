@@ -4,8 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import teamproject.usedmarket.domain.comment.Comment;
 import teamproject.usedmarket.repository.CommentRepository;
-import teamproject.usedmarket.repository.CommentUpdateDto;
-
+import teamproject.usedmarket.web.item.CommentUpdateDto;
 import java.util.List;
 
 @Service
