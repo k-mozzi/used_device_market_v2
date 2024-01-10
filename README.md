@@ -5,7 +5,7 @@
 * git
 * GitHub
 📋 사용 기술
-*백엔드
+* 백엔드
 * Spring boot
 * JAVA 11
 * Spring MVC
