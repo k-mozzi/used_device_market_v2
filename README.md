@@ -1,9 +1,9 @@
 🛒 스프링 부트로 만드는 쇼핑몰 프로젝트
 📋 개발환경
-IntelliJ
-MySQL Workbench
-git
-GitHub
+* IntelliJ
+* MySQL Workbench
+* git
+* GitHub
 📋 사용 기술
 백엔드
 Spring boot
