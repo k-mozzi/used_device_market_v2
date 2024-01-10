@@ -49,5 +49,4 @@
 </p>
 
 🔗 Notion 링크
-
-
+[Notion](https://www.notion.so/v2-c78d9f6ced294697b47519946bbc65bb)
