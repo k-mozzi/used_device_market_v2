@@ -21,9 +21,9 @@
 * Gradle
 * Mysql
 * AWS
-* EC2
-* S3
-* RDS
+  1. EC2
+  2. S3
+  3. RDS
 ### 프론트엔드
 * Javascript
 * Thymeleaf
@@ -45,7 +45,7 @@
 
 * 클래스
   <p align="center">
-  <img src="https://github.com/k-mozzi/used_device_market_v2/assets/86914189/48df924d-4d67-42c1-8077-9d722b3b03c3">
+    <img width="836" alt="스크린샷 2024-01-08 오후 2 38 35" src="https://github.com/k-mozzi/used_device_market_v2/assets/88998289/be96d3cd-a4ce-4f23-9749-0d285d21af79">
 </p>
 
 🔗 Notion 링크
