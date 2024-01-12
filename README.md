@@ -40,7 +40,7 @@
 🔗 ERD 설계
 *  ERD
 <p align="center">
-  <img src="https://github.com/k-mozzi/used_device_market_v2/assets/86914189/79804bff-1381-4e94-ac81-b81e8619abaa">
+  <img width="641" alt="중고거래 ERD_final" src="https://github.com/k-mozzi/used_device_market_v2/assets/88998289/f35cb655-bdaf-49ba-97c8-9a554548fd78">
 </p>
 
 * 클래스
